@@ -1,0 +1,130 @@
+<html>
+	<head>
+		<title>My Pet</title>
+		<script>
+			var mood =  "n";
+			var stm = 50; // stomach, parameter used for energy. I made it so that energy is directly proprtional to stomach.
+			var hap = 50; // parameter used for happiness.
+			var sec = 5; // 
+			var xf = 0; // used to count the number of times the feed button is pressed.
+			var xp = 0; // used to count the number of times the play button is pressed.
+			var xpe = 0; // used to count the number of times the pet button is pressed.
+			var tim; // variable used for timer.
+			function feed(){ // this function executed every time the Feed button is pressed.
+				if(stm<=90){
+					stm +=10;
+					xf++;
+					document.getElementById("energy").innerHTML = " " + stm + " ";
+					}
+				else if (stm > 90 && stm<100){
+					stm = 100;
+					document.getElementById("energy").innerHTML = " " + stm + " ";
+					alert("Didn't eat all the 10 bananas, stomach full!");
+					}
+				else if (stm == 100){
+					document.getElementById("energy").innerHTML = " " + stm + " ";
+					alert("Stomach FULL! Can't eat!");
+					}
+				}
+			function doit(){ // this function will be called using timer everytime. the reduction of the parameters are done here.
+				sec = 10;
+				if (stm>10&&hap>10){
+					stm-=10;
+					hap-=10;
+					}
+				else{
+					alert("Low Energy or unhappy");
+					}
+				document.getElementById("happiness").innerHTML = " " + hap + " ";
+				document.getElementById("energy").innerHTML = " " + stm + " ";
+				if (stm<20){
+					mood = "ANGRY";
+					document.getElementById("min").src = "minion_angry.jpg";
+					document.getElementById("md").innerHTML = " " + mood + " ";
+					}
+				else if (stm<40 && stm >=20){
+					mood = "HUNGRY";
+					document.getElementById("min").src = "minion_hungry.jpg";
+					document.getElementById("md").innerHTML = " " + mood + " ";
+					}
+				else if (stm<=60 && stm>=40){
+					mood = "NORMAL";
+					document.getElementById("min").src = "minion_normal.jpg";
+					document.getElementById("md").innerHTML = " " + mood + " ";
+					}
+				else if (stm>60){
+					if (hap>=66){
+						mood = "PLAYING";
+						document.getElementById("min").src = "minion_playing.jpg";
+						document.getElementById("md").innerHTML = " " + mood + " ";
+						}
+					else if (hap<66 && hap>=33){
+						mood = "SLEEPING";
+						document.getElementById("min").src = "minion_sleepy.jpg";
+						document.getElementById("md").innerHTML = " " + mood + " ";
+						}
+					else if (hap<33){
+						mood = "BORED";
+						document.getElementById("min").src = "minion_bored.jpg";
+						document.getElementById("md").innerHTML = " " + mood + " ";
+						}
+					}
+				if (stm>10&&hap>10){
+					cd();
+					}
+				else{
+					alert("Low Energy or unhappy");
+					}
+				}
+			function pf(){ // this function will be executed everytime the play button is pressed. It'll cost 20 energy every time.
+				xp++;
+				if(stm>20){
+					stm-=20;
+					mood = "PLAYING FOOTBALL/SOCCER";
+					document.getElementById("energy").innerHTML = " " + stm + " ";
+					document.getElementById("min").src = "minion_playing_soccer.jpg";
+					document.getElementById("md").innerHTML = " " + mood + " ";
+					}
+				else if (stm <= 20){
+					alert("CAN't Do any thing! Energy is at "+ stm + "%");
+					}
+				}
+			function pet(){ // this function will be executed everytime the pet button is pressed. It'll increase the happiness by 10 every time.
+				xpe++;
+				if (hap > 90){
+					hap = 100;
+					alert("HAPPINESS OVERLOADED!!! CAN'T BE HAPPIER!!!");
+					document.getElementById("happiness").innerHTML = " " + hap + " ";
+					mood = "HAPPY"
+					document.getElementById("min").src = "minion_happy.jpg";
+					document.getElementById("md").innerHTML = " " + mood + " ";
+					}
+				else{
+					hap+=10;
+					document.getElementById("happiness").innerHTML = " " + hap + " ";
+					mood = "HAPPY"
+					document.getElementById("min").src = "minion_pet.jpg";
+					document.getElementById("md").innerHTML = " " + mood + " ";
+					}
+				}
+			function cd(){ // timer function for 5 seconds.
+				sec--;
+				clearTimeout(tim);
+				tim = setTimeout('doit()',5000);
+				}
+		</script>
+	</head>
+	<body>
+		<center>
+		<h1>Virual Pet/Pest</h1>
+		Energy: <p id = "energy"> 50 </p>
+		Happiness: <p id = "happiness"> 50 </p>
+		<img id = "min" src = "minion_normal.jpg" style = "width:500;height:500"><br>
+		<p id = "md"> NORMAL </p><br>
+		<button onclick = "feed(); cd();">Feed 10 Units of Food</button>
+		<button onclick = "pf(); cd();">Play Football/Soccer</button>
+		<button onclick = "pet(); cd();">Pet</button>
+		</center>
+	</body>
+</html>
+</html>

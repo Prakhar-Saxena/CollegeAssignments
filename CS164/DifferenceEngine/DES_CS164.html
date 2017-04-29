@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title> Difference Engine Simulation </title>
+		<script>
+			var t = ''; //variable used for writing the table code.
+			var r = 0; //variable for getting the number of rows input by the user.
+			function doit(){
+				r = document.getElementById("row").value;
+				var a1 = new Array(6);
+				var a2 = new Array(6);
+				var a3 = new Array(6);
+				for(var i = 0 ; i < 6 ; i++){ //Stores the values from the user in the array a1[].
+					a1[i] = document.getElementById("y"+i.toString()).value;
+					}
+				t += '<tr> <th> x </th> <th>y</th> <th>&#916 y</th> <th>&#916<sup>2</sup> y</th> <th>&#916<sup>3</sup> y</th> <th>&#916<sup>4</sup> y</th> <th>&#916<sup>5</sup> y</th> </tr>'; //table headers.
+				t += '<tr>';
+				t += '<td>0</td>'; //first element of the first data row of the table.
+				for(var i = 0 ; i < 6 ; i++){ //writes the first data row of the table.
+					t += '<td>' + a1[i].toString() + '</td>';
+					}
+				t += '</tr>';
+				for(var i = 0 ; i < 6 ; i++){ //assigning values stored in array a1[] to array a2[] for further computing, since user input should always be secure.
+					a2[i] = a1[i];
+					}
+				for(var j = 1 ; j < r ; j++){ //for loop for the rest of the rows, includes computationa and calculations.
+					t += '<tr>';
+					t += '<td>'+j.toString()+'</td>';
+					for(var i = 0 ; i < 6 ; i++){
+						if(i==5){ // since all the nth differential of nth order equation is always a constant.
+							a3[i] = a1[i];
+							}
+						else{
+							a3[i] = (+a2[i]) + (+a2[(i+1)]); // calculations. storing the computed values in array a3[].
+							}
+						t += '<td>' + a3[i].toString() + '</td>';
+						}
+					for(var i = 0 ; i < 6 ; i++){
+						a2[i] = a3[i]; //storing the recently calculated values back into array a2[] for further calculations, in the next iteration.
+						}
+					t += '</tr>';
+					}
+				document.write('<h1>Difference Engine Simulation</h1><table border = 1>' + t + '</table> <footer><p>Link to the Simulator\'s <a href = \"Documentation_DifferenceEngine.pdf\"> Documentation </a></p></footer>');
+				}
+		</script>
+	</head>
+	</body>
+		<h1>Difference Engine Simulation</h1>
+		<p>
+			y: <input type="number" id="y0"><br>
+			&#916 y: <input type="number" id="y1"><br>
+			&#916<sup>2</sup> y: <input type="number" id="y2"><br>
+			&#916<sup>3</sup> y: <input type="number" id="y3"><br>
+			&#916<sup>4</sup> y: <input type="number" id="y4"><br>
+			&#916<sup>5</sup> y: <input type="number" id="y5"><br><br>
+			Rows: <input type="number" id="row"><br><br>
+		</p>
+		<button onclick = "doit()">Do It</button> <br><br>
+		<footer>
+			<p>
+			</p>
+				Link to the Simulator's <a href = "Documentation_DifferenceEngine.pdf"> Documentation </a>
+		</footer>
+	</body>
+</html>

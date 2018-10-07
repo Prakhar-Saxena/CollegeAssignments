@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>Astronomy Picture Of the Day</title>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<style>
+			table, th, td{
+				text-align: center;
+				table-layout: fixed;
+				border: 1px solid black;
+				width: device-width ;
+			}
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+		</style>
+	</head>
+	<body>
+		<center>
+			<h1>Astronomy Picture Of the Day</h1>
+			<br/>
+			<button onclick="getApod()" class="ui-btn">Astronomy Picture Of the Day</button>
+			<div id="apod_out">
+				<!-- <table data-role='table' id='tbl' class='ui-responsive'>
+					<thead>
+					</thead>
+				</table> -->
+			</div>
+		</center>
+		<br/>
+	</body>
+</html>

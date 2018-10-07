@@ -1,0 +1,46 @@
+create table CLIENT (
+clientId VARCHAR(15) KEY,
+Name VARCHAR(30)
+);
+
+create table OBJECT (
+neoReferenceId INT KEY,
+name VARCHAR(30),
+clientId VARCHAR(10),
+FOREIGN KEY (clientId) REFERENCES CLIENT(clientId),
+startDate DATE,
+endDate DATE
+);
+
+create table CLIENT (
+clientId VARCHAR(15) KEY,
+Name VARCHAR(30)
+);
+
+create table OBJECT (
+neoReferenceId INT,
+name VARCHAR(30),
+clientId VARCHAR(15),
+FOREIGN KEY (clientId) REFERENCES CLIENT(clientId)
+);
+
+create table OBJECT (
+neoReferenceId INT KEY,
+name VARCHAR(30),
+jpl_url VARCHAR(50),
+abs_mag FLOAT,
+potential_hazard bool,
+close_approach_date DATE,
+miss_distance_km DOUBLE
+);
+
+create table OBJECT (
+neoReferenceId INT KEY,
+name VARCHAR(30),
+jpl_url VARCHAR(50),
+abs_mag FLOAT,
+potential_hazard VARCHAR(10),
+close_approach_date DATE,
+miss_distance_km DOUBLE
+);
+

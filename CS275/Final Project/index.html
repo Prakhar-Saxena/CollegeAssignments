@@ -1,0 +1,242 @@
+<html>
+
+	<style>
+			div.a {
+				font-size: 900%;
+			}
+
+	</style>
+
+	<style>
+			body {
+				background-image: url("ab.jpg");
+				}
+	</style>
+
+	<style>
+			[data-role=footer]{
+				bottom:0;
+				position:absolute !important;
+				top: auto !important;
+				width:100%;
+			}
+	</style>
+
+	<script>
+		function reload(){location.reload();}
+	</script>
+
+	<head>
+		<title>NASA STUFF</title>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script>
+			
+			function display_neo(){
+				var URL = "http://localhost:8080/neo";
+
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "html",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("out").innerHTML = response;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("out").innerHTML = "Error fetching " + URL + "\nThe Input is invalid.";
+					}
+				});
+			}
+
+			function display_add_neo(){
+				var URL = "http://localhost:8080/neo/add";
+
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "html",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("out").innerHTML = response;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("out").innerHTML = "Error fetching " + URL + "\nThe Input is invalid.";
+					}
+				});
+			}
+
+			function display_added_neo(){
+				var URL = "http://localhost:8080/neo/added";
+
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "html",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("out").innerHTML = response;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("out").innerHTML = "Error fetching " + URL + "\nThe Input is invalid.";
+					}
+				});
+			}
+
+			function display_apod(){
+				var URL = "http://localhost:8080/apod";
+
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "html",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("out").innerHTML = response;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("out").innerHTML = "Error fetching " + URL + "\nThe Input is invalid.";
+					}
+				});
+			}
+
+			function getNeo(){
+
+				var sDate = document.getElementById("startDate").value;
+				var eDate = document.getElementById("endDate").value;
+				
+				var URL = "http://localhost:8080/neo/get?startDate=" + sDate + "&endDate=" + eDate;
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "json",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("neo_out").innerHTML = response.resp;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("neo_out").innerHTML = "Error fetching " + URL;
+					}
+				});
+			}
+
+			function getApod(){
+				var URL = "http://localhost:8080/apod/get";
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "json",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("apod_out").innerHTML = response.resp;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("apod_out").innerHTML = "Error fetching " + URL;
+					}
+				});
+			}
+
+			function addNeo(){
+				var refId = document.getElementById("refId").value;
+				console.log(refId);
+				// var clientId = document.getElementById("clId").value;
+
+				var URL = "http://localhost:8080/neo/add/get?refId=" + refId;// + "&clientId=" + clientId;
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "json",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("add_neo_out").innerHTML = response.resp;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("add_neo_out").innerHTML = "Error fetching " + URL;
+					}
+				});
+			}
+
+			function getAddedNEO(){
+				var URL = "http://localhost:8080/neo/added/get";// + "&clientId=" + clientId;
+				$.ajax({ //async call to the local server
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "json",
+					success: function(msg) {
+						var response = msg;
+						document.getElementById("added_neo_out").innerHTML = response.resp;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("added_neo_out").innerHTML = "Error fetching " + URL;
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+	
+		<div data-role="page">
+
+			<div data-role="header" class="ui-btn ui-btn-b">
+					<div class="a" align="center" >
+							<span style="color:#676ec1; font-family: 'andale mono', times;">N</span><span 
+							style="color:#8183d4; font-family: 'andale mono', times;">A</span><span 
+							style="color:#8792c3; font-family: 'andale mono', times;">S</span><span 
+							style="color:#98a3db; font-family: 'andale mono', times;">A</span></div>
+							<!-- <span style="color:#ff0000;">S</span><span style="color:#ff7f00;">T</span><span style="color:#ffff00;">U</span><span style="color:#00ff00;">F</span><span style="color:#00ffff;">F</span> -->
+				<a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">Menu</a>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div id="out">
+						<div>
+							<p style="text-align: center;"><span style="font-size: 14pt;"><strong><span style="font-family: 'courier new', courier;">Welcome to CS275 Final Project.</span></strong></span></p>
+							<p style="text-align: center;"><span style="font-family: 'courier new', courier; font-size: 14pt;">This website can give infromation on Nearby Object to Earth (NEO)</span></p>
+							<p style="text-align: center;"><span style="font-family: 'courier new', courier; font-size: 14pt;">You can also enjoy the picture of the day (APOD) from NASA.</span></p>
+							<p style="text-align: center;"><span style="font-family: 'courier new', courier; font-size: 14pt;">Addition to that you can save infromation under your unique ID.</span></p>
+							<p style="text-align: center;"><span style="font-family: 'courier new', courier; font-size: 14pt;">This Website parse data from NASA API</span></p>
+						</div>
+				</div>
+			</div>
+
+			<div data-role="panel" id="left-panel" data-theme="c">
+				<ul data-role="listview">
+					<!-- <li data-icon="delete"><a href="#" data-rel="push">Close</a></li> -->
+					<li>Menu</li>
+					<button  class="ui-btn ui-btn-b" onclick="reload()">Home</button>
+					<button  class="ui-btn ui-btn-b" onclick="display_neo()">NEO</button>
+					<button  class="ui-btn ui-btn-b" onclick="display_apod()">APOD</button>
+					<button  class="ui-btn ui-btn-b" onclick="display_add_neo()">Add NEO</button>
+					<button  class="ui-btn ui-btn-b" onclick="display_added_neo()">Stored NEOs</button>
+					<!-- <li data-icon="back"><a href="#demo-intro" data-rel="back">Demo intro</a></li> -->
+				</ul>
+				
+			</div><!-- /panel -->
+
+			<div data-role="footer">
+				<h5>Prakhar Saxena | Ilanit Izrailov | Preet Patel - CS 275</h5>
+			</div>
+
+		</div>
+		
+
+	</body>
+</html>

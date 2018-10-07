@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title>Assignment 2: Weather</title>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<style>
+			table, th, td{
+				text-align: center;
+				table-layout: fixed;
+				border: 1px solid black;
+				width: device-width ;
+			}
+		</style>
+	</head>
+	<body>
+		<center>
+			<h1>Assignment 2: Weather</h1>
+			<label>Zip: </label>
+			<input type="text" id="zipInp" value="" placeholder="Zipcode">
+			<br/>
+			<button onclick="weather()" class="ui-btn">Get Weather</button>
+			<br/>
+			<br/>
+			<div id="err"></div>
+			<div id="out">
+				<table data-role='table' id='tbl' class='ui-responsive'>
+					<thead>
+					</thead>
+				</table>
+			</div>
+		</center>
+		<br/>
+	</body>
+</html>

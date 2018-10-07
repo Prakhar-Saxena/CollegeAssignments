@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Fibonacci Sequence</title>
+		<script>
+			function doit(){
+				var n = 0;//variable to store the input
+				var t = '';// variable to store table string
+				//clr();
+				document.getElementById("tbl").innerHTML = "";
+				var f0 = 0;
+				var f1 = 1;
+				var f = 1;
+				n = document.getElementById("inp").value;// input value
+				if(isNaN(n) || n < 0){
+					document.getElementById("inp").value=0
+					n = 0;
+					alert("Invalid Input.");
+				}
+				t += '<table border = 1 width="100">';
+				t += '<tr>';
+				t += '<th>n</th><th>fib(n)</th>';
+				t += '</tr>';
+				for(var i = 0; i <= Number(n) ; i++){// iterates till the entered number to calculate the fibonacci numbers
+					t += '<tr>';
+					t += '<td>' + i + '</td>' + '<td>' + f + '</td>';
+					t += '</tr>';
+					f = f0 + f1;
+					f0 = f1;
+					f1 = f;
+				}
+				t += '</table>';
+				document.getElementById("tbl").innerHTML = t;
+			}
+		</script>
+	</head>
+	<body>
+		<center>
+		<h2>Fibonacci Sequence</h2>
+		<img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/FibonacciSpiral.svg" alt="Fibonacci Image"/>
+		<br/>
+		<p>In mathematics, the Fibonacci numbers are the numbers in the following integer sequence, called the Fibonacci sequence, and characterized by the fact that every number after the first two is the sum of the two preceding ones:</p>
+		<p>1 , 1 , 2 , 3 , 5 , 8 , 13 , 21 , 34 , 55 , 89 , 144 , ...</p>
+		<br/>
+		<input type="text" id="inp" value="0">
+		<br/>
+		<button onclick="doit()">Do It</button>
+		<div id="tbl"></div>
+		</center>
+	</body>
+</html>

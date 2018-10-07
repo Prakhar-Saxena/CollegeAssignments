@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <title>
+      Final Project
+    </title>
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  </head>
+  <body>
+    <div data-role="header">
+			<h1>Final Assignment: NASA stuff</h1>
+		</div>
+    <center>
+      <br/>
+      <label>API Key: </label>
+			<input type="text" id="apiKeyInp" value="QKS3oJ2M2M4HJUFdaNx4lp2nypcpxwNI5rmTFUiy" placeholder="API Key">
+			<br/>
+      <label>Start Date: </label>
+			<input type="date" id="startDateInp">
+			<br/>
+      <label>End Date: </label>
+			<input type="date" id="endDateInp">
+			<br/>
+			<button onclick="getNEO()" class="ui-btn">Get NEO</button>
+			<br/>
+      <br/>
+      <button onclick="getAPOD()">Get APOD</button>
+      <br/>
+      <div id="neoOut">
+      </div>
+      <br/>
+      <div id="apodOut">
+      </div>
+      <br/>
+      <br/>
+    </center>
+    <br/>
+    <div data-role="footer">
+			<h5>CS 275</h5>
+      <h5>Ilanit Izrailov</h5>
+      <h5>Prakhar Saxena</h5>
+      <h5>Preet Patel</h5>
+		</div>
+  </body>
+</html>

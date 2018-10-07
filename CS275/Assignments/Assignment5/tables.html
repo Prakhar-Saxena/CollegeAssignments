@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Assignment 2: Weather</title>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<style>
+			table, th, td{
+				text-align: center;
+				table-layout: fixed;
+				border: 1px solid black;
+				width: device-width ;
+			}
+		</style>
+	</head>
+	<body>
+		<center>
+			<h1>Tables</h1>
+			<br/>
+			<select id="dropDown">
+				<option value="student">STUDENT</option>
+				<option value="course">COURSE</option>
+				<option value="grades">GRADES</option>
+			</select>
+			<br/>
+			<button onclick="getTable()" class="ui-btn">Get Tables</button>
+			<br/>
+			<br/>
+			<div id="err"></div>
+			<div id="tbl_out">
+				<!-- <table data-role='table' id='tbl' class='ui-responsive'>
+					<thead>
+					</thead>
+				</table> -->
+			</div>
+		</center>
+		<br/>
+	</body>
+</html>

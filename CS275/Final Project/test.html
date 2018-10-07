@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>test</title>
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script>
+            console.log(new Date());
+            function boi(){
+                var d = new Date();
+                // document.getElementById("stuff").innerHTML = d.toISOString().substr(0,10);
+                var sDate = document.getElementById("startDate").value;
+                var eDate = document.getElementById("endDate").value;
+                var t = "";
+                for(var d = new Date(sDate); d <= new Date(eDate); d.setDate(d.getDate() +1) ){
+                            t += d.toISOString().substr(0,10)+"\n";
+                }
+                document.getElementById("stuff").innerHTML = t;
+
+                var URL = "https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=QKS3oJ2M2M4HJUFdaNx4lp2nypcpxwNI5rmTFUiy";
+				$.ajax({ //async call to the weather api
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "json",
+					success: function(msg) {
+						var response = msg;
+                        // t+="<tbody>";
+                        for(var d = new Date(sDate); d <= new Date(eDate); d.setDate(d.getDate() +1) ){
+                            iDate = d.toISOString().substr(0,10);
+                            console.log("iDate: "+iDate);
+                            console.log("element count" + response.element_count);
+                            console.log(response.near_earth_objects[iDate][1].neo_reference_id);
+                        }
+						// for(var i = 0; i < response.list.length; i++){ //loop to add and populate the rows in the table
+						// 	t += "<tr>";
+						// 	var dateText = response.list[i].dt_txt;
+						// 	var weatherDesc = response.list[i].weather[0].description;
+						// 	var tempF = Math.round(((response.list[i].main.temp - 273.15)*9/5)+32);
+						// 	t += "<td>" + dateText + "</td>" + "<td>" + weatherDesc + "</td>" + "<td>" + tempF + "</td>";
+						// 	t += "</tr>";
+						// }
+						// t+="</tbody>";
+						// t+="</table>";
+						document.getElementById("stuff").innerHTML += t;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("stuff").innerHTML = "Error fetching " + URL;
+					}
+                });
+                
+            }            
+        </script>
+    </head>
+    <body>
+        <input type="date" id="startDate" value="2015-09-08">
+        <input type="date" id="endDate" value="2015-09-09">
+        <button onclick="boi()">boi</button>
+        <div id="stuff"></div>
+    </body>
+</html>

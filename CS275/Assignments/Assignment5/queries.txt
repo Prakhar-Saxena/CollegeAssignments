@@ -1,0 +1,125 @@
+create table STUDENT (
+studentId INT KEY,
+firstName VARCHAR(20),
+lastName VARCHAR(20),
+dob DATE,
+major VARCHAR(3)
+);
+
+
+create table COURSE (
+courseId VARCHAR(11) KEY,
+courseDesc VARCHAR(30)
+);
+
+create table GRADES (
+courseId VARCHAR(11),
+studentId INT,
+FOREIGN KEY (courseId) REFERENCES course(courseId),
+FOREIGN KEY (studentId) REFERENCES student(studentId),
+termYear VARCHAR(20),
+grade CHAR(1) NOT NULL
+);
+
+
+INSERT INTO student
+(studentId, firstName, lastName, dob, major)
+VALUES
+(14181675, 'Prakhar', 'Saxena', '1996-09-14', 'CS');
+
+INSERT INTO student
+(studentId, firstName, lastName, dob, major)
+VALUES
+(31415926, 'Dave', 'Augenblick', '1996-09-14', 'CS');
+
+INSERT INTO student
+(studentId, firstName, lastName, dob, major)
+VALUES
+(53589793, 'John', 'Smith', '1996-09-14', 'CS');
+
+
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('cs275', 'Computer Science 275');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('cs260', 'Computer Science 260');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('cs283', 'Computer Science 283');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('cs275', 'Computer Science 275');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('cs260', 'Computer Science 260');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('cs283', 'Computer Science 283');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('cs275', 'Computer Science 275');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('math221', 'Mathematics 221');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('psy101', 'Psychology 101');
+
+INSERT INTO course
+(courseId, CourseDesc)
+VALUES
+('math221', 'Mathematics 221');
+
+
+
+INSERT INTO grades
+(courseId, studentId, termYear, grade)
+VALUES
+('cs275', 14181675, 'summer2018', 'A');
+
+INSERT INTO grades
+(courseId, studentId, termYear, grade)
+VALUES
+('cs260', 14181675, 'summer2018', 'A');
+
+INSERT INTO grades
+(courseId, studentId, termYear, grade)
+VALUES
+('cs283', 14181675, 'summer2018', 'A');
+
+INSERT INTO grades
+(courseId, studentId, termYear, grade)
+VALUES
+('math221', 14181675, 'summer2018', 'A');
+
+INSERT INTO grades
+(courseId, studentId, termYear, grade)
+VALUES
+('cs275', 31415926, 'summer2018', 'A');
+
+INSERT INTO grades
+(courseId, studentId, termYear, grade)
+VALUES
+('math221', 53589793, 'summer2018', 'B');
+
+
+

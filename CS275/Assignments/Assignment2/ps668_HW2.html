@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title>Assignment 2: Weather</title>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<style>
+			table, th, td{
+				text-align: center;
+				table-layout: fixed;
+				border: 1px solid black;
+				width: device-width ;
+			}
+		</style>
+		<script>
+			function getWeather(){
+				
+				var t=""; //variable to store table text
+				var initTable="<table data-role='table' id='tbl' class='ui-responsive'><thead><tr><th>Date and Time</th> <th>Weather Description</th> <th>Temp (deg. F)</th></tr></thead></table>";
+				document.getElementById("tbl").innerHTML = initTable;
+				document.getElementById("err").innerHTML = "";
+				//apiKey = "ee654774658da320ebc9d793461cb50b";
+				var apiKey = document.getElementById("apiKeyInp").value;
+				var zip = document.getElementById("zipInp").value;
+				var URL = "https://api.openweathermap.org/data/2.5/forecast?zip=" + zip + "&appid=" + apiKey;
+				$.ajax({ //async call to the weather api
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "jsonp",
+					success: function(msg) {
+						var response = msg;
+						t+="<tbody>";
+						for(var i = 0; i < response.list.length; i++){ //loop to add and populate the rows in the table
+							t += "<tr>";
+							var dateText = response.list[i].dt_txt;
+							var weatherDesc = response.list[i].weather[0].description;
+							var tempF = Math.round(((response.list[i].main.temp - 273.15)*9/5)+32);
+							t += "<td>" + dateText + "</td>" + "<td>" + weatherDesc + "</td>" + "<td>" + tempF + "</td>";
+							t += "</tr>";
+						}
+						t+="</tbody>";
+						t+="</table>";
+						document.getElementById("tbl").innerHTML += t;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("err").innerHTML = "Error fetching " + URL + "\nThe API key or Zipcode is invalid.";
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div data-role="header">
+			<h1>Assignment 2: Weather</h1>
+		</div>
+		<center>
+			<label>API Key: </label>
+			<input type="text" id="apiKeyInp" value="" placeholder="API Key">
+			<br/>
+			<label>Zip: </label>
+			<input type="text" id="zipInp" value="" placeholder="Zipcode">
+			<br/>
+			<button onclick="getWeather()" class="ui-btn">Get Weather</button>
+			<br/>
+			<br/>
+			<div id="err"></div>
+			<div id="out">
+				<table data-role='table' id='tbl' class='ui-responsive'>
+					<thead>
+						<tr>
+							<th>Date and Time</th> <th>Weather Description</th> <th>Temp (deg. F)</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</center>
+		<br/>
+		<div data-role="footer">
+			<h5>Prakhar Saxena - CS 275</h5>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,91 @@
+<html>
+	<head>
+		<title>Practicum: Part 1</title>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<style>
+			table, th, td{
+				text-align: center;
+				table-layout: fixed;
+				border: 1px solid black;
+				width: device-width ;
+			}
+		</style>
+		<script>
+			function loadSchedule(){
+				
+				var t=""; //variable to store table text
+				//var initTable="<table data-role='table' id='tbl' class='ui-responsive'><thead><tr><th>Date and Time</th> <th>Weather Description</th> <th>Temp (deg. F)</th></tr></thead></table>";
+				document.getElementById("out").innerHTML = "";
+				document.getElementById("err").innerHTML = "";
+				//apiKey = "ee654774658da320ebc9d793461cb50b";
+				var routeNum = document.getElementById("dropDown").value;
+				var URL = "http://www3.septa.org/hackathon/TransitView/?route=" + routeNum;
+				$.ajax({ //async call to the weather api
+					type: "GET",
+					url: URL,
+					contentType: "application/json; charset=utf-8",
+					data: "{}",
+					dataType: "jsonp",
+					success: function(msg) {
+						var response = msg;
+                        t += "<table>";
+                        t += "<tr>";
+                        t += "<th>Route</th> <th>Vehicle Number</th> <th>Block ID</th> <th>Direction</th> <th>Destination</th>";
+                        t += "</tr>";
+						//t+="<tbody>";
+						for(var i = 0; i < response.bus.length; i++){ //loop to add and populate the rows in the table
+							t += "<tr>";
+							var vehicleNumVar = response.bus[i].VehicleID;
+                            var blockIdVar = response.bus[i].BlockID;
+                            var directionVar = response.bus[i].Direction;
+                            var destinationVar = response.bus[i].destination;
+                            t += "<td>" + routeNum + "</td>" + "<td>" + vehicleNumVar + "</td>" + "<td>" + blockIdVar + "</td>" + "<td>" + directionVar + "</td>" + "<td>" + destinationVar + "</td>";
+							t += "</tr>";
+						}
+						//t+="</tbody>";
+						t+="</table>";
+						document.getElementById("out").innerHTML += t;
+					},
+					error: function(xhr, ajaxOptions, thrownError) {
+						document.getElementById("err").innerHTML = "Error fetching " + URL + "\nThe API key or Zipcode is invalid.";
+					}
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div data-role="header">
+			<h1>Practicum: Part 1</h1>
+		</div>
+		<center>
+            <select id="dropDown">
+				<option value="6">6</option>
+				<option value="14">14</option>
+				<option value="17">17</option>
+				<option value="20">20</option>
+				<option value="23">23</option>
+			</select>
+            <br/>
+			<button onclick="loadSchedule()" class="ui-btn">Load Schedule</button>
+			<br/>
+			<br/>
+			<div id="err"></div>
+			<div id="out">
+				<!-- <table data-role='table' id='tbl' class='ui-responsive'>
+					<thead>
+						<tr>
+							<th>Date and Time</th> <th>Weather Description</th> <th>Temp (deg. F)</th>
+						</tr>
+					</thead>
+				</table> -->
+			</div>
+		</center>
+		<br/>
+		<div data-role="footer">
+			<h5>Prakhar Saxena - CS 275</h5>
+		</div>
+	</body>
+</html>

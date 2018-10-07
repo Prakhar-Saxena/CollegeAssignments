@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<title>Assignment 3</title>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script>
+			function doit(){
+				var num = document.getElementById("numInp").value;
+				if(isNaN(num) || num < 0){
+					// document.getElementById("inp").value=0
+					// num = 0;
+					alert("Invalid Input.");
+				}
+				else{
+					var URL = "";
+					var selectedOption = document.getElementById("dropDown").value; //dropdown menu selected value
+					if(selectedOption == "sum"){
+						URL = "http://localhost:8080/sum?num=" + num;
+					}
+					else if(selectedOption == "fact"){
+						URL = "http://localhost:8080/fact?num=" + num;
+					}
+					else{
+						URL = "";
+					}
+					console.log(URL);
+					$.ajax({ //async call to the local server
+						type: "GET",
+						url: URL,
+						contentType: "application/json; charset=utf-8",
+						data: "{}",
+						dataType: "json",
+						success: function(msg) {
+							var response = msg;
+							if(selectedOption == "sum"){
+								document.getElementById("out").innerHTML = response.sum;
+							}
+							else if(selectedOption == "fact"){
+								document.getElementById("out").innerHTML = response.fact;
+							}
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							document.getElementById("out").innerHTML = "Error fetching " + URL + "\nThe Input is invalid.";
+						}
+					});
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div data-role="header">
+			<h1>Assignment 3</h1>
+		</div>
+		<center>
+			<input type="text" id="numInp" value="0" placeholder="number">
+			<br/>
+			<select id="dropDown">
+				<option value="sum">Sum</option>
+				<option value="fact">Factorial</option>
+			</select>
+			<button onclick="doit()">Do It</button>
+			<br/>
+			<div id="out">
+			</div>
+		</center>
+		<div data-role="footer">
+			<h5>Prakhar Saxena - CS 275</h5>
+		</div>
+	</body>
+</html>

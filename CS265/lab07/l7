@@ -1,0 +1,74 @@
+1)
+	add() adds a string prefix and a suffix to the table
+	addSuffix() adds new suffix to the hash table
+
+2)
+	lookup() checks if the prefex in argument is present, if not it creates it. It returns a pointer to it if it's present. Otherwise it returns NULL
+
+3)
+	Input its a new dawn and running build
+	
+	Prefix 	      |   Suffix
+	____________________________
+	(null) (null) | It's
+	(null) It's   | a
+	It's   a      | new
+	a      new    | dawn
+	new    dawn   | (null)
+	__________________________
+	
+	"It's" - 3 references
+	"a" - 3 references
+	"new" - 3 references
+	"dawn" - 2 references
+
+4)
+	Efficient memory usage. each string is allocated only necessary memory.
+
+5)
+	Freeing the memory after execution of the program is completed, so that, that memory can be used in other processes.
+
+6)
+	void cleanup(State *statetab){
+		while(statetab != null){
+			free(statetab);
+			statetab = statetab->next;
+		}
+	}
+
+7)
+	Function works properly. could've used delete[] operator.
+
+8)
+	track a pointer and the value linked to it. check if the pointer still is equal to the value prior to freeing the memory value and after freeing memory value.
+
+9)
+	prefixes are stored in a deque (doubly ended queue), it allows individual elements to be accessed directly through random access iterators.
+	adding an element to a vector takes a non constant time, whereas for deque, it's much easier and faster.
+
+10)
+	A map serves as a dictionary.
+
+11)
+	Satellite data is stored as vectors of suffices.
+
+12)
+	C++ implementation has less repetition due to std library. fewer pointers. 
+
+13)
+	C++ implementation requires more memory allocation. But in present day we shouldn't really worry about memory storage.
+
+14)
+	tuples.
+
+15)
+	dictionary serves as the hash table.
+
+16)
+	Satellite data is stored in a list object.
+
+17)
+	no pointers in python. Personally pointers always confuse me. python code was much easier to understand.
+
+18)
+	no real and data management like in C++.

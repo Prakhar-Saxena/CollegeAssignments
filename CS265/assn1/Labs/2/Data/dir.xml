@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<direntry>
+	<index>
+		<file>b</file>
+		<file>c</file>
+	</index>
+	<required>
+	</required>
+	<other>
+		<file>a</file>
+		<file>kurt.xml</file>
+		<file>README</file>
+	</other>
+</direntry>

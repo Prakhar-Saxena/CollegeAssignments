@@ -1,0 +1,11 @@
+In this assigment we implement the SQL operations using console commands on a  C executable.
+The operations include SELECT, INSERT, UPDATE, DELETE, CREATE, DROP.
+You can compile the program using hte makefile, or just simply typing gcc G1.c -o output.
+then you can pass in the commands on command line along with the file. but when using the select function keep in mind to escape the *(asterisk) with a \*
+I couldn't get all the functions to work properly, but i certainly had the correct understanding of the way they should've been implemented.
+I understand most of the issues were due to the lost memories in tokenizing using the strtok() method and in passing pointers and arrays into the fread() and fwrite() methods.
+I found update to be the most challenging function of them all. I underestimated it, I later realized that I have to put in multiple loops in it and write the changes to a temp file.
+Select was fairly straight forward, and so was drop.
+I could've easily implemented the delete function using the update method, but the update itself, wasn't functioning properly.
+
+In the end even if the assignment doesn't function in the desired way, I have a much better understanding of char* and the way tokenizing and passing of pointers work in many important functions in C standard libraries.

@@ -1,0 +1,49 @@
+Ans 1: ./ps668-CS265-sp18/.git/refs/heads/master
+./ps668-CS265-sp18/.git/refs/remotes/origin/master
+./ps668-CS265-sp18/.git/objects/e9/3fe95d992be3fce829d93ad6ae678b014170b3
+./ps668-CS265-sp18/.git/objects/b8/dd175eeede791ca07c84d539715db25be83618
+./ps668-CS265-sp18/.git/objects/40/d51d029f1275f03590816decb11bf743bd73fe
+./ps668-CS265-sp18/.git/objects/2d/da5da15e7c7969701dace3553ef232575a7732
+./ps668-CS265-sp18/.git/index
+./ps668-CS265-sp18/.git/COMMIT_EDITMSG
+./ps668-CS265-sp18/.git/logs/refs/heads/master
+./ps668-CS265-sp18/.git/logs/refs/remotes/origin/master
+./ps668-CS265-sp18/.git/logs/HEAD
+./ps668-CS265-sp18/lab02/lab2
+./ps668-CS265-sp18/lab02/.lab2.swp
+./tmp/gotMe.bash
+
+Ans 2: find . -name "*.bash"
+
+Ans 3: ./ps668-CS265-sp18/lab01/hello.bash
+./tmp/gotMe.bash
+
+Ans 4:  97  499 2960 breadIsDangerous.txt
+
+Ans 5: grep "the" breadIsDangerous.txt | wc -l
+
+Ans 6: The file spellExample was corrected, and there's a back up file now called, spellExample.bak.
+
+Ans 7: 1c1
+< I went to a garden party
+---
+> I went to a gadren party
+3c3
+< bunch of my old friends did something
+---
+> bnuch of my old freinds did somehting
+6d5
+< An extra line
+
+Ans 8: There was no results with diff spellExample spellExample
+
+Ans 9: du * | sort | head -n 8
+
+Ans 10: Normally  the  exit  status is 0 if a line is selected, 1 if no lines were selected, and 2 if an error occurred.
+0 meant there was "dough" present in the file "breadIsDangerous.txt". 1 meant there "uniqueString" wasn't present in "breadIsDangerous.txt". 2 meant there was an error because "noSuchFile" doesn't exist.
+
+Ans 11.1: git checkout b4c8eef07f1190d3a5fdbba1169a9f7cf7886c20^ -- .
+
+Ans 11.2: You can just type git log --stat to check whether I deleted the file or not. 
+
+

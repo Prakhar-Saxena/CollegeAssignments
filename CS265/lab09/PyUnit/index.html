@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Language" content="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta content="Vera Zaychik &amp; Kurt Schmidt" name="Author">
+	<title>Lab - Testing, with PyUnit</title>
+</head>
+
+<body text="#330099" link="#000066" vlink="#000066" alink="#ff0000"
+	background="../../../../images/blueTexture.jpeg">
+
+<h1> Lab &mdash; Testing, with PyUnit </h1>
+
+<p> Finish implementing the <tt>gInt</tt> Gaussian Integer) I started for you in
+<b><tt>.../Labs/Python/PyUnit/gInt.py</tt></b>, then write a PyUnit test suite. </p>
+
+<h3> Background </h3>
+<p> A Gaussian integer is a number of the form <tt>a</tt> + <tt>b</tt>
+<b>i</b>, where <tt>a</tt> (the <i>real</i> part), <tt>b</tt> (the
+<i>imaginary</i> part) are integers, and <b>i</b> is the square root of -1.
+</p>
+
+<p> They are added in a very normal way.  (<tt>a</tt> + <tt>b</tt> <b>i</b>)
++ (<tt>c</tt> + <tt>d</tt> <b>i</b>) = (<tt>a+c</tt>) + (<tt>b+d</tt>)
+<b>i</b>. </p>
+
+<p> Multiplication should also look familiar.  (<tt>a</tt> + <tt>b</tt>
+<b>i</b>) * (<tt>c</tt> + <tt>d</tt> <b>i</b>) = <tt>(ac-bd)</tt> +
+<tt>(ad+bc)</tt> <b>i</b>. </p>
+
+<p> The <i>norm</i> of <var>a</var>+<var>b</var>i is <var>a</var><sup>2</sup> + <var>b</var><sup>2</sup> </p>
+
+<hr>
+<h3> The <tt>gInt</tt> class </h3>
+
+<p> You need to complete the methods <tt>__mul__</tt> and <tt>norm</tt> . </p>
+
+<p> You have <tt>__add__</tt> as an example.  Note, neither of those methods modifies the object. </p>
+
+<hr>
+<h3> Your test framework - the <tt>unittest.TestCase</tt> class </h3>
+
+<p> See the example I wrote, <tt>test_money.py</tt>, in <tt>Labs/Python/PyUnit</tt>, to test the Money class in
+<tt>money.py</tt>, same directory. </p>
+
+<p> Write tests for all 3 methods (<tt>__add__</tt>, <tt>__mul__</tt>, and <tt>norm</tt>). </p>
+
+<p> Remember, a single test does not go far towards being reliable.  Consider
+all of the preconditions and postconditions!  They must be tested too, not
+simply that you "got the right answer". </p>
+
+<p> There is nothing that says each method should have a single test case. </p>
+
+<hr>
+<h3> Misc </h3>
+<ul>
+	<li> Write the comments (pre- and post-conditions) for each method
+		<u>first</u> </li>
+	<li> Then write the corresponding test for that method </li>
+	<li> <i>Then</i> you actually implement the method </li>
+	<li> Looking at the code, add some more tests. </li>
+	<li> Now test </li>
+</ul>
+
+<hr>
+<h2> Submission </h2>
+
+<p> Submit the following files: </p>
+
+<ul>
+	<li> <tt><b>gInt.py</b></tt> - the <tt>gInt</tt> class </li>
+	<li> <tt><b>test_gInt.py</b></tt> - the TestCase for <tt>gInt</tt> </li>
+	<li> <tt><b>README</b></tt> (opt.) - if you have anything to tell me before
+		I grade the lab </li>
+</ul>
+
+</body>
+</html>

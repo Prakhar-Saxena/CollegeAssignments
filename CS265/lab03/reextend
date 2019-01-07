@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# Prakhar Saxena
+# 2018-04-20
+#
+
+if (( $# != 2 )); then
+        echo "Illegal number of arguments"
+        exit 1
+fi
+
+exi=$1
+exf=$2
+
+for entry in *"$exi"
+do
+	filename="${entry##*/}"
+	filename="${filename%$exi}"
+	filei=$filename$exi
+	mv $filename$exi $filename$exf
+done
+
+exit 0

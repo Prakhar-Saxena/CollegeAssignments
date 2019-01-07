@@ -1,0 +1,82 @@
+#!/bin/bash
+#
+# Prakhar Saxena
+# 2018-05-03
+#
+
+
+if (( $# > 1 )); then
+	echo "Illegal number of arguments"
+	exit 1
+fi
+
+d=''
+
+if (( $# == 0 )); then
+	d='.'
+elif (( $# == 1 )); then
+	if [ ! -d $1 ]; then
+		echo "Argument not a valid directory"
+		exit 2
+	fi
+	d=$1
+fi
+
+function dirFileMaker(){
+
+	touch $1/dir.xml
+	chmod 755 $1/dir.xml
+	echo "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" > $1/dir.xml # > for overwriting
+	echo "<direntry>" >> $1/dir.xml
+	
+	if [ ! -f $1/README ]; then
+		echo "No README present in the directory"
+		echo -e "\t<other>" >> $1/dir.xml
+                for j in "$1"/*
+                do
+                        if [ ! $j == $1/dir.xml ]; then
+				if [ -d $j ]; then
+					echo -e "\t\t<dir>"${j##*/}"</dir>" >> $1/dir.xml
+				else
+					echo -e "\t\t<file>"${j##*/}"</file>" >> $1/dir.xml
+				fi
+			fi
+                        if [ -d $j ]; then
+                                dirFileMaker $j
+                        fi
+                done
+                echo -e "\t</other>" >> $1/dir.xml
+	else
+		echo -e "\t<index>" >> $1/dir.xml
+		awk 'BEGIN{FS=":"}; {for(i=2; i<=NF; i++) if(NR==1) printf("\t\t<file>%s</file>\n", $i)}' $1/README >> $1/dir.xml
+		echo -e "\t</index>" >> $1/dir.xml
+		
+		echo -e "\t<required>" >> $1/dir.xml
+		awk 'BEGIN{FS=":"}; {for(i=2; i<=NF; i++) if(NR==2) printf("\t\t<file>%s</file>\n", $i)}' $1/README >> $1/dir.xml
+		echo -e "\t</required>" >> $1/dir.xml
+		
+		echo -e "\t<other>" >> $1/dir.xml
+		for j in "$1"/*
+		do
+			if [ ! $j == $1/dir.xml ]; then
+				isInFile=$(cat "$1/README" | grep -c "${j##*/}")
+				if [ $isInFile -eq 0 ]; then
+					if [ -d $j ]; then
+						echo -e "\t\t<dir>"${j##*/}"</dir>" >> $1/dir.xml
+					else
+						echo -e "\t\t<file>"${j##*/}"</file>" >> $1/dir.xml
+					fi
+				fi
+			fi
+			if [ -d $j ]; then
+				dirFileMaker $j
+			fi
+		done
+		echo -e "\t</other>" >> $1/dir.xml
+	fi
+	echo "</direntry>" >> $1/dir.xml
+}
+
+dirFileMaker $d
+
+exit 0

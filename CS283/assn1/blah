@@ -1,0 +1,4 @@
+CustomerID,CustomerName,ContactName,Address,City,PostalCode,Country
+1,Alfreds Futterkiste,Maria Anders,Obere Str. 57,Berlin,12209,Germany
+2,Ana Trujillo Emparedados y helados,Ana Trujillo,Acda. de la,Mexico D.F.,05021,Mexico
+3,Around the Horn,THomas Hardy,120 Hanover Sq.,London,WA1 1DP,UK

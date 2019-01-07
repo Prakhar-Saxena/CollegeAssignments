@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<direntry>
+	<index>
+		<file>labs.html</file>
+	</index>
+	<required>
+	</required>
+	<other>
+		<dir>1</dir>
+		<dir>2</dir>
+		<dir>3</dir>
+		<file>README</file>
+	</other>
+</direntry>

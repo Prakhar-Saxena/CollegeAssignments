@@ -1,0 +1,4 @@
+#!/bin/bash
+
+awk -f squash.awk -
+#./sign < /usr/share/dict/words | sort | awk -f squash.awk > out

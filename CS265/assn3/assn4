@@ -1,0 +1,245 @@
+#!/usr/bin/env python2
+#
+# Prakhar Saxena
+# 2018-05-30
+#
+
+import sys
+
+#def display(data):
+#	
+#	arg = sys.argv[1]
+#	
+#	while True:
+#		if arg == 'init':
+#			print "Initialize"
+#		elif arg == 'purchase':
+#			print "Purchase"
+#		elif arg == 'change':
+#			print "Change"
+#		
+#		print "-"*20
+		
+
+validOperations=['init', 'purchase', 'change', 'report']	
+
+def checkArgs():
+	if len(sys.argv)!=8 or sys.argv[3]!='=':
+                print 'Bad arguments (format/number)'
+                sys.exit(1)
+        amt=int(sys.argv[2])
+
+
+        amtBill= int(( 1 * int(sys.argv[4]) ) + ( 5 * int(sys.argv[5]) ) + ( 10 * int(sys.argv[6]) ) + ( 20 * int(sys.argv[7]) ))
+
+
+        if sys.argv[1]=='init' and amt!=amtBill:
+                print 'Amounts don\'t jibe'
+                sys.exit(2)
+	elif sys.argv[1]=='purchase' and amt > amtBill:
+		print 'Amounts don\'t jibe'
+		sys.exit(2)
+
+if len(sys.argv)==1:
+	print 'Bad arguments (format/number)'
+	sys.exit(1)
+
+operationArg=sys.argv[1]
+if operationArg not in validOperations:
+	print 'Bad arguments'
+	sys.exit(1)
+
+args=sys.argv
+
+def init():
+	checkArgs()
+
+        logFile=open('temp', 'w')
+        amt=int(sys.argv[2])
+
+        numOf1Bills = int(sys.argv[4])
+        numOf5Bills = int(sys.argv[5])
+        numOf10Bills = int(sys.argv[6])
+        numOf20Bills = int(sys.argv[7])
+
+        amtBill= int(( 1 * int(numOf1Bills) ) + ( 5 * int(numOf5Bills) ) + ( 10 * int(numOf10Bills) ) + ( 20 * int(numOf20Bills) ))
+
+
+        logFile.write('0 : ' + str(amt) + ' = ' + str(numOf1Bills) + ' ' + str(numOf5Bills) + ' ' + str(numOf10Bills) + ' ' + str(numOf20Bills) + '\n')
+        logFile.close()
+
+def purchase():
+	checkArgs()
+        readLogFile=open('temp', 'r')
+        r=readLogFile.read()
+        readLogFile.close()
+        initInp = r.split(' ')
+        #for x in initInp:
+        #       print x
+
+
+        initSales=int(initInp[0])
+        initAmt=int(initInp[2])
+        init1Bills=int(initInp[4])
+        init5Bills=int(initInp[5])
+        init10Bills=int(initInp[6])
+        init20Bills=int(initInp[7])
+
+        numOf1Bills = int(sys.argv[4])
+        numOf5Bills = int(sys.argv[5])
+        numOf10Bills = int(sys.argv[6])
+        numOf20Bills = int(sys.argv[7])
+
+        amtBill= int(( 1 * int(numOf1Bills) ) + ( 5 * int(numOf5Bills) ) + ( 10 * int(numOf10Bills) ) + ( 20 * int(numOf20Bills) ))
+
+        finSales = initSales + int(sys.argv[2])
+        finAmt= initAmt + amtBill
+        fin1Bills = init1Bills + numOf1Bills
+        fin5Bills = init5Bills + numOf5Bills
+        fin10Bills = init10Bills + numOf10Bills
+        fin20Bills = init20Bills + numOf20Bills
+
+        return1Bills=0
+        return5Bills=0
+        return10Bills=0
+        return20Bills=0
+
+        moneyGiven = int(sys.argv[2])
+        if amtBill > moneyGiven:
+                diff=amtBill-moneyGiven
+                while diff > 0:
+                        if diff >= 20 and fin20Bills > 0:
+                                diff-=20
+                                fin20Bills-=1
+                                return20Bills+=1
+                                continue
+                        elif diff >= 10 and fin10Bills > 0:
+                                diff-=10
+                                fin10Bills-=1
+                                return10Bills+=1
+                                continue
+                        elif diff >= 5 and fin5Bills > 0:
+                                diff-=5
+                                fin5Bills-=1
+                                return5Bills+=1
+                                continue
+                        elif diff >= 1 and fin1Bills > 0:
+                                diff-=1
+                                fin1Bills-=1
+                                return1Bills+=1
+                                continue
+                        elif diff > 0 and fin1Bills == 0:
+                                print 'Drawer has insufficient money or denominations to make proper change'
+                                sys.exit(3)
+                                break
+
+
+        logFile=open('temp', 'w')
+        logFile.write(str(finSales) + ' : ' + str(finAmt) + ' = ' + str(fin1Bills) + ' ' + str(fin5Bills) + ' ' + str(fin10Bills) + ' ' + str(fin20Bills) + '\n')
+        logFile.close()
+        print return1Bills, ' ', return5Bills, ' ', return10Bills, ' ', return20Bills
+        sys.exit(0)
+
+def change():
+	inp=sys.argv[2:]
+        eqIndex=inp.index('=')
+
+        lhsPart=inp[:eqIndex]
+        rhsPart=inp[eqIndex+1:]
+
+        if len(lhsPart)>4 or len(rhsPart)>4:
+                print 'Bad arguments'
+                sys.exit(1)
+
+        return1Bills=0
+        return5Bills=0
+        return10Bills=0
+        return20Bills=0
+
+        fin1Bills=0
+        fin5Bills=0
+        fin10Bills=0
+        fin20Bills=0
+
+        left1Bills=0
+        left5Bills=0
+        left10Bills=0
+        left20Bills=0
+
+        right1Bills=0
+        right5Bills=0
+        right10Bills=0
+        right20Bills=0
+
+        i=0
+        j=0
+        while i<len(lhsPart):
+                if i==0:
+                        left1Bills = lhsPart[i]
+                elif i==1:
+                        left5Bills = lhsPart[i]
+                elif i==2:
+                        left10Bills = lhsPart[i]
+                elif i==3:
+                        left20Bills = lhsPart[i]
+                i+=1
+
+
+        while j<len(rhsPart):
+                if j==0:
+                        right1Bills = rhsPart[j]
+                elif j==1:
+                        right5Bills = rhsPart[j]
+                elif j==2:
+                        right10Bills = rhsPart[j]
+                elif j==3:
+                        right20Bills = rhsPart[j]
+                j+=1
+
+        leftAmt = int(1*int(left1Bills)) + int(5*int(left5Bills)) + int(10*int(left10Bills)) + int(20*int(left20Bills))
+        rightAmt = int(1*int(right1Bills)) + int(5*int(right5Bills)) + int(10*int(right10Bills)) + int(20*int(right20Bills))
+	if leftAmt != rightAmt:
+                print 'Amounts don\'t jibe.'
+                sys.exit(2)
+
+        readLogFile=open('temp', 'r')
+        r=readLogFile.read()
+        readLogFile.close()
+        initInp = r.split(' ')
+
+        initSales=int(initInp[0])
+        initAmt=int(initInp[2])
+        init1Bills=int(initInp[4])
+        init5Bills=int(initInp[5])
+        init10Bills=int(initInp[6])
+        init20Bills=int(initInp[7])
+
+        if int(init1Bills)>=int(right1Bills) and int(init5Bills)>=int(right5Bills) and int(init10Bills)>=int(right10Bills) and int(init20Bills)>=int(right20Bills) :
+                fin1Bills = int(init1Bills) - int(right1Bills) + int(left1Bills)
+                fin5Bills = int(init5Bills) - int(right5Bills) + int(left5Bills)
+                fin10Bills = int(init10Bills) - int(right10Bills) + int(left10Bills)
+                fin20Bills = int(init20Bills) - int(right20Bills) + int(left20Bills)
+
+                logFile=open('temp', 'w')
+                logFile.write(str(initSales) + ' : ' + str(initAmt) + ' = ' + str(fin1Bills) + ' ' + str(fin5Bills) + ' ' + str(fin10Bills) + ' ' + str(fin20Bills) + '\n')
+                logFile.close()
+		print right1Bills, ' ', right5Bills, ' ', right10Bills, ' ', right20Bills
+                sys.exit(0)
+        else:
+                print 'Drawer has insufficient money or denominations to make proper change'
+                sys.exit(3)
+
+def report():
+	logFile=open('temp','r')
+        print  logFile.read()
+        logFile.close()
+        sys.exit(0)
+
+if operationArg=='init':
+	init()
+elif operationArg=='purchase':
+	purchase()
+elif operationArg=='change':
+	change()
+elif operationArg=='report':
+	report()

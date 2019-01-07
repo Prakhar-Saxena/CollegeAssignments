@@ -1,0 +1,10 @@
+Ans 2: I see permissions of the files, hello.bash, lab1 and vi_lab.
+Ans 3: chmod 644, gives me the permission of read & write, gives the group and the world the permission of just reading some_file.
+Ans 4: chmod 755, gives me all the permissions, gives the group and the world the permission to read and execute some_file.
+Ans 5: Yes, I can read funny file.
+Ans 6: Yes, I can read hello.bash file.
+Ans 7: No, i couldn't execute hello.bash file.
+Ans 8: One way would be to type in chmod 744, other would be chmod 544. 
+Ans 9: It warned me, saying that the file is readonly. Attempting to save the file warns again sayin ght file is readonly, but provides an option to override by typing !.
+Ans 10: ls * listed all the files in the directory, ls a* listed all the files whose name started with "a", ls *m* listed all the files that had the letter m in their names, ls anno? listed annoy and ls annoy? returned an error saying no file or directory found. 
+Ans 11: the command "vi a space" created 2 files named "a" and "space"

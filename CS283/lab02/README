@@ -1,0 +1,2 @@
+I've created a bunch of files, the L2_init.c is the initial file that i created, it works fine without the locks, but i saw someone use the function sleep(1) online, which is somwhat close to the locks.
+then i created a file L2_2.c there i used locks, but i encountered a few pointer assignment errors, I'm commiting the changes right now, I'll try to finish it by midnight though.

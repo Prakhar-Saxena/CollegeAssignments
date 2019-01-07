@@ -1,0 +1,30 @@
+1)
+	It asked for a string to seach, i entered a, returned Segmentation fault.
+	I don't see any new files
+
+2)
+	#0  __strcmp_sse2 () at ../sysdeps/x86_64/multiarch/../strcmp.S:173
+	#1  0x00000000004009ad in inTable ()
+	It ran inTable()
+
+3)
+	a.
+		There was a problem with the scanf statement, '%d' expects type int * but instead 'int' was passed.
+		i fixed it by passing &n instead of n.
+	b.
+		There was a problem again with the expected data type, with %d and %f, I changed both of them, that fixed it.
+	c.
+		The inTable function had a logical error, of doing increment before ethe execution of the statements in the loop.
+		I changed it to i++, that fixed it.
+	d.
+		There was a problem with the scanf statement, '%d' expects type int *
+ but instead 'int' was passed.
+                i fixed it by passing &n instead of n.
+	e.
+		
+
+4)
+	Compilers only catch syntax errors, not logical errors.
+
+5)
+	It won't compile, because of data type mismatch.

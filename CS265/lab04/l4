@@ -1,0 +1,21 @@
+1) egrep "the" bright_side_of_life
+
+2) egrep '\<the\>' bright_side_of_life
+
+3) egrep "Just" bright_side_of_life
+
+4) egrep "[Jj]ust" bright_side_of_life
+
+5) egrep "^[jJ]ust" bright_side_of_life
+
+6) egrep '\<[bm]ad\>' bright_side_of_life
+
+7) egrep '\<(br|d)eath\>' bright_side_of_life
+
+8) egrep '\<you[.]*$' bright_side_of_life
+
+9) egrep '^\s' bright_side_of_life
+
+10) egrep '^$' bright_side_of_life
+
+11) 11

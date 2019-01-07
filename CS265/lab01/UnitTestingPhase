@@ -1,0 +1,49 @@
+
+Unit Testing Phase
+------------------
+by Thomas C. Angioletti
+(sung to the tune of Margaritaville)
+
+My machine's a bit shaky;
+Her monitor's flaky.
+She's been on a long time and just needs a rest.
+So I kiss and I hug her,
+And I start the debugger,
+And I say "Baby it's just one more test."
+
+The source code is unclear.
+There's no real design here.
+The statements are choppy, and the logic's no good.
+I hope for the best tho,
+But even I know,
+That the problem domain was not well understood.
+
+Wasting my time again in unit testing phase.
+Searching for the source of this abnormal halt.
+Some people claim that there is Microsoft to blame,
+But I know, it's nobody's fault.
+
+Code duplication,
+No initialization,
+Pointers to objects that no longer exist.
+And this binary tree here,
+Is staring at me queer,
+Wondering why he's not a linked list.
+
+Wasting my time again in unit testing phase.
+Searching for the source of this abnormal halt.
+Some people claim that there is Microsoft to blame,
+But I know, it's the architect's fault.
+
+But there's no going back now.
+I'll kludge it somehow.
+The waterfall model is what's practiced here.
+And so the design's done;
+And if it can't run,
+It's an implementation problem, I fear.
+
+Wasting my time again in unit testing phase.
+Searching for the source of this abnormal halt.
+Some people claim that there is Microsoft to blame,
+But I know, it's my own damn fault.
+

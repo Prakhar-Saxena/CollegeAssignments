@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Prakhar Saxena
+# 2018-04-20
+#
+
+for entry in *".mp3"
+do
+	filename="${entry##*/}"
+        filename="${filename%.mp3}"
+	artist="${filename%% -*}"
+	song="${filename##*- }"
+	mkdir -p "$artist"
+	mv "$entry" "./$artist"
+	mv "./$artist/$filename.mp3" "./$artist/$song.mp3"
+done
+
+exit 0

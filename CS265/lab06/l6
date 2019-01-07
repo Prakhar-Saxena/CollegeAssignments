@@ -1,0 +1,79 @@
+1)
+	i. List: List is basically different nodes linked to each other. The way these nodes work are that a particular node has 2 attributes, 1 is the value and second is a pointer to the next node.
+
+	ii. Stack: Stack is a data type that adds an element to the list/collection. It's much simpler that list becasue the only operations possible are push and pop. push adds an element to the top of the stack and pop removes the first element on the stack.
+
+	iii. Queue: Queue is like Stack, only difference being in stack you can push and pop in just one side, in queue you can push and pop on the rear and end
+
+	iv. Dictionary (Map): Dictionary is a group of Key-Value pairs. basically like a mathematical function.
+
+2) A binary search will compare the elements a maximum of log(n-1). #it's log base 2.
+
+3) A linear search will compare the elements a maximum of n times.
+
+4) Unsorted list.
+
+5) *84*  37 93 82 98 27 63 73 93 27 75 55 45 8
+
+	37 82 27 63 73 27 75 55 45 8  *84*  93 98 93
+	*37*  82 27 63 73 27 75 55 45 8 84  *93*  98 93
+	27 27 8  *37*  82 63 73 75 55 45 84  *93*  98 93
+	*27* 27 8 37  *82*  63 73 75 55 45 84 93  *98*  93
+	8 *27* 27 37 63 73 75 55 45 *82* 84 93 93  *98*  
+	8 27 27 37  *63*  73 75 77 45 82 84 93 93 98
+	8 27 27 37 45  *63*  73 75 77 82 84 93 93 98
+	8 27 27 37 45 63  *73*  75 77 82 84 93 93 98
+	
+	Last Pivot:
+	8 27 27 37 45 63 73  *75*  77 82 84 93 93 98
+	
+	Quicksorted List:
+	8 27 27 37 45 63 73 75 77 82 84 93 93 98
+
+6) d1.c built list
+	[ 3 -> 24 -> 06]
+
+7) ll.py built list
+	[13, [28, [24, [3, none ] ] ] ]
+
+8) 
+	#######################################################
+	buffer is:
+		on the footsteps of dawn
+	After assignment, s is:
+		on the footsteps of dawn
+	
+	After modifying s, it is:
+		on the footsteps of dawn... who's never ever been born
+	But buffer is:
+		on the footsteps of dawn... who's never ever been born
+	
+	Try again...
+	After modifying s, it is:
+		on the footsteps of dawn... who's never ever been born
+	But buffer is:
+		on the footsteps of dawn
+	#######################################################
+
+	The two outputs are different for the last line is because s is not being pointed at the buffer, so when the value of s is changed the value of the buffer is not causing the output to display two different values of the pointers
+
+9) 
+	hash.c resulting table
+	3 -> [Bob,38],[Cos,86]
+	4 -> [Vera,99],[Nash,11],[Kate,28],[Jaga,24]
+	5 -> [Jesse,78]
+
+10) 
+	int find( char *key, int *p_ans ){
+	
+	while(key != NULL){
+	
+	if(*key == *p_ans){
+		return 1;  // return true if table key value matches data passed through
+	}
+	
+	key = key->next; // iterate through table 
+	}
+	
+	return 0;  // reaches end of the table return 0;
+	}

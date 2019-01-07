@@ -1,0 +1,4 @@
+The purpose of this assignment was to implement "Four-In-A-Row" game using forks and pipes using parent and children processes. The fork enabled the processes/games to run simultaneously.
+This assignment was completed on the tux server and the programs are written in C.
+This assignment was way more difficult that I thought it would be. I had help from a few friends understanding how forks and pipes work.
+Running the file do generate error sometimes, it would just stop working altogether, I'm not sure of the reasons. But please give it a try or two, it should eventually start working.

@@ -1,0 +1,21 @@
+1)
+	Hide implementation details: Implimintation that is hidden from the user so that the user is not affected from any change to the code
+	Choose a small orthogonal set of primitives: Limit code to a minimal having functions or methods performing same tasks and capabilities 
+	Don't reach behind the user's back: User interface should not involve anything that the user is unaware of, only what is stated in in the requirents.
+	Do the same thing the same way everywhere: User interface should be consitent across all platforms and functionality, along with programming style.
+
+2)
+	Code is unclear, bad variable names, can only have a line buffer with 200 characters with because of the allocated memory, along with limited to 20 feilds. 
+
+3)
+	Programming style, variable names are more clear easier to follow code, includes comments etc.
+	Also, functions are task orientated makes easier to modify existing code
+
+4)
+	You cannot parse 2 different CSV files at the same time cause the way the program is written you cannot it reads each line individually, does not used stdin. 
+
+5)
+	No the C++ implimentation does not solve these problems, solves the issue of limited allocated memory in the original C program, still does not handle errosrs empty fields.
+
+6)
+	Yes it does adhere to the guidelines for a good i/f.

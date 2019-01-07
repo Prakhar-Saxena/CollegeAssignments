@@ -1,0 +1,71 @@
+1.1
+	Defining TRUE as 0 and FALSE as 1 is unconventional.
+
+1.2
+	int isSmaller(char *s, char *t) {
+		return strcmp(s, t) < 0;
+	}
+
+1.3
+	Can't properly read the code aloud, bad choice of variable names.
+
+1.4
+	if ( c != 'y' && c != 'Y' )
+		return;
+	
+	length = min(length, BUFSIZE);
+	
+	flag = !flag;
+	
+	quote = (*line == '"');
+	
+	bit = val & 1;
+
+1.5
+	undefined order of evaluation of function's arguments
+
+1.6
+	1 2
+	2 1
+	1 1
+
+1.7
+	if (!isatty(stdin) && !isatty(stdout) && !isatty(stderr))
+		return 0;
+	
+	return retval;
+	
+	for (k = 0; k < 5; k++) {
+		scanf("%lf", &dx);
+		x += dx;
+	}
+	k++
+
+1.8
+	// there's an error because of count being incremented early, accessing the one position past the end of the array
+	for (int i = 0; i < total; i++) {
+		if (this.getName(i) == nameTable.userName()) {
+			return true;
+		}
+	}
+
+1.9
+	There should be parentheses around c and the entire macro body.
+	c is evaluated twice
+	no need ternary operator
+	
+	#define ISDIGITY(c) ((c) >= '0' && (c) <= '9')
+
+1.10
+	static const double FT2METER = 0.303408;
+	static const double METER2FT = 3.28084;
+	static const double MI2FT = 5280.0;
+	static const double MI2KM = 1.609344;
+	static const double SQMI2SQKM = 2.589988;
+
+1.11
+	void function doesn't return anything.
+	
+	the comment doesn't preoperly represent the code, the code is checking for if n > MAX or if n is odd.
+	
+	a lot of useless and inconsistent comments.

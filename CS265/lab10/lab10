@@ -1,0 +1,34 @@
+Q1
+	n	T(n)	T(n)/(n)	T(n)/(n^2)	T(n)/(n^3)
+	1000	0.184	0.000184	0.000000184	1.84E-10
+	10000	2.816	0.0002816	2.816E-08	2.816E-12
+	20000	5.996	0.0002998	1.499E-08	7.495E-13
+	30000	9.952	0.000331733	1.10578E-08	3.68593E-13
+	40000	13.616	0.0003404	8.51E-09	2.1275E-13
+	50000	17.556	0.00035112	7.0224E-09	1.40448E-13
+	60000	21.668	0.000361133	6.01889E-09	1.00315E-13
+	70000	26.4	0.000377143	5.38776E-09	7.69679E-14
+	80000	32.568	0.0004071	5.08875E-09	6.36094E-14
+
+	Conclusions:
+		T(n) : is increasing to infinity, so T(n) = w( f(n)) and is bound below by a constant.
+		f(n) : is increasing to infinity, so T(n) = w(f(x)) and is a lower bound
+		f(n)^2 : is decreasing heading towards a zero or non zero constant, f(n) is an upper bound and T(n) = o(f(n))
+		f(n)^3 : is decreasing heading towards zero, f(n) is an upper bound and T(n) = o(f(n))
+
+
+Q2
+	n	T(n)		T(n)/(n)	T(n)/(n^2)	T(n)/(n^3)
+	1000	3425457		3425.457	3.425457	0.003425457
+	10000	45721062	4572.1062	0.45721062	4.57211E-05
+	20000	981079982	49053.9991	2.452699955	0.000122635
+	30000	153522280	5117.409333	0.170580311	5.68601E-06
+	40000	210173451	5254.336275	0.131358407	3.28396E-06
+	50000	265180908	5303.61816	0.106072363	2.12145E-06
+	60000	319847373	5330.78955	0.088846493	1.48077E-06
+
+	Conclusions:
+		T(n) : is increasing tending towards a non-zero constant, so T(n) = w(1) and is bound below by a constant.
+		f(n) : is increasing to infinity, so T(n) is bound below by a line and T(n) = w(f(x)).
+		f(n)^2 : is decreasing towards zero or a non zero constant, so T(n) = o(f(n)).
+		f(n)^3 : is decreasing towards zero, so T(n) = o(f(n)) and f(n) is an upper bound.

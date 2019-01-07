@@ -1,0 +1,10 @@
+The purpose of this program is to practice network programming by creating chat server/client which will implement RSA encryption to encrypt a someone's public key and decrypt with your private key. 
+I developed this program on VS Code in windows.
+To run the program, the first thing that you would have to do is compile the program using the makefile. 
+The program works to the extent that it can encrypt and decrypt data using the G2_rsa.c file.
+This file consists of a miniRSA library of functions that are used in the overall RSA encryption algorithim. These funcitions all work and were tested individually by printing out what each function returns (ex. printing out mth prime nummber, variables 'd', 'm', ect.). The endecrypt function will encrypts one character at a time as opposed to a string. 
+The server and client both work individually (one on one command prompt and the other in a second window).
+
+I tried using the code given in the lecture slides, but it didn't compile due to some reasons, hence i had to use some online references. That's the reason I have 2 files for clients and 2 files for servers.
+By running the client and server on two separate prompts, we could see how each interacted with one another. What I found interesting about this assignment was the use of the RSA encryption as it was something that was briefly looked into in CS 164.
+I believe it would have been helpful to have more of a visual instruction as to how the encrypting and decrypting process worked as these concepts were discussed quite some time ago. Yet, seeing how to calculate the different parts of the public and private keys was something I enjoyed doing and was interested in learning more about. I think this assignment could be improved in the future by providing more information on how exactly to set up the server as that was something I struggled with, but overall I liked how the assignment weaved in the cryptogrophy aspect into the programming. 

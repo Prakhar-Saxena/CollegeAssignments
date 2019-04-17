@@ -53,4 +53,9 @@ def findall(l, elem):
 arr = createB(boardString)
 printBoard(arr)
 
-print findall(arr,'p')
+fa = findall(arr,'q')
+print fa
+print len(fa)
+print fa[0]
+print fa[2]
+print fa[len(fa)-1]

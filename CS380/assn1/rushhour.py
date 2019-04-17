@@ -5,6 +5,8 @@ import math
 
 # add a CLOSED set for duplicates/ or for states that we've already achieved
 
+CarNotIn = 'Car not in the Board'
+
 class Board:
     width, height = 6, 6
     boardArr = [[0 for i in range(width)] for j in range(height)]
@@ -45,12 +47,42 @@ class Board:
         else:
             return False
 
-    def next_for_car(self, car): # can take arguments as character
+    def isCarInBoard(self, carCh):
+        distinctElem = []
         for row in self.boardArr:
-            if car not in row:
-                print 'car not in the baord'
-                break
-                return
+            for element in row:
+                if element not in distinctElem:
+                    distinctElem.append(element)
+        distinctElem.remove(' ')
+        if carCh not in distinctElem:
+            return False
+        else:
+            return True
+
+    def moveCar(self, carCh, direction, units):
+        if self.isCarInBoard(carCh) == False:
+            print 'MoveCar(): ',CarNotIn
+            return
+        
+
+    def next_for_car(self, carCh): # can take arguments as character
+        CLOSED = [] # list to store the states that have already been achieved
+        if self.isCarInBoard( carCh) == False:
+            print 'next_for_car(): ', CarNotIn
+        car = Car(self.boardArr, carCh)
+        car.printDetails()
+        if car.orientation == 'horizontal':
+            print 'eh'
+
+    def next(self): # call next_for_car() for all the cars
+        distinctElem = []
+        for row in self.boardArr:
+            for element in row:
+                if element not in distinctElem:
+                    distinctElem.append(element)
+        distinctElem.remove(' ')
+        for carCh in distinctElem:
+            self.next_for_car(carCh)
         
 
 def find(l, elem): # https://stackoverflow.com/questions/6518291/using-index-on-multidimensional-lists
@@ -62,9 +94,11 @@ def find(l, elem): # https://stackoverflow.com/questions/6518291/using-index-on-
         return row, column
     return -1
 
-def findall(l, elem):
+def findall(l, elem): # returns all the coordinates of a given car in an array
     returnList = []
     c = find(l, elem)
+    if c == -1:
+        return None
     while c != -1:
         x = c[0]
         y = c[1]
@@ -75,11 +109,29 @@ def findall(l, elem):
 
 
 class Car:
+    carChar = ''
     end1 = [0,0]
     end2 = [0,0]
     length = 0
+    orientation = "" #vertical or horizontal
 
-    def __init__(self, board, car): # takes the board and the car character
+    def __init__(self, boardArr, car): # takes the board and the car character
+        self.carChar = car
+        coordinates = findall(boardArr, car)
+        self.end1 = coordinates[0]
+        self.end2 = coordinates[len(coordinates)-1]
+        self.length = len(coordinates)
+        if self.end1[1] == self.end2[1]: # checking for orientation # if y coordinate is same
+            self.orientation = 'vertical'
+        elif self.end1[0] == self.end2[0]:
+            self.orientation = 'horizontal'
+
+    def printDetails(self):
+        print 'Car Character: ', self.carChar
+        print 'end1: ', self.end1
+        print 'end2: ', self.end2
+        print 'length: ', self.length
+        print 'orientation: ', self.orientation
         
 
 #print 'Number of Arguments: ', len(sys.argv), '.'
@@ -99,3 +151,5 @@ if command == "print":
     board.printBoard()
 elif command == "done":
     print board.isDone()
+elif command == "next":
+    board.next()

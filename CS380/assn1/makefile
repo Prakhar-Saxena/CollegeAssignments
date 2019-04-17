@@ -6,3 +6,6 @@ print: rushhour.py
 
 done: rushhour.py
 	python rushhour.py done
+
+next: rushhour.py
+	python rushhour.py next

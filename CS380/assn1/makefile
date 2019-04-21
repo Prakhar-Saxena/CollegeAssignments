@@ -9,3 +9,6 @@ done: rushhour.py
 
 next: rushhour.py
 	python rushhour.py next
+
+test: rushhour.py
+	python rushhour.py test

@@ -23,7 +23,7 @@ elif command == "next":
     board.next()
 elif command == "test":
     #print misc.findAll(board.boardArr, 'q')
-    board.next_for_car('p')
+    board.next_for_car('o')
     #board.moveCar('q', 'up', 2)
     #print misc.find(board.boardArr, 'p')
     #print misc.findAll(board.boardArr, 'p')

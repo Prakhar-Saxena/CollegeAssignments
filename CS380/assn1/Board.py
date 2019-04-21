@@ -85,7 +85,7 @@ class Board:
             self.boardArr[j[0]][j[1]] = carFin.carChar
 
     def moveCar(self, carCh, direction, units):
-        print carCh, direction, units
+        #' and i >=0 print carCh, direction, units
         if self.isCarInBoard(carCh) == False:
             print 'MoveCar(): ',CarNotIn
             return
@@ -96,8 +96,8 @@ class Board:
         try:
             if direction == 'up' and car.orientation == 'vertical':
                 for i in range(car.end1[0]-units, car.end1[0]): # checking for path hindrances # from 0 to the start of the car
-                    if self.boardArr[i][car.end1[1]] != ' ':
-                        print 'moveCar(): cannot move car - path hindrance'
+                    if self.boardArr[i][car.end1[1]] != ' ' or i < 0 or i > 5:
+                        #print 'moveCar(): cannot move car - path hindrance'
                         return
                 newCar = Car.Car(self.boardArr, carCh)
                 newCoordinates = []
@@ -106,9 +106,9 @@ class Board:
                 newCar.modifyCar(carCh, newCoordinates)
                 self.replaceCarPos(car, newCar)
             elif direction == 'down' and car.orientation == 'vertical':
-                for i in range(car.end2[0] + 1, car.end2[0] + units):
-                    if self.boardArr[i][car.end1[1]] != ' ':
-                        print 'moveCar(): cannot move car - path hindrance'
+                for i in range(car.end2[0] + 1, car.end2[0] + units + 1):
+                    if self.boardArr[i][car.end1[1]] != ' ' or i < 0 or i > 5:
+                        #print 'moveCar(): cannot move car - path hindrance'
                         return
                 newCar = Car.Car(self.boardArr, carCh)
                 newCoordinates = []
@@ -118,8 +118,8 @@ class Board:
                 self.replaceCarPos(car, newCar)
             elif direction == 'left' and car.orientation == 'horizontal':
                 for i in range(car.end1[1]-units, car.end1[1]):
-                    if self.boardArr[car.end1[0]][i] != ' ':
-                        print 'moveCar(): cannot move car - path hindrance'
+                    if self.boardArr[car.end1[0]][i] != ' ' or i < 0 or i > 5:
+                        #print 'moveCar(): cannot move car - path hindrance'
                         return
                 newCar = Car.Car(self.boardArr, carCh)
                 newCoordinates = []
@@ -129,8 +129,8 @@ class Board:
                 self.replaceCarPos(car, newCar)
             elif direction == 'right' and car.orientation == 'horizontal':
                 for i in range(car.end2[1] + 1, car.end2[1] + units + 1):
-                    if self.boardArr[car.end2[0]][i] != ' ':
-                        print 'moveCar(): cannot move car - path hindrance'
+                    if self.boardArr[car.end2[0]][i] != ' ' or i < 0 or i > 5:
+                        #print 'moveCar(): cannot move car - path hindrance'
                         return
                 newCar = Car.Car(self.boardArr, carCh)
                 newCoordinates = []
@@ -141,7 +141,8 @@ class Board:
             #else:
                 #print 'cme',
                 #print 'car is horizontal/vertical and you\'re tring to move it vertically/horizontally.'
-            self.printBoard()
+            #self.printBoard()
+            return self.boardArr
         except IndexError:
             pass
             #print 'eh.. IndexError'
@@ -158,23 +159,39 @@ class Board:
             for direction in directions:
                 for i in range(1,5):
                     cloneBoard.clone(self)
-                    cloneBoard.moveCar(carCh, direction, i)
-                    if cloneBoard.boardArr not in CLOSED:
-                        CLOSED.append(cloneBoard.boardArr)
+                    newBoardArr = cloneBoard.moveCar(carCh, direction, i)
+                    #cloneBoard.printBoard()
+                    if newBoardArr not in CLOSED and newBoardArr is not None:
+                        #print newBoardArr
+                        #CLOSED.append(cloneBoard)
+                        CLOSED.append(newBoardArr)
         elif car.orientation == 'vertical':
             directions = ['down', 'up']
             for direction in directions:
                 for i in range(1,5):
                     cloneBoard.clone(self)
-                    cloneBoard.moveCar(carCh, direction, i)
-                    if cloneBoard.boardArr not in CLOSED:
-                        CLOSED.append(cloneBoard.boardArr)
-        #for board in CLOSED:
-            #misc.printBoardArr(board)
+                    newBoardArr = cloneBoard.moveCar(carCh, direction, i)
+                    #cloneBoard.printBoard()
+                    if newBoardArr not in CLOSED and newBoardArr is not None:
+                        #print newBoardArr
+                        #CLOSED.append(cloneBoard)
+                        CLOSED.append(newBoardArr)
+        #CLOSED.remove(None)
+        #print CLOSED
+        #misc.printCLOSED(CLOSED)
+        for board in CLOSED:
+            #print board
+            #board.printBoard()
+            misc.printBoardArr(board)
             #for row in board:
                 #print row
+            #print
+        return CLOSED
 
     def next(self): # call next_for_car() for all the cars
+        CLOSED = []
+        #CLOSED.append('kms')
+        #print 'CLOSED HERE: ', CLOSED
         distinctElements = []
         for row in self.boardArr:
             for element in row:
@@ -182,6 +199,12 @@ class Board:
                     distinctElements.append(element)
         distinctElements.remove(' ')
         for carCh in distinctElements:
-            self.next_for_car(carCh)
+            CLOSED.append(self.next_for_car(carCh))
+            #print 'in Loop: ',CLOSED
+        #CLOSED.remove(None)
+        #for board in CLOSED:
+            #misc.printBoardArr(board)
+        #CLOSED.remove([])
+        #misc.printCLOSED(CLOSED)
 
 

@@ -47,6 +47,7 @@ def findAll(l, elem): # returns all the coordinates of a given car in an array
     return returnList
 
 def printBoardArr(boardArr):
+    #print boardArr
     print '  - - - - - -  '
     for i in range(len(boardArr)):
         row = boardArr[i]
@@ -58,3 +59,18 @@ def printBoardArr(boardArr):
         else:
             print '|'
     print '  - - - - - -  '
+
+def printCLOSED(closed):
+    #closed.pop(0)
+    for i in range(len(closed)):
+        print '  - - - - - -  ',
+    print ''
+    for i in range(len(closed[0])): # number of rows
+        print closed
+        for board in closed:
+            print board
+            #row = board[i]
+            #print row,
+    for i in range(len(closed)):
+        print '  - - - - - -  ',
+    print ''

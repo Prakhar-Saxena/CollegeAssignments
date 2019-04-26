@@ -3,6 +3,7 @@
 import sys
 import math
 import Board
+import MiscFunctions as misc
 
 class Path:
     boards = []
@@ -19,4 +20,5 @@ class Path:
         return boards[len(boards)]
 
     def printPath():
+        misc.printCLOSED(boards) #or boards.boardArr
         return

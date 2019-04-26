@@ -73,7 +73,10 @@ def printClosed5AtATime(closed):
             row = board[i]
             for elem in row:
                 print elem,
-            print '|',
+            if i == 2:
+                print ' ',
+            else:
+                print '|',
         print ''
     for i in range(len(closed)):
         print '  - - - - - -  ',

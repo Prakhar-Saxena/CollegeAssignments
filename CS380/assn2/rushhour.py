@@ -21,6 +21,8 @@ elif command == "done":
     print board.isDone()
 elif command == "next":
     board.next()
+elif command == "random":
+    board.random(3)
 elif command == "test":
     #print misc.findAll(board.boardArr, 'q')
     board.next_for_car('o')

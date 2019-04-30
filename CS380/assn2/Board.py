@@ -4,6 +4,7 @@ import sys
 import math
 import MiscFunctions as misc
 import Car as Car
+from random import randint
 
 # add a CLOSED set for duplicates/ or for states that we've already achieved
 
@@ -12,6 +13,7 @@ CarNotIn = 'Car not in the Board'
 class Board:
     width, height = 6, 6
     boardArr = [[0 for i in range(width)] for j in range(height)]
+    cars = []
 
     def __init__(self):
         self.width, self.height = 6, 6
@@ -21,7 +23,10 @@ class Board:
             row = rows[i]
             rowElements = list(row)
             self.boardArr[i] = rowElements
-
+        cars = self.getCarsFromBoard()
+        for carCh in cars:
+            car = Car.Car(self.boardArr, carCh)
+            self.cars.append(car)
 
     def createBoard(self, inp): #inp will be the string from the cammand line argument
         rows = inp.split('|')
@@ -48,6 +53,27 @@ class Board:
             return True
         else:
             return False
+
+    def getCarsFromBoard(self):
+        distinctElements = []
+        for row in self.boardArr:
+            for element in row:
+                if element not in distinctElements:
+                    distinctElements.append(element)
+        distinctElements.remove(' ')
+        return distinctElements
+
+    def getCar(self, carCh):
+        for car in self.cars:
+            if car.carChar == carCh:
+                return car
+        return 'No car like that.'
+
+    def getCarOrientation(self, carCh):
+        car = self.getCar(carCh)
+        if car != 'No car like that.':
+            return car.orientation
+        return
 
     def clone(self, board): # cloning data from "board" to self)
         self.width = board.width
@@ -209,5 +235,43 @@ class Board:
             #misc.printBoardArr(board)
         #CLOSED.remove([])
         misc.printCLOSED(CLOSED)
+    
+    def random(self, N):
+        CLOSED = []
+        CLOSED.append(self.boardArr)
+        cars = self.getCarsFromBoard()
+        
+        cloneBoard = Board()
+        cloneBoard.clone(self)
+        while True:
+            #print len(CLOSED)
+            newBoard = Board()
+            if newBoard.isDone() == True:
+                misc.printCLOSED(CLOSED)
+                return
+            if len(CLOSED) == 3:
+                misc.printCLOSED(CLOSED)
+                return
 
+            #newBoard.printBoard()
 
+            carIndex = randint(0,len(cars)-1)
+            carToMove = cars[carIndex]
+            carOrientation = self.getCarOrientation(carToMove)
+            directionIndex = randint(0,1)
+            units = randint(1,4)
+
+            if carOrientation == 'vertical':
+                directions = ['up','down']
+                direction = directions[directionIndex]
+                newBoardArr = cloneBoard.moveCar(carToMove, direction, units)
+                newBoard.boardArr = newBoardArr
+                if newBoardArr not in CLOSED and newBoardArr is not None:
+                    CLOSED.append(newBoardArr)
+            elif carOrientation == 'horizontal':
+                directions = ['left','right']
+                direction = directions[directionIndex]
+                newBoardArr = cloneBoard.moveCar(carToMove, direction, units)
+                newBoard.boardArr = newBoardArr
+                if newBoardArr not in CLOSED and newBoardArr is not None:
+                    CLOSED.append(newBoardArr)

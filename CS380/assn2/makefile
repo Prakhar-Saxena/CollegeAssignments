@@ -12,3 +12,6 @@ next: rushhour.py
 
 test: rushhour.py
 	python rushhour.py test
+
+random: rushhour.py
+	python rushhour.py random

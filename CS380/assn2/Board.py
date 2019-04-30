@@ -84,7 +84,7 @@ class Board:
             for e in row:
                 a.append(e)
             self.boardArr.append(a)
-
+        self.cars = board.cars
 
     def isCarInBoard(self, carCh):
         distinctElem = []
@@ -234,7 +234,8 @@ class Board:
         #for board in CLOSED:
             #misc.printBoardArr(board)
         #CLOSED.remove([])
-        misc.printCLOSED(CLOSED)
+        #misc.printCLOSED(CLOSED)
+        return CLOSED
     
     def random(self, N):
         CLOSED = []
@@ -244,9 +245,25 @@ class Board:
         cloneBoard = Board()
         cloneBoard.clone(self)
         while True:
+            if cloneBoard.isDone() == True:
+                misc.printCLOSED(CLOSED)
+                return
+            if len(CLOSED) == N:
+                misc.printCLOSED(CLOSED)
+                return
+
+            nextBoards = cloneBoard.next()
+            boardIndex = randint(0,len(nextBoards)-1)
+            nextBoard = nextBoards[boardIndex]
+            if nextBoard not in CLOSED:
+                CLOSED.append(nextBoard)
+            cloneBoard.boardArr = nextBoard
+            # The Code commented out underneath is for me to remember what an idiot i am.
+            '''
             #print len(CLOSED)
-            newBoard = Board()
-            if newBoard.isDone() == True:
+            #newBoard = Board()
+            
+            if cloneBoard.isDone() == True:
                 misc.printCLOSED(CLOSED)
                 return
             if len(CLOSED) == 3:
@@ -265,13 +282,16 @@ class Board:
                 directions = ['up','down']
                 direction = directions[directionIndex]
                 newBoardArr = cloneBoard.moveCar(carToMove, direction, units)
-                newBoard.boardArr = newBoardArr
+                #print newBoardArr
                 if newBoardArr not in CLOSED and newBoardArr is not None:
                     CLOSED.append(newBoardArr)
             elif carOrientation == 'horizontal':
                 directions = ['left','right']
                 direction = directions[directionIndex]
                 newBoardArr = cloneBoard.moveCar(carToMove, direction, units)
-                newBoard.boardArr = newBoardArr
+                #print newBoardArr
+                cloneBoard.boardArr = newBoardArr
                 if newBoardArr not in CLOSED and newBoardArr is not None:
                     CLOSED.append(newBoardArr)
+            #misc.printBoardArr(newBoardArr)
+            '''

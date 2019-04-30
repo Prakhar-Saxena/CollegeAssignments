@@ -60,27 +60,30 @@ def printBoardArr(boardArr):
             print '|'
     print '  - - - - - -  '
 
-def printClosed5AtATime(closed):
+def printClosedNAtATime(closed):
     #closed.pop(0)
-    for i in range(len(closed)):
-        print '  - - - - - -  ',
-    print ''
-    for i in range(len(closed[0])): # number of rows = 6
-        #print closed
-        for board in closed:
-            print '|',
-            #print board
-            row = board[i]
-            for elem in row:
-                print elem,
-            if i == 2:
-                print ' ',
-            else:
-                print '|',
+    try:
+        for i in range(len(closed)):
+            print '  - - - - - -  ',
         print ''
-    for i in range(len(closed)):
-        print '  - - - - - -  ',
-    print ''
+        for i in range(len(closed[0])): # number of rows = 6
+            #print closed
+            for board in closed:
+                print '|',
+                #print board
+                row = board[i]
+                for elem in row:
+                    print elem,
+                if i == 2:
+                    print ' ',
+                else:
+                    print '|',
+            print ''
+        for i in range(len(closed)):
+            print '  - - - - - -  ',
+        print ''
+    except:
+        pass
 
 def printCLOSED(closed):
     count = 0
@@ -89,10 +92,10 @@ def printCLOSED(closed):
     cloneClosed = closed
     while count < (numOfLines * boardsPerLine):
         newClosed = closed[count:(count+boardsPerLine)]
-        printClosed5AtATime(newClosed)
+        printClosedNAtATime(newClosed)
         count += boardsPerLine
     newClosed = closed[count:len(closed)]
-    printClosed5AtATime(newClosed)
+    printClosedNAtATime(newClosed)
 
 '''
     try:

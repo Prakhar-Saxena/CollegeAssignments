@@ -5,6 +5,8 @@ import math
 import MiscFunctions as misc
 import Car as Car
 from random import randint
+import Path as Path
+import copy as copy
 
 # add a CLOSED set for duplicates/ or for states that we've already achieved
 
@@ -28,12 +30,34 @@ class Board:
             car = Car.Car(self.boardArr, carCh)
             self.cars.append(car)
 
+    def __eq__(self, other):
+        return self.boardArr == other.boardArr
+
     def createBoard(self, inp): #inp will be the string from the cammand line argument
+        newBoardArr = []
         rows = inp.split('|')
         for i in range(len(rows)):
             row = rows[i]
             rowElements = list(row)
-            self.boardArr[i] = rowElements
+            newBoardArr.append(rowElements)
+        misc.printBoardArr(newBoardArr)
+        for i in range(len(newBoardArr)):
+            for j in range(len(newBoardArr[i])):
+                self.boardArr[i][j] = newBoardArr[i][j]
+        misc.printBoardArr(self.boardArr)
+
+    def modifyBoard(self, boardArr):
+        self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
+        for i in range(len(boardArr)):
+            for j in range(len(boardArr[i])):
+                self.boardArr[i][j] = boardArr[i][j]
+        
+        '''for row in boardArr:
+            a = []
+            for element in row:
+                a.append(element)
+            self.boardArr.append(a)
+            '''
 
     def printBoard(self):
         print '  - - - - - -  '
@@ -75,16 +99,21 @@ class Board:
             return car.orientation
         return
 
-    def clone(self, board): # cloning data from "board" to self)
-        self.width = board.width
-        self.height = board.height
-        self.boardArr = []
-        for row in board.boardArr:
-            a  = []
-            for e in row:
-                a.append(e)
-            self.boardArr.append(a)
-        self.cars = board.cars
+    def clone(self, boardBoi): # cloning data from "boardBoi" to self)
+        print 'printing BoardBoi first'
+        boardBoi.printBoard()
+        print 'in clone()'
+        self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
+        self.printBoard()
+        print 'Printing boardBoi'
+        boardBoi.printBoard()
+        #board.printBoard()
+        for i in range(len(boardBoi.boardArr)):
+            for j in range(len(boardBoi.boardArr[i])):
+                self.boardArr[i][j] = boardBoi.boardArr[i][j]
+        #misc.printBoardArr(self.boardArr)
+        self.printBoard()
+        self.cars = boardBoi.cars
 
     def isCarInBoard(self, carCh):
         distinctElem = []
@@ -236,14 +265,36 @@ class Board:
         #CLOSED.remove([])
         #misc.printCLOSED(CLOSED)
         return CLOSED
+
+    def nextBoards(self): # returns the 1D board Object list instead of 3D list
+        boardArrs = self.next()
+        boards = []
+        for boardArr in boardArrs:
+            board = Board()
+            board.modifyBoard(boardArr)
+            boards.append(board)
+        return boards
     
     def random(self, N):
         CLOSED = []
         CLOSED.append(self.boardArr)
         cars = self.getCarsFromBoard()
-        
+        print 'kms'
+        self.printBoard()
         cloneBoard = Board()
+        print 'Printing cloneBoard:'
+        cloneBoard.printBoard()
+        
+        bitch = copy.deepcopy(self)
+        print 'printing bitch'
+        bitch.printBoard()
         cloneBoard.clone(self)
+        print 'after clone()'
+        cloneBoard.printBoard()
+        self.printBoard()
+        print 'Python, go fuck yourself'
+
+        '''
         while True:
             if cloneBoard.isDone() == True:
                 misc.printCLOSED(CLOSED)
@@ -258,8 +309,10 @@ class Board:
             if nextBoard not in CLOSED:
                 CLOSED.append(nextBoard)
             cloneBoard.boardArr = nextBoard
-            # The Code commented out underneath is for me to remember what an idiot i am.
-            '''
+        
+
+        # The Code commented out underneath is for me to remember what an idiot i am.
+            
             #print len(CLOSED)
             #newBoard = Board()
             
@@ -295,3 +348,80 @@ class Board:
                     CLOSED.append(newBoardArr)
             #misc.printBoardArr(newBoardArr)
             '''
+
+    def graph(self):
+        paths = []
+        cloneBoard.clone(self)
+        i = 0
+        while True:
+            path = Path()
+            path.add(cloneBoard.boardArr)
+            nextBoards = cloneBoard.next()
+            for board in nextBoards:
+                clonePath = Path()
+                clonePath.clone(path)
+                clonePath.add(board)
+                paths.append(clonePath)
+    
+    def bfs(self):
+        openPaths = []
+        closedBoards = []
+        path = Path.Path()
+        cloneBoard = Board()
+        cloneBoard.clone(self)
+        path.add(cloneBoard)
+        openPaths.append(path)
+        openPaths[0].last().printBoard()
+        i = 0
+        while True:
+            if openPaths[0].last().isDone() == True:
+                openPaths[0].printPath()
+                print i
+                return openPaths[0]
+            cloneBoard.modifyBoard(openPaths[0].last().boardArr)
+            if i % 100 == 0:
+                print cloneBoard.printBoard()
+            nextBoards = cloneBoard.nextBoards()
+            for board in nextBoards:
+                board.printBoard()
+                if board not in closedBoards:
+                    clonePath = Path.Path()
+                    clonePath.clone(path)
+                    clonePath.add(board)
+                    openPaths.append(clonePath)
+            closedBoards.append(openPaths[0].last())
+            newPaths = openPaths[1:]
+            openPaths = newPaths
+            i += 1
+
+'''
+        if cloneBoard.isDone() == True:
+            cloneBoard.printBoard()
+            return
+        i = 0
+        while True:
+            nextBoards = cloneBoard.nextBoards()
+            for board in nextBoards:
+                path = Path()
+                path.add(cloneBoard)
+                path.add(board)
+                paths.append(path)
+
+
+
+
+
+
+        path = Path()
+        pathIndex = 0
+        cloneBoard.clone(self)
+        while True:
+            if cloneBoard.isDone() == True:
+                cloneBoard.printBoard()
+                return
+            pathBoards = cloneBoard.next()
+            for i in pathBoards:
+                newBoard = Board()
+                newBoard.boardArr = i
+                path
+'''

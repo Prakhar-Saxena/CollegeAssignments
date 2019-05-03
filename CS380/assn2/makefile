@@ -14,4 +14,7 @@ test: rushhour.py
 	python rushhour.py test
 
 random: rushhour.py
-	python rushhour.py random
+	python rushhour.py random "      |      |      |      |      |      "
+
+bfs: rushhour.py
+	python rushhour.py bfs "  o aa|  o   |xxo   |      |      |      "

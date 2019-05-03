@@ -5,6 +5,7 @@ import math
 import Board 
 import Car 
 import MiscFunctions as misc
+import Path
 
 
 command = str(sys.argv[1]) # storing the command
@@ -13,6 +14,7 @@ board = Board.Board()
 
 if len(sys.argv) > 2: # checking whether there's the optional argument for input
     boardString = str(sys.argv[2]) # storing the argument into an input string
+    print boardString
     board.createBoard(boardString)
 
 if command == "print":
@@ -23,7 +25,9 @@ elif command == "next":
     nextBoards = board.next()
     misc.printCLOSED(nextBoards)
 elif command == "random":
-    board.random(30)
+    board.random(10)
+elif command == "bfs":
+    board.bfs()
 elif command == "test":
     #print misc.findAll(board.boardArr, 'q')
     board.next_for_car('o')

@@ -8,17 +8,20 @@ import MiscFunctions as misc
 class Path:
     boards = []
 
-    def add(board):
+    def __init__(self):
+        boards = []
+
+    def add(self, board):
         self.boards.append(board)
         return
 
-    def clone(path):
+    def clone(self, path):
         self.boards = path.boards
         return
 
-    def last():
-        return boards[len(boards)]
+    def last(self):
+        return self.boards[len(self.boards)-1]
 
-    def printPath():
-        misc.printCLOSED(boards) #or boards.boardArr
+    def printPath(self):
+        misc.printCLOSED(self.boards) #or boards.boardArr
         return

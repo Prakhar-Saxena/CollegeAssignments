@@ -14,7 +14,6 @@ board = Board.Board()
 
 if len(sys.argv) > 2: # checking whether there's the optional argument for input
     boardString = str(sys.argv[2]) # storing the argument into an input string
-    print boardString
     board.createBoard(boardString)
 
 if command == "print":

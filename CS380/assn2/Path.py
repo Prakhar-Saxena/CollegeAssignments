@@ -6,10 +6,10 @@ import Board
 import MiscFunctions as misc
 
 class Path:
-    boards = []
+    #boards = []
 
     def __init__(self):
-        boards = []
+        self.boards = []
 
     def add(self, board):
         self.boards.append(board)
@@ -23,5 +23,8 @@ class Path:
         return self.boards[len(self.boards)-1]
 
     def printPath(self):
-        misc.printCLOSED(self.boards) #or boards.boardArr
+        boardArrs = []
+        for board in self.boards:
+            boardArrs.append(board.boardArr)
+        misc.printCLOSED(boardArrs) #or boards.boardArr
         return

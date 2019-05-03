@@ -14,17 +14,19 @@ CarNotIn = 'Car not in the Board'
 
 class Board:
     width, height = 6, 6
-    boardArr = [[0 for i in range(width)] for j in range(height)]
-    cars = []
+    #boardArr = [[0 for i in range(width)] for j in range(height)]
+    #cars = []
 
     def __init__(self):
         self.width, self.height = 6, 6
         defaultString = "  o aa|  o   |xxo   |ppp  q|     q|     q" #default construction as directed
+        self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
         rows = defaultString.split('|')
         for i in range(len(rows)):
             row = rows[i]
             rowElements = list(row)
             self.boardArr[i] = rowElements
+        self.cars = []
         cars = self.getCarsFromBoard()
         for carCh in cars:
             car = Car.Car(self.boardArr, carCh)
@@ -40,11 +42,9 @@ class Board:
             row = rows[i]
             rowElements = list(row)
             newBoardArr.append(rowElements)
-        misc.printBoardArr(newBoardArr)
         for i in range(len(newBoardArr)):
             for j in range(len(newBoardArr[i])):
                 self.boardArr[i][j] = newBoardArr[i][j]
-        misc.printBoardArr(self.boardArr)
 
     def modifyBoard(self, boardArr):
         self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
@@ -99,21 +99,12 @@ class Board:
             return car.orientation
         return
 
-    def clone(self, boardBoi): # cloning data from "boardBoi" to self)
-        print 'printing BoardBoi first'
-        boardBoi.printBoard()
-        print 'in clone()'
+    def clone(self, board): # cloning data from "board" to self)
         self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
-        self.printBoard()
-        print 'Printing boardBoi'
-        boardBoi.printBoard()
-        #board.printBoard()
-        for i in range(len(boardBoi.boardArr)):
-            for j in range(len(boardBoi.boardArr[i])):
-                self.boardArr[i][j] = boardBoi.boardArr[i][j]
-        #misc.printBoardArr(self.boardArr)
-        self.printBoard()
-        self.cars = boardBoi.cars
+        for i in range(len(board.boardArr)):
+            for j in range(len(board.boardArr[i])):
+                self.boardArr[i][j] = board.boardArr[i][j]
+        self.cars = board.cars
 
     def isCarInBoard(self, carCh):
         distinctElem = []
@@ -279,22 +270,12 @@ class Board:
         CLOSED = []
         CLOSED.append(self.boardArr)
         cars = self.getCarsFromBoard()
-        print 'kms'
-        self.printBoard()
         cloneBoard = Board()
-        print 'Printing cloneBoard:'
-        cloneBoard.printBoard()
-        
-        bitch = copy.deepcopy(self)
-        print 'printing bitch'
-        bitch.printBoard()
+        #for i in range(6):
+            #for j in range(6):
+                #bitch.boardArr[i][j] = self.boardArr[i][j]
         cloneBoard.clone(self)
-        print 'after clone()'
-        cloneBoard.printBoard()
-        self.printBoard()
-        print 'Python, go fuck yourself'
 
-        '''
         while True:
             if cloneBoard.isDone() == True:
                 misc.printCLOSED(CLOSED)
@@ -312,7 +293,7 @@ class Board:
         
 
         # The Code commented out underneath is for me to remember what an idiot i am.
-            
+            '''
             #print len(CLOSED)
             #newBoard = Board()
             
@@ -379,11 +360,9 @@ class Board:
                 print i
                 return openPaths[0]
             cloneBoard.modifyBoard(openPaths[0].last().boardArr)
-            if i % 100 == 0:
-                print cloneBoard.printBoard()
             nextBoards = cloneBoard.nextBoards()
             for board in nextBoards:
-                board.printBoard()
+                #board.printBoard()
                 if board not in closedBoards:
                     clonePath = Path.Path()
                     clonePath.clone(path)

@@ -355,28 +355,30 @@ class Board:
         path.add(cloneBoard)
         openPaths.append(path)
         openPaths[0].last().printBoard()
-        i = 0
+        pathCount = 1
         while True:
             #print 'i:',i
             #print openPaths[0].printPath()
             #print ''
             if openPaths[0].last().isDone() == True:
                 openPaths[0].printPath()
-                print i
+                print 'Path Count: ', pathCount
                 return openPaths[0]
             cloneBoard.modifyBoard(openPaths[0].last().boardArr)
             nextBoards = cloneBoard.nextBoards()
             for board in nextBoards:
                 #board.printBoard()
-                if board not in closedBoards:
+                if board.boardArr not in closedBoards:
                     clonePath = Path.Path()
                     clonePath.clone(path)
                     clonePath.add(board)
                     openPaths.append(clonePath)
-            closedBoards.append(openPaths[0].last())
+                    closedBoards.append(board.boardArr)
+                    pathCount += 1
+            closedBoards.append(openPaths[0].last().boardArr)
             newPaths = openPaths[1:]
             openPaths = newPaths
-            i += 1
+            #i += 1
 
     def h(self):
         car = Car.Car(self.boardArr, 'x')

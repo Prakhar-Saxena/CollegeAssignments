@@ -19,6 +19,8 @@ class Path:
         self.boards = path.boards
 
     def last(self):
+        if len(self.boards) < 1:
+            return
         return self.boards[len(self.boards)-1]
 
     def printPath(self):

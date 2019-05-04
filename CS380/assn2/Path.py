@@ -13,11 +13,10 @@ class Path:
 
     def add(self, board):
         self.boards.append(board)
-        return
 
     def clone(self, path):
+        #self.boards = []
         self.boards = path.boards
-        return
 
     def last(self):
         return self.boards[len(self.boards)-1]
@@ -27,4 +26,3 @@ class Path:
         for board in self.boards:
             boardArrs.append(board.boardArr)
         misc.printCLOSED(boardArrs) #or boards.boardArr
-        return

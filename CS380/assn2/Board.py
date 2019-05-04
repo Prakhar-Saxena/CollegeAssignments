@@ -48,10 +48,12 @@ class Board:
 
     def modifyBoard(self, boardArr):
         self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
+        self.boardArr = boardArr
+        '''
         for i in range(len(boardArr)):
             for j in range(len(boardArr[i])):
                 self.boardArr[i][j] = boardArr[i][j]
-        
+        '''
         '''for row in boardArr:
             a = []
             for element in row:
@@ -355,6 +357,9 @@ class Board:
         openPaths[0].last().printBoard()
         i = 0
         while True:
+            #print 'i:',i
+            #print openPaths[0].printPath()
+            #print ''
             if openPaths[0].last().isDone() == True:
                 openPaths[0].printPath()
                 print i
@@ -373,34 +378,16 @@ class Board:
             openPaths = newPaths
             i += 1
 
-'''
-        if cloneBoard.isDone() == True:
-            cloneBoard.printBoard()
-            return
-        i = 0
-        while True:
-            nextBoards = cloneBoard.nextBoards()
-            for board in nextBoards:
-                path = Path()
-                path.add(cloneBoard)
-                path.add(board)
-                paths.append(path)
+    def h(self):
+        car = Car.Car(self.boardArr, 'x')
+        distance = 5 - car.end2[1]
+        numCars = 0
+        for i in range(end2[1]+1,6):
+            if self.boardArr[end2[0]][i] != ' ':
+                numCars += 1
+        heuristic = car + numCars
+        return heuristic
 
-
-
-
-
-
-        path = Path()
-        pathIndex = 0
-        cloneBoard.clone(self)
-        while True:
-            if cloneBoard.isDone() == True:
-                cloneBoard.printBoard()
-                return
-            pathBoards = cloneBoard.next()
-            for i in pathBoards:
-                newBoard = Board()
-                newBoard.boardArr = i
-                path
-'''
+    def astar(self):
+        
+        return

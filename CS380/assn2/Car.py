@@ -8,12 +8,12 @@ import Board as Board
 CarNotIn = 'Car not in the Board'
 
 class Car:
-    carChar = ''
-    end1 = [0,0] #end1 comes before end2
-    end2 = [0,0]
-    length = 0
-    orientation = "" #vertical or horizontal
-    allCoordinates = []
+    #carChar = ''
+    #end1 = [0,0] #end1 comes before end2
+    #end2 = [0,0]
+    #length = 0
+    #orientation = "" #vertical or horizontal
+    #allCoordinates = []
 
     def __init__(self, boardArr, carCh): # takes the board and the car character
         if misc.isCarInBoard(boardArr, carCh) == False:

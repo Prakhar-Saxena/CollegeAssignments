@@ -18,3 +18,9 @@ random: rushhour.py
 
 bfs: rushhour.py
 	python rushhour.py bfs "      |      |xx   p|     p|     p|      "
+
+bfs2: rushhour.py
+	python rushhour.py bfs
+
+astar: rushhour.py
+	python rushhour.py astar "      |      |xx   p|     p|     p|      "

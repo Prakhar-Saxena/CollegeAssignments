@@ -16,7 +16,7 @@ class Path:
 
     def clone(self, path):
         #self.boards = []
-        self.boards = path.boards
+        self.boards = path.boards[:]
 
     def last(self):
         if len(self.boards) < 1:

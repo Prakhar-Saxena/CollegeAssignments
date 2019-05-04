@@ -358,14 +358,17 @@ class Board:
         pathCount = 1
         while True:
             #print 'i:',i
-            #print openPaths[0].printPath()
-            #print ''
+            print openPaths[0].printPath()
+            print ''
+            print ''
             if openPaths[0].last().isDone() == True:
+                print 'bfs Path'
                 openPaths[0].printPath()
                 print 'Path Count: ', pathCount
                 return openPaths[0]
             cloneBoard.modifyBoard(openPaths[0].last().boardArr)
             nextBoards = cloneBoard.nextBoards()
+            closedBoards.append(openPaths[0].last().boardArr)
             for board in nextBoards:
                 #board.printBoard()
                 if board.boardArr not in closedBoards:
@@ -375,7 +378,10 @@ class Board:
                     openPaths.append(clonePath)
                     closedBoards.append(board.boardArr)
                     pathCount += 1
-            closedBoards.append(openPaths[0].last().boardArr)
+                    if board.isDone() == True:
+                        clonePath.printPath()
+                        print 'Path Count : ', pathCount
+                        return clonePath
             newPaths = openPaths[1:]
             openPaths = newPaths
             #i += 1

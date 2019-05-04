@@ -10,6 +10,7 @@ class Path:
 
     def __init__(self):
         self.boards = []
+        self.score = 0
 
     def add(self, board):
         self.boards.append(board)
@@ -17,6 +18,7 @@ class Path:
     def clone(self, path):
         #self.boards = []
         self.boards = path.boards[:]
+        self.score = path.score
 
     def last(self):
         if len(self.boards) < 1:

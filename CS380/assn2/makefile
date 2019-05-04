@@ -24,3 +24,6 @@ bfs2: rushhour.py
 
 astar: rushhour.py
 	python rushhour.py astar "      |      |xx   p|     p|     p|      "
+
+astar2: rushhour.py
+	python rushhour.py astar

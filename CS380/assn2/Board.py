@@ -354,7 +354,7 @@ class Board:
         cloneBoard.clone(self)
         path.add(cloneBoard)
         openPaths.append(path)
-        openPaths[0].last().printBoard()
+        #openPaths[0].last().printBoard()
         pathCount = 1
         while True:
             #print 'i:',i
@@ -390,12 +390,53 @@ class Board:
         car = Car.Car(self.boardArr, 'x')
         distance = 5 - car.end2[1]
         numCars = 0
-        for i in range(end2[1]+1,6):
-            if self.boardArr[end2[0]][i] != ' ':
+        for i in range(car.end2[1]+1,6):
+            if self.boardArr[car.end2[0]][i] != ' ':
                 numCars += 1
-        heuristic = car + numCars
+        heuristic = numCars
+        if distance > 0:
+            heuristic += 1
         return heuristic
 
     def astar(self):
-        
-        return
+        openPaths = []
+        closedBoards = []
+        path = Path.Path()
+        cloneBoard = Board()
+        cloneBoard.clone(self)
+        path.add(cloneBoard)
+        path.score = cloneBoard.h()
+        openPaths.append(path)
+        #openPaths[0].last().printBoard()
+        pathCount = 1
+        while True:
+            #print 'i:',i
+            openPaths.sort(key=lambda x: x.score)
+            pathCount += 1
+            print openPaths[0].printPath()
+            print ''
+            print ''
+            if openPaths[0].last().isDone() == True:
+                print 'bfs Path'
+                openPaths[0].printPath()
+                print 'Path Count: ', pathCount
+                return openPaths[0]
+            cloneBoard.modifyBoard(openPaths[0].last().boardArr)
+            nextBoards = cloneBoard.nextBoards()
+            closedBoards.append(openPaths[0].last().boardArr)
+            for board in nextBoards:
+                #board.printBoard()
+                if board.boardArr not in closedBoards:
+                    clonePath = Path.Path()
+                    clonePath.clone(path)
+                    clonePath.add(board)
+                    clonePath.score = board.h() + len(clonePath.boards)
+                    openPaths.append(clonePath)
+                    closedBoards.append(board.boardArr)
+
+                    if board.isDone() == True:
+                        clonePath.printPath()
+                        print 'Path Count : ', pathCount
+                        return clonePath
+            newPaths = openPaths[1:]
+            openPaths = newPaths

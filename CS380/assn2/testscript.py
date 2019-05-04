@@ -1,5 +1,16 @@
 #!/usr/bin/env python3
 
+import Board as Board
+import Path as Path
+
+board = Board.Board()
+board.createBoard("      |      |xx  bp|    bp|    bp|      ")
+
+board.astar()
+
+#print board.h()
+
+'''
 width, height = 6, 6
 boardArr = [[0 for i in range(width)] for j in range(height)]
 
@@ -36,9 +47,9 @@ def find(l, elem): # https://stackoverflow.com/questions/6518291/using-index-on-
     return -1
 
 def findall(l, elem):
-    '''x = find(l, elem)
+    x = find(l, elem)
     print "x = ", x
-    print l[x[0]][x[1]]'''
+    print l[x[0]][x[1]]
     returnList = []
     c = find(l, elem)
     while c != -1:
@@ -59,3 +70,4 @@ print len(fa)
 print fa[0]
 print fa[2]
 print fa[len(fa)-1]
+'''

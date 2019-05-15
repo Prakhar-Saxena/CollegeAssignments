@@ -108,8 +108,3 @@ if __name__ == "__main__":
         board = Connect3Board(sys.argv[2] if len(sys.argv) > 2 else None)
         if cmd == 'print':
             print(board)
-
-b = Connect3Board()
-
-#def next(board):
-#    boards = board.next()

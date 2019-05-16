@@ -41,10 +41,32 @@ class Connect3Game:
                 print(w)
                 return
             if self.activeTurn == 'X':
-                self.board = self.player1.random()
+                self.board = self.player1.next()
                 self.changeTurns()
             elif self.activeTurn == 'O':
-                self.board = self.player2.random()
+                self.board = self.player2.next()
+                self.changeTurns()
+            CLOSED.append(self.board)
+            self.player1.modifyBoard(self.board)
+            self.player2.modifyBoard(self.board)
+    
+    def minimax(self):
+        player2 = Player.MinimaxPlayer(str(self.board),'O')
+        CLOSED = []
+        CLOSED.append(self.board)
+        cloneBoard = self.board.clone()
+        while True:
+            w = self.board.winner()
+            if w != None:
+                s = connect3.stringify_boards(CLOSED)
+                print(s)
+                print(w)
+                return
+            if self.activeTurn == 'X':
+                self.board = self.player1.next()
+                self.changeTurns()
+            elif self.activeTurn == 'O':
+                self.board = self.player2.next()
                 self.changeTurns()
             CLOSED.append(self.board)
             self.player1.modifyBoard(self.board)

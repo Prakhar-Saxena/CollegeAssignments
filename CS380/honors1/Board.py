@@ -20,6 +20,7 @@ class Board:
     def __init__(self):
         self.width, self.height = 6, 6
         defaultString = "  o aa|  o   |xxo   |ppp  q|     q|     q" #default construction as directed
+        self.boardString = defaultString
         self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
         rows = defaultString.split('|')
         for i in range(len(rows)):
@@ -38,6 +39,7 @@ class Board:
     def createBoard(self, inp): #inp will be the string from the cammand line argument
         newBoardArr = []
         rows = inp.split('|')
+        self.boardString = inp
         for i in range(len(rows)):
             row = rows[i]
             rowElements = list(row)
@@ -68,17 +70,25 @@ class Board:
             print '|',
             for element in row:
                 print element,
-            if i == 2: # exit position in the board
+            if i == 2 or i == 3: # exit position in the board
                 print ' '
             else:
                 print '|'
         print '  - - - - - -  '
 
     def isDone(self): # here I'm just ahrd coding the [2,5] position to be the winning one
-        if self.boardArr[2][5] == 'x' and self.boardArr[2][4] == 'x': # assuming the car is just two characters long
+        if (self.boardArr[2][5] == 'x' and self.boardArr[2][4] == 'x') or (self.boardArr[2][5] == 'y' and self.boardArr[2][4] == 'y'): # assuming the car is just two characters long
             return True
         else:
             return False
+
+    def winner(self):
+        if self.boardArr[2][5] == 'x' and self.boardArr[2][4] == 'x':
+            return 'x'
+        elif self.boardArr[3][5] == 'y' and self.boardArr[3][4] == 'y':
+            return 'y'
+        else:
+            return None
 
     def getCarsFromBoard(self):
         distinctElements = []
@@ -246,6 +256,30 @@ class Board:
                 if element not in distinctElements:
                     distinctElements.append(element)
         distinctElements.remove(' ')
+        for carCh in distinctElements:
+            next_for_car_CLOSED = self.next_for_car(carCh)
+            for movedBoard in next_for_car_CLOSED:
+                CLOSED.append(movedBoard)
+            #CLOSED.append(self.next_for_car(carCh))
+            #print 'in Loop: ',CLOSED
+        #CLOSED.remove(None)
+        #for board in CLOSED:
+            #misc.printBoardArr(board)
+        #CLOSED.remove([])
+        #misc.printCLOSED(CLOSED)
+        return CLOSED
+
+    def nextExcludingCar(self, c): # call next_for_car() for all the cars
+        CLOSED = []
+        #CLOSED.append('kms')
+        #print 'CLOSED HERE: ', CLOSED
+        distinctElements = []
+        for row in self.boardArr:
+            for element in row:
+                if element not in distinctElements:
+                    distinctElements.append(element)
+        distinctElements.remove(' ')
+        distinctElements.remove(c)
         for carCh in distinctElements:
             next_for_car_CLOSED = self.next_for_car(carCh)
             for movedBoard in next_for_car_CLOSED:

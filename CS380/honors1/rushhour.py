@@ -6,9 +6,11 @@ import Board
 import Car 
 import MiscFunctions as misc
 import Path
-
+import RushHourGame
 
 command = str(sys.argv[1]) # storing the command
+
+game = RushHourGame.RushHourGame()
 
 board = Board.Board()
 

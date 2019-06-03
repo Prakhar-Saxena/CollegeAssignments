@@ -80,6 +80,14 @@ class Board:
         else:
             return False
 
+    def winner(self):
+        if self.boardArr[2][5] == 'x' and self.boardArr[2][4] == 'x':
+            return 'x'
+        elif self.boardArr[3][5] == 'y' and self.boardArr[3][4] == 'y':
+            return 'y'
+        else:
+            return None
+
     def getCarsFromBoard(self):
         distinctElements = []
         for row in self.boardArr:

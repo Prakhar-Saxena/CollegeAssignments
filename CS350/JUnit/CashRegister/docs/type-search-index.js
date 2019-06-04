@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"<Unnamed>","l":"BillPack"},{"p":"<Unnamed>","l":"CashRegister"},{"p":"<Unnamed>","l":"CoinPack"},{"p":"<Unnamed>","l":"Drawer"},{"p":"<Unnamed>","l":"ITax"},{"p":"<Unnamed>","l":"PennsylvaniaTax"},{"p":"<Unnamed>","l":"Runner"},{"p":"<Unnamed>","l":"Util"}]

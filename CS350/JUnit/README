@@ -1,0 +1,43 @@
+Junit Lab for Drexel CS350
+
+I've covered all the methods, but for some reason, the line coverage is still not 100% for some classes.
+
+I found more than three bugs, but only three with my tests. The extra bug I found was I believe inteded for the extra credit.
+Also I've commented out the bugs and corrected them, in order to pass my tests.
+
+The first Bug is in CoinPack (around line 56)
+    public boolean pennies(long penny){
+        if(penny < 0) return false;
+        cents[0] = (penny);// BUG: cents[0] = (penny + 5);
+        return true;
+    }
+
+The second Bug is in Drawer (around line 50)
+    public Drawer(CoinPack cp, BillPack bp){
+        /* BUG
+        int randInt = rand.nextInt(100);
+        if(randInt < 40) bp = new BillPack();
+        */
+        this.cp = cp;
+        this.bp = bp;
+        this.totalCentValue = centValueFromBills(bp) + centValueFromCoins(cp);
+    }
+
+The third Bug is also in Drawer (around line 116)
+    public void depositBills(long one, long five, long ten, long twenty, long fifty, long hundred){
+        if(one < 0 || five < 0 || ten < 0 || twenty < 0 || fifty < 0 || hundred < 0)
+            throw new IllegalArgumentException("Can't deposit negative bill value");
+        /* BUG
+        int randInt = rand.nextInt(100);
+        if(randInt < 80) one = 100;
+        */
+        this.bp.ones(this.bp.ones() + one);
+        this.bp.fives(this.bp.fives() + five);
+        this.bp.tens(this.bp.tens() + ten);
+        this.bp.twenties(this.bp.twenties() + twenty);
+        this.bp.fifties(this.bp.fifties() + fifty);
+        this.bp.hundreds(this.bp.hundreds() + hundred);
+        this.totalCentValue += centValueFromBills(one, five, ten, twenty, fifty, hundred);
+    }
+
+Cheers

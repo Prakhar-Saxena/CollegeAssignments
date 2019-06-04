@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="maze-ui">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/maze-ui.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -46,4 +46,8 @@ class MinimaxPlayer(Player):
     def minimaxDecision(self):
         nextBoards = self.board.next()
         minValues = []
-
+        for nextBoard in nextBoards:
+            s = Minimax.minimax(nextBoard, self.label, 4, False)
+            minValues.append(s)
+        i = minValues.index(max(minValues))
+        return nextBoards[i]

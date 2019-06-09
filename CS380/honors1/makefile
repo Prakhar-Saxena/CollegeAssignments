@@ -4,3 +4,5 @@ main: rushhour.py
 minimax: rushhour.py
 	python rushhour.py minimax
 
+alphabeta: rushhour.py
+	python rushhour.py alphabeta

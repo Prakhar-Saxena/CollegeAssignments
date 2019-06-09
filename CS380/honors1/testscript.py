@@ -14,27 +14,27 @@ game = RushHourGame.RushHourGame()
 
 # game.random()
 
-# game.minimax_pruning()
+game.minimax_pruning()
 
 # start = time.time()
 
-xwin = 0
-ywin = 0
-draws = 0
+# xwin = 0
+# ywin = 0
+# draws = 0
 
-for i in range(100):
-    newGame = RushHourGame.RushHourGame()#'   |XO |   |   ')
-    w = newGame.minimax_pruning()
-    if w == 'x':
-        xwin += 1
-    elif w == 'y':
-        ywin += 1
-    elif w == None:
-        draws += 1
+# for i in range(100):
+#     newGame = RushHourGame.RushHourGame()#'   |XO |   |   ')
+#     w = newGame.minimax_pruning()
+#     if w == 'x':
+#         xwin += 1
+#     elif w == 'y':
+#         ywin += 1
+#     elif w == None:
+#         draws += 1
 
-print "x: ", xwin
-print "y: ", ywin
-print "There are no draws in these games."
+# print "x: ", xwin
+# print "y: ", ywin
+# print "There are no draws in these games."
 
 # board = Board.Board()
 

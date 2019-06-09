@@ -12,16 +12,18 @@ command = str(sys.argv[1]) # storing the command
 
 game = RushHourGame.RushHourGame()
 
-board = Board.Board()
+# board = Board.Board()
 
 if len(sys.argv) > 2: # checking whether there's the optional argument for input
     boardString = str(sys.argv[2]) # storing the argument into an input string
-    board.createBoard(boardString)
+    game.createGame(boardString)
 
 if command == "random":
     game.random()
 elif command == "minimax":
     game.minimax()
+elif command == "alphabeta":
+    game.minimax_pruning()
 
 '''
 

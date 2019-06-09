@@ -9,8 +9,15 @@ class RushHourGame:
         self.board = Board.Board()
         self.board.createBoard("    aa|      |xx    |yy   q|     q|     q")
         # self.board.printBoard()
-        self.player1 = Player.MinimaxPlayer(self.board.boardString, 'x')
-        self.player2 = Player.RandomPlayer(self.board.boardString, 'y')
+        self.player1 = Player.RandomPlayer(self.board.boardString, 'x')
+        self.player2 = Player.MinimaxPlayer(self.board.boardString, 'y')
+        self.activeTurn = 'x'
+    
+    def createGame(self, boardString):
+        self.board = Board.Board()
+        self.board.createBoard(boardString)
+        self.player1 = Player.RandomPlayer(self.board.boardString, 'x')
+        self.player2 = Player.MinimaxPlayer(self.board.boardString, 'y')
         self.activeTurn = 'x'
 
     def changeTurns(self):
@@ -53,7 +60,7 @@ class RushHourGame:
         self.player1 = Player.RandomPlayer(self.board.boardString, 'x')
         self.player2 = Player.MinimaxPlayer(self.board.boardString, 'y')
         CLOSED = []
-        CLOSED.append(self.board)
+        CLOSED.append(self.board.boardArr)
         cloneBoard = Board.Board()
         cloneBoard.clone(self.board)
         while True:
@@ -77,7 +84,7 @@ class RushHourGame:
         self.player1 = Player.RandomPlayer(self.board.boardString, 'x')
         self.player2 = Player.MinimaxAlphaBetaPlayer(self.board.boardString, 'y')
         CLOSED = []
-        CLOSED.append(self.board)
+        CLOSED.append(self.board.boardArr)
         cloneBoard = Board.Board()
         cloneBoard.clone(self.board)
         while True:
@@ -93,6 +100,6 @@ class RushHourGame:
                 self.board.createBoard(self.player2.minimaxDecisionABPruning().stringifyBoard())
                 self.changeTurns()
             CLOSED.append(self.board.boardArr)
-            self.board.printBoard()
+            # self.board.printBoard()
             self.player1.modifyBoard(self.board.stringifyBoard())
             self.player2.modifyBoard(self.board.stringifyBoard())

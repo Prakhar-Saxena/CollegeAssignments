@@ -20,6 +20,8 @@ class Board:
     def __init__(self):
         self.width, self.height = 6, 6
         defaultString = "  o aa|  o   |xxo   |ppp  q|     q|     q" #default construction as directed
+        self.boardString = defaultString
+        self.boardString = defaultString
         self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
         rows = defaultString.split('|')
         for i in range(len(rows)):
@@ -32,34 +34,51 @@ class Board:
             car = Car.Car(self.boardArr, carCh)
             self.cars.append(car)
 
-    def __eq__(self, other):
-        return self.boardArr == other.boardArr
+    # def __eq__(self, other):
+    #     return self.boardArr == other.boardArr
 
     def createBoard(self, inp): #inp will be the string from the cammand line argument
-        newBoardArr = []
+        # newBoardArr = []
+        self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
         rows = inp.split('|')
+        self.boardString = inp
         for i in range(len(rows)):
             row = rows[i]
             rowElements = list(row)
-            newBoardArr.append(rowElements)
-        for i in range(len(newBoardArr)):
-            for j in range(len(newBoardArr[i])):
-                self.boardArr[i][j] = newBoardArr[i][j]
+            self.boardArr[i] = rowElements
+        # for i in range(len(rows)):
+        #     row = rows[i]
+        #     rowElements = list(row)
+        #     newBoardArr.append(rowElements)
+        # for i in range(len(newBoardArr)):
+        #     for j in range(len(newBoardArr[i])):
+        #         self.boardArr[i][j] = newBoardArr[i][j]
+        cars = self.getCarsFromBoard()
+        for carCh in cars:
+            car = Car.Car(self.boardArr, carCh)
+            self.cars.append(car)
 
     def modifyBoard(self, boardArr):
         self.boardArr = [[0 for i in range(self.width)] for j in range(self.height)]
-        self.boardArr = boardArr
-        '''
         for i in range(len(boardArr)):
             for j in range(len(boardArr[i])):
                 self.boardArr[i][j] = boardArr[i][j]
-        '''
-        '''for row in boardArr:
-            a = []
-            for element in row:
-                a.append(element)
-            self.boardArr.append(a)
-            '''
+        # distinctElements = []
+        # for row in boardArr:
+        #     for element in row:
+        #         if element not in distinctElements:
+        #             distinctElements.append(element)
+        # try:
+        #     distinctElements.remove(' ')
+        # except:
+        #     pass
+        # self.cars = distinctElements
+        # '''for row in boardArr:
+        #     a = []
+        #     for element in row:
+        #         a.append(element)
+        #     self.boardArr.append(a)
+        #     '''
 
     def printBoard(self):
         print '  - - - - - -  '
@@ -68,17 +87,25 @@ class Board:
             print '|',
             for element in row:
                 print element,
-            if i == 2: # exit position in the board
+            if i == 2 or i == 3: # exit position in the board
                 print ' '
             else:
                 print '|'
         print '  - - - - - -  '
 
     def isDone(self): # here I'm just ahrd coding the [2,5] position to be the winning one
-        if self.boardArr[2][5] == 'x' and self.boardArr[2][4] == 'x': # assuming the car is just two characters long
+        if (self.boardArr[2][5] == 'x' and self.boardArr[2][4] == 'x') or (self.boardArr[2][5] == 'y' and self.boardArr[2][4] == 'y'): # assuming the car is just two characters long
             return True
         else:
             return False
+
+    def winner(self):
+        if self.boardArr[2][5] == 'x' and self.boardArr[2][4] == 'x':
+            return 'x'
+        elif self.boardArr[3][5] == 'y' and self.boardArr[3][4] == 'y':
+            return 'y'
+        else:
+            return None
 
     def getCarsFromBoard(self):
         distinctElements = []
@@ -86,7 +113,10 @@ class Board:
             for element in row:
                 if element not in distinctElements:
                     distinctElements.append(element)
-        distinctElements.remove(' ')
+        try:
+            distinctElements.remove(' ')
+        except:
+            pass
         return distinctElements
 
     def getCar(self, carCh):
@@ -114,7 +144,10 @@ class Board:
             for element in row:
                 if element not in distinctElem:
                     distinctElem.append(element)
-        distinctElem.remove(' ')
+        try:
+            distinctElem.remove(' ')
+        except:
+            pass
         if carCh not in distinctElem:
             return False
         else:
@@ -194,6 +227,51 @@ class Board:
         except IndexError:
             pass
             #print 'eh.. IndexError'
+    
+    def next_Board_for_car(self, carCh):
+        CLOSED = [] # list to store the states that have already been achieved
+        if misc.isCarInBoard(self.boardArr, carCh) == False:
+            print 'next_for_car(): ', CarNotIn
+        car = Car.Car(self.boardArr, carCh)
+        cloneBoard = Board()
+        #car.printDetails()
+        if car.orientation == 'horizontal':
+            directions = ['left', 'right']
+            for direction in directions:
+                for i in range(1,5):
+                    cloneBoard.clone(self)
+                    newBoardArr = cloneBoard.moveCar(carCh, direction, i)
+                    #cloneBoard.printBoard()
+                    if newBoardArr not in CLOSED and newBoardArr is not None:
+                        #print newBoardArr
+                        #CLOSED.append(cloneBoard)
+                        newClone = Board()
+                        newClone.createBoard(stringifyBoardArr(newBoardArr))
+                        CLOSED.append(newClone)
+        elif car.orientation == 'vertical':
+            directions = ['down', 'up']
+            for direction in directions:
+                for i in range(1,5):
+                    cloneBoard.clone(self)
+                    newBoardArr = cloneBoard.moveCar(carCh, direction, i)
+                    #cloneBoard.printBoard()
+                    if newBoardArr not in CLOSED and newBoardArr is not None:
+                        #print newBoardArr
+                        #CLOSED.append(cloneBoard)
+                        newClone = Board()
+                        newClone.createBoard(stringifyBoardArr(newBoardArr))
+                        CLOSED.append(newClone)
+        #CLOSED.remove(None)
+        #print CLOSED
+        #misc.printCLOSED(CLOSED)
+        #for board in CLOSED:
+            #print board
+            #board.printBoard()
+            #misc.printBoardArr(board)
+            #for row in board:
+                #print row
+            #print
+        return CLOSED        
 
     def next_for_car(self, carCh): # can take arguments as character
         CLOSED = [] # list to store the states that have already been achieved
@@ -245,7 +323,10 @@ class Board:
             for element in row:
                 if element not in distinctElements:
                     distinctElements.append(element)
-        distinctElements.remove(' ')
+        try:
+            distinctElements.remove(' ')
+        except:
+            pass
         for carCh in distinctElements:
             next_for_car_CLOSED = self.next_for_car(carCh)
             for movedBoard in next_for_car_CLOSED:
@@ -257,6 +338,24 @@ class Board:
             #misc.printBoardArr(board)
         #CLOSED.remove([])
         #misc.printCLOSED(CLOSED)
+        return CLOSED
+
+    def nextBoardsExcludingCar(self, c): # call next_for_car() for all the cars
+        CLOSED = []
+        distinctElements = []
+        for row in self.boardArr:
+            for element in row:
+                if element not in distinctElements:
+                    distinctElements.append(element)
+        try:
+            distinctElements.remove(' ')
+            distinctElements.remove(c)
+        except:
+            pass
+        for carCh in distinctElements:
+            next_Board_for_car_CLOSED = self.next_Board_for_car(carCh)
+            for movedBoard in next_Board_for_car_CLOSED:
+                CLOSED.append(movedBoard)
         return CLOSED
 
     def nextBoards(self): # returns the 1D board Object list instead of 3D list
@@ -440,3 +539,19 @@ class Board:
                         return clonePath
             newPaths = openPaths[1:]
             openPaths = newPaths
+
+    def stringifyBoard(self):
+        s = ""
+        for row in self.boardArr:
+            for e in row:
+                s+=e
+            s+="|"
+        return s[:-1]
+    
+def stringifyBoardArr(boardArr):
+    s = ""
+    for row in boardArr:
+        for e in row:
+            s+=e
+        s+="|"
+    return s[:-1]

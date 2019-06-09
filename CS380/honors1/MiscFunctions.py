@@ -12,7 +12,10 @@ def isCarInBoard(boardArr, carCh): # returns whether the passed car character is
         for element in row:
             if element not in distinctElements:
                 distinctElements.append(element)
-    distinctElements.remove(' ')
+    try:
+        distinctElements.remove(' ')
+    except:
+        pass
     if carCh not in distinctElements:
         return False
     else:
@@ -54,7 +57,7 @@ def printBoardArr(boardArr):
         print '|',
         for element in row:
             print element,
-        if i == 2: # exit position in the board
+        if i == 2 or i == 3: # exit positions in the board
             print ' '
         else:
             print '|'
@@ -74,7 +77,7 @@ def printClosedNAtATime(closed):
                 row = board[i]
                 for elem in row:
                     print elem,
-                if i == 2:
+                if i == 2 or i == 3:
                     print ' ',
                 else:
                     print '|',

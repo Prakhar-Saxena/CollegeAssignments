@@ -31,7 +31,7 @@ class RandomPlayer(Player):
         self.board.clone(nextBoards[boardIndex])
         return self.board
 
-class MinimaxPlayer(Player):
+class MinimaxCarPlayer(Player):
     def __init__(self, boardString, carCh):
         self.board = Board.Board()
         self.board.createBoard(boardString)
@@ -50,7 +50,7 @@ class MinimaxPlayer(Player):
         i = minValues.index(max(minValues))
         return nextBoards[i]
 
-class MinimaxAlphaBetaPlayer(Player):
+class MinimaxAlphaBetaCarPlayer(Player):
     def __init__(self, boardString, carCh):
         self.board = Board.Board()
         self.board.createBoard(boardString)
@@ -70,3 +70,10 @@ class MinimaxAlphaBetaPlayer(Player):
             minValues.append(s)
         i = minValues.index(max(minValues))
         return nextBoards[i]
+
+class MinimaxNoCarPlayer(Player):
+    def __init__(self, boardString):
+        self.board = Board.Board()
+        self.board.createBoard(boardString)
+        self.carCh = carCh
+        self.otherCar = 'x' if carCh == 'y' else 'y'

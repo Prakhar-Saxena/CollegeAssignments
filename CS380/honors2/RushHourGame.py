@@ -7,7 +7,7 @@ import MiscFunctions as Misc
 class RushHourGame:
     def __init__(self):
         self.board = Board.Board()
-        self.board.createBoard("    aa|      |xx    |yy   q|     q|     q")
+        self.board.createBoard("    aa|      |xx    |     q|     q|     q")
         # self.board.printBoard()
         self.player1 = Player.MinimaxPlayer(self.board.boardString, 'x')
         self.player2 = Player.RandomPlayer(self.board.boardString, 'y')
@@ -51,7 +51,7 @@ class RushHourGame:
 
     def minimax(self):
         self.player1 = Player.RandomPlayer(self.board.boardString, 'x')
-        self.player2 = Player.MinimaxPlayer(self.board.boardString, 'y')
+        self.player2 = Player.MinimaxCarPlayer(self.board.boardString, 'y')
         CLOSED = []
         CLOSED.append(self.board)
         cloneBoard = Board.Board()

@@ -1,73 +1,57 @@
 #!/usr/bin/env python3
 
-import Board as Board
-import Path as Path
+import sys
+import math
+import Board 
+import Car 
+import MiscFunctions as misc
+import Path
+import RushHourGame
 
-board = Board.Board()
-board.createBoard("      |      |xx  bp|    bp|    bp|      ")
+# command = str(sys.argv[1]) # storing the command
 
-board.astar()
+game = RushHourGame.RushHourGame()
 
-#print board.h()
+# game.random()
 
-'''
-width, height = 6, 6
-boardArr = [[0 for i in range(width)] for j in range(height)]
+# game.minimax_pruning()
 
-boardString = "  o aa|  o   |xxo   |ppp  q|     q|     q"
-def createB(string):
-    rows = string.split('|')
-    for i in range(len(rows)):
-        row = rows[i]
-        rowElements = list(row)
-        boardArr[i] = rowElements
-    return boardArr
+# start = time.time()
 
-def printBoard(arr):
-    print '  - - - - - -  '
-    for i in range(len(arr)):
-        row = arr[i]
-        print '|',
-        for element in row:
-            print element,
-        if i == 2: # exit position in the board
-            print ' '
-        else:
-            print '|'
-    print '  - - - - - -  '
+xwin = 0
+ywin = 0
+draws = 0
 
+for i in range(100):
+    newGame = RushHourGame.RushHourGame()#'   |XO |   |   ')
+    w = newGame.minimax_pruning()
+    if w == 'x':
+        xwin += 1
+    elif w == 'y':
+        ywin += 1
+    elif w == None:
+        draws += 1
 
-def find(l, elem): # https://stackoverflow.com/questions/6518291/using-index-on-multidimensional-lists
-    for row, i in enumerate(l):
-        try:
-            column = i.index(elem)
-        except ValueError:
-            continue
-        return row, column
-    return -1
+print "x: ", xwin
+print "y: ", ywin
+print "There are no draws in these games."
 
-def findall(l, elem):
-    x = find(l, elem)
-    print "x = ", x
-    print l[x[0]][x[1]]
-    returnList = []
-    c = find(l, elem)
-    while c != -1:
-        x = c[0]
-        y = c[1]
-        returnList.append([x,y])
-        l[x][y] = 'boi'
-        c = find(l, elem)
-    return returnList
+# board = Board.Board()
 
+# board.createBoard("      |      |xx    |     q|     q|     q")
 
-arr = createB(boardString)
-printBoard(arr)
+# print board.stringifyBoard()
 
-fa = findall(arr,'q')
-print fa
-print len(fa)
-print fa[0]
-print fa[2]
-print fa[len(fa)-1]
-'''
+# print board.stringifyBoard()
+
+# misc.printCLOSED(board.next())
+# misc.printCLOSED(board.nextExcludingCar('q'))
+
+# if len(sys.argv) > 2: # checking whether there's the optional argument for input
+#     boardString = str(sys.argv[2]) # storing the argument into an input string
+#     board.createBoard(boardString)
+
+# if command == "random":
+#     game.random()
+# elif command == "minimax":
+#     game.minimax()

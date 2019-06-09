@@ -76,7 +76,7 @@ class RushHourGame:
                 self.board.createBoard(self.player2.minimaxDecision().stringifyBoard())
                 self.changeTurns()
             CLOSED.append(self.board.boardArr)
-            self.board.printBoard()
+            # self.board.printBoard()
             self.player1.modifyBoard(self.board.stringifyBoard())
             self.player2.modifyBoard(self.board.stringifyBoard()) 
 

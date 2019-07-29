@@ -46,3 +46,20 @@
     (simulate
      zero-one-even-dfa  ; machine description
      '(0 1 0 0 1 0))))  ; input string
+
+(define figure-four-abc)
+
+(define figure-five-one-odd
+  '(q0
+     (((q0 1) q1) ((q0 0) q0) ((q1 1) q0) ((q1 0) q1))
+     (q1)))
+
+(define figure-five-one-even
+  '(q0
+     (((q0 0) q0) ((q0 1) q1) ((q1 1) q0) ((q1 0) q1))
+     (q0)))
+
+(define figure-seven-no-adj-one
+  '(q0
+     (((q0 1) q1) ((q0 0) q0) ((q1 0) q0) ((q1 1) q2) ((q2 0) q2) ((q2 1) q2))
+     '(q0 q1)))

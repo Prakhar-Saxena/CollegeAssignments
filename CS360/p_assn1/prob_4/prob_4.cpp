@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <stack>
+#include <vector>
 using namespace std;
 #define FAILED NULL
 typedef struct NODE *TREE;
@@ -15,20 +16,22 @@ typedef struct NODE *TREE;
 
 struct NODE {
 	char label;
-	TREE leftmostChild, rightSibling;
+	vector<TREE> child;
 };
 
-TREE makeNode0(char x);
 TREE makeNode1(char x, TREE t);
 TREE makeNode4(char x, TREE t1, TREE t2, TREE t3, TREE t4);
 TREE B();
 TREE S();
 TREE parseTree; /* holds the result of the parse */
 string nextTerminal; /* current position in input string */
+TREE makeTree(stack<string> S);
 
+void printStack(stack<string> S);
 void printPostorder(struct NODE* node);
 void printPreorder(struct NODE* node);
 int maxDepth(struct NODE* node);
+
 
 int main()
 {
@@ -37,42 +40,12 @@ int main()
 	// using 'E' for ENDM
 	parseTree = S();
 
-	printPostorder(parseTree);
-	cout << endl;
-	printPreorder(parseTree);
-	cout << endl;
+
 	cout << maxDepth(parseTree) << endl;
 
 	return 0;	
 }
 
-TREE makeNode0(char x)
-{
-	TREE root;
-	root = (TREE) malloc(sizeof(struct NODE));
-	root->label = x;
-	root->leftmostChild = NULL;
-	root->rightSibling = NULL;
-	return root;
-}
-
-TREE makeNode1(char x, TREE t)
-{
-	TREE root;
-	root = makeNode0(x);
-	root->leftmostChild = t;
-	return root;
-}
-
-TREE makeNode4(char x, TREE t1, TREE t2, TREE t3, TREE t4)
-{
-	TREE root;
-	root = makeNode1(x, t1);
-	t1->rightSibling = t2;
-	t2->rightSibling = t3;
-	t3->rightSibling = t4;
-	return root;
-}
 
 // (1) <B> ! ǫ
 // (2) <B> ! ( <B> ) <B>
@@ -90,12 +63,15 @@ TREE S()
 	stack<string> STACK;
 	STACK.push("S");
 	string LOOKAHEAD = nextTerminal.substr(0,1);
-
+	NODE root;
+	root->label = "S";
 	int i = 1;
-
+	TREE currentNode = *root;
 	TREE firstS, secondS, thirdS;
+	NODE saveNode;
 	
 	while(LOOKAHEAD != "E"){
+		TREE currentNode = *root;
 		if (STACK.top().substr(0,1) == LOOKAHEAD){
 			LOOKAHEAD = nextTerminal.substr(i,1);
 			i++;
@@ -104,59 +80,82 @@ TREE S()
 		else if (STACK.top().substr(0,1) == "S"){
 			if (LOOKAHEAD == "{"){
 				STACK.push("{T" + STACK.top().substr(1)); // production (2)
+				NODE left;
+				left.label = '{';
+				NODE right;
+				right.label = 'T';
+				currentNode->child.insert(left);
+				currentNode->child.insert(right);
+				currrentNode = *right;
 			}
 			else if(LOOKAHEAD == "s"){
 				STACK.push("s;" +  STACK.top().substr(1)); // production (3)
+				NODE left;
+				left.label = 's';
+				NODE right;
+				right.label = ';';
+				if(saveNode != FAILED)
+					currentNode = *saveNode;
 			}
 			else if(LOOKAHEAD == "w"){
 				STACK.push("wcS" +  STACK.top().substr(1)); // production (3)
+				NODE left;
+				left.label = 'w';
+				NODE middle;
+				middle.label = 'c';
+				NODE right;
+				right.label = 'S';
+				currentNode = *right;
 			}
 		}
 		else if (STACK.top().substr(0,1) == "T"){
 			if (LOOKAHEAD == "{" || LOOKAHEAD == "w" || LOOKAHEAD == "s"){
 				STACK.push("ST" + STACK.top().substr(1)); // production (4)
+				NODE left;
+				left.label = 'S';
+				NODE right;
+				right.label = 'T';
+				currentNode->child.insert(left);
+				currentNode->child.insert(right);
+				currentNode = *left;
+				saveNode = *right;
 			}
 			else if (LOOKAHEAD == "}"){
 				STACK.push("}" + STACK.top().substr(1)); // production (5)
+				NODE c;
+				c.label = '}';
+				currentNode->child.insert(c);
 			}
 		}
 	}
+
+	stack<string> newSTACK;
+
 	while(! STACK.empty()){
-		cout << STACK.top() << endl;
+		newSTACK.push(STACK.top());
 		STACK.pop();
 	}
-	return FAILED;
+	printStack(newSTACK);
+	return root;
 }
 
-void printPreorder(struct NODE* node) 
-{
-	if (node == NULL)
-		return;
-	/* first print data of node */
-	std::cout << node->label << " ";
-	
-	/* then recur on left sutree */
-	printPreorder(node->leftmostChild);
-	
-	/* now recur on right subtree */
-	printPreorder(node->rightSibling); 
+void printStack(stack<string> S){
+	stack<string> SN = S;
+	while(! SN.empty()){
+		cout << SN.top() << endl;
+		SN.pop();
+	}
 }
 
-
-void printPostorder(struct NODE* node) 
-{
-	if (node == NULL)
-		return;
-	
-	/* first recur on left subtree */
-	printPostorder(node->leftmostChild);
-	
-	/* then recur on right subtree */
-	printPostorder(node->rightSibling);
-	
-	/* now deal with the node */
-	std::cout << node->label << " "; 
-} 
+TREE makeTree(stack<string> S){
+	NODE init;
+	init->label = S.top();
+	S.pop();
+	while(! s.empty()){
+		S.top()
+		init->child = makeTree(S);
+	}
+}
 
 int maxDepth(struct NODE* node)  
 {

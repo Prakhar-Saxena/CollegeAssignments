@@ -1,0 +1,1 @@
+last1([ X ], X ) .last1([ X | Y ], Z) :- Y \= [], last1( Y , Z ).

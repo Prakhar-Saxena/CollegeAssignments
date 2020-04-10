@@ -1,5 +1,5 @@
 main:
-	gcc main.c -o main
+	gcc main.c generate.c -o main
 	./main
 
 clean:

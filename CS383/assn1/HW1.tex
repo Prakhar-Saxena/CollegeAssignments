@@ -1,0 +1,265 @@
+\title{CS 383 - Machine Learning}
+\author{
+        Assignment 1 - Regression
+}
+\date{}
+\documentclass[12pt]{article}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{comment}
+\usepackage{amsmath}
+
+\includecomment{versionB}
+%\excludecomment{versionB}
+
+\begin{document}
+\maketitle
+
+
+\section*{Introduction}
+In this assignment you will perform linear regression on a dataset and using cross-validation to analyze your results.  In addition to computing and applying the close-form solution, you will also implement from scratch a gradient descent algorithm for linear regression.\\
+
+\noindent
+As with all homeworks, you cannot use any functions that are against the ``spirit" of the assignment, unless explicitly told to do so.  For this assignment that would mean any linear regression functions.   You \emph{may} use statistical and linear algebra functions to do things like:
+\begin{itemize}
+\item mean
+\item std
+\item cov
+\item inverse
+\item matrix multiplication
+\item transpose
+\item etc...
+\end{itemize}
+
+
+\section*{Grading}
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Part 1 (Theory) & 19pts\\
+Part 2 (Closed-form LR) & 25pts\\
+Part 3 (Local LR) & 20pts\\
+Part 4 (GD LR) & 25pts\\
+Report & 11pts\\
+\hline
+\textbf{TOTAL} & 100 \\
+\hline
+\end{tabular}
+\caption{Grading Rubric}
+\end{center}
+\end{table}
+
+\newpage
+\section*{Datasets}
+\paragraph{Fish Length Dataset  (x06Simple.csv)}
+This dataset consists of 44 rows of data each of the form:
+\begin{enumerate}
+\item Index
+\item Age (days)
+\item Temperature of Water (degrees Celsius)
+\item Length of Fish
+\end{enumerate}
+The first row of the data contains header information.\\
+
+\noindent
+Data obtained from:  http://people.sc.fsu.edu/~jburkardt/datasets/regression/regression.html
+
+\newpage
+\section{Theory}
+\begin{enumerate}
+\item   (10pts) Consider the following supervised dataset:\\
+\begin{center}
+$X=
+ \begin{bmatrix}
+	-2\\
+	-5\\	
+	-3\\
+	0\\
+	-8\\
+	-2\\
+	1\\
+	5\\
+	-1\\
+	6\\
+\end{bmatrix},
+Y=
+ \begin{bmatrix}
+	1\\
+	-4\\	
+	1\\
+	3\\
+	11\\
+	5\\
+	0\\
+	-1\\
+	-3\\
+	1\\
+\end{bmatrix}
+$
+\end{center}
+	\begin{enumerate}
+	\item Compute the coefficients for the linear regression using least squares estimate (LSE).  Show your work and remember to add a bias feature.  You can use numpy.linalg.inv to compute the inverse.  Compute this model using \textbf{all} of the data (don't worry about separating into training and testing sets).\\
+	\item Confirm your coefficient and intercept term using the sklearn.linear\_model LinearRegression function.  
+	\end{enumerate}
+	
+\item For the function $J=(x_1+x_2-2)^2$, where $x_1$ and $x_2$ are a single valued variables (not vectors):
+\begin{enumerate}
+\item What are the partial gradients, $\frac{\partial J}{\partial x_1}$ and $\frac{\partial J}{\partial x_2}$?  Show work to support your answer. (4pts)
+\item Create a 3D plot of  $x_1$ vs $x_2$, vs $J$ using matplotlib. (4pts)
+\item Based on your plot, what are the values of $x_1$ and $x_2$ that minimize $J$? (2pts)
+\end{enumerate}
+
+\end{enumerate}
+
+\newpage
+\section{Closed Form Linear Regression}\label{linreg}
+Download the dataset \emph{x06Simple.csv} from Blackboard.  This dataset has header information in its first row and then all subsequent rows are in the format:
+\begin{center}
+$ROWId, x_{i,1}, x_{i,2}, y_i$
+\end{center}
+Your code should work on any CSV data set that has the first column be header information, the first column be some integer index, then $D$ columns of real-valued features, and then ending with a target value.\\
+
+\noindent
+\paragraph{Write a script that:}
+\begin{enumerate}
+  \item Reads in the data, ignoring the first row (header) and first column (index).
+  \item Randomizes the data
+  \item Selects the first 2/3 (round up) of the data for training and the remaining for testing
+  \item Standardizes the data (except for the last column of course) using the training data
+  \item Computes the closed-form solution of linear regression
+  \item Applies the solution to the testing samples
+ \item Computes the \emph{root mean squared error} (RMSE): $\sqrt{\frac{1}{N}\sum_{i=1}^N (Y_i-\hat{Y_i})^2}$. where $\hat{Y_i}$ is the predicted value for observation $X_i$.
+\end{enumerate}
+
+
+\paragraph{Implementation Details}
+\begin{enumerate}
+\item Seed the random number generate with zero prior to randomizing the data
+\item Don't forget to add in a bias feature!
+\end{enumerate}
+
+
+\paragraph{In your report you will need:}
+\begin{enumerate}
+\item The final model in the form $y=\theta_0+\theta_1x_{:,1} + ...$
+\item The root mean squared error.
+\end{enumerate}
+
+
+\newpage
+\section{Locally-Weighted Linear Regression}
+\noindent
+Next we'll do locally-weighted closed-form linear regression.  You may use \textbf{sklearn train\_test\_split} for this part.\\
+
+\paragraph{Write a script to:}
+\begin{enumerate}
+  \item Read in the data, ignoring the first row (header) and first column (index).
+  \item Randomize the data
+  \item Select the first 2/3 of the data for training and the remaining for testing
+  \item Standardize the data (except for the last column of course) using the training data
+  \item Then for each \emph{testing sample}
+  	\begin{enumerate}
+  	\item Compute the necessary distance matrices relative to the training data in order to compute a local model.
+  	\item Evaluate the testing sample using the local model.
+  	\item Compute the squared error of the testing sample.
+  	\end{enumerate}
+ \item Computes the \emph{root mean squared error} (RMSE): $\sqrt{\frac{1}{N}\sum_{i=1}^N (Y_i-\hat{Y_i})^2}$. where $\hat{Y_i}$ is the predicted value for observation $X_i$.
+\end{enumerate}
+
+
+\paragraph{Implementation Details}
+\begin{enumerate}
+\item Seed the random number generate with zero prior to randomizing the data
+\item Don't forget to add in the bias feature!
+\item Use the L1 distance when computing the distances $d(a,b)$.
+\item Let $k=1$ in the similarity function $\beta(a,b)= e^{-d(a,b)/k^2}$.
+\item Use \emph{all} training instances when computing the local model.
+\end{enumerate}
+
+
+\paragraph{In your report you will need:}
+\begin{enumerate}
+\item The root mean squared error.
+\end{enumerate}
+
+\newpage
+\section{Gradient Descent}
+As discussed in class Gradient Descent (Ascent) is a general algorithm that allows us to converge on local minima (maxima) when a closed-form solution is not available or is not feasible to compute.\\
+
+\noindent
+In this section you are going to implement a gradient descent algorithm to find the parameters for linear regression on the same data used for the previous sections.  You may \textbf{NOT} use any function for a ML library to do this for you, except  \textbf{sklearn train\_test\_split} for the data.\\
+
+\paragraph{Implementation Details}
+\begin{enumerate}
+\item Seed the random number generator prior to your algorithm.
+\item Don't forget to a bias feature!
+\item Initialize the parameters of $\theta$ using random values in the range [-1, 1]
+\item Do \textbf{batch} gradient descent
+\item Terminate when absolute value of the percent change in the RMSE on the \textbf{training} data is less than $2^{-23}$, or after $1,000$ iterations have passed (whichever occurs first).
+\item Use a learning rate $\eta=0.01$.
+\item Make sure that you code can work for an arbitrary number of observations and an arbitrary number of features.
+\end{enumerate}
+
+
+\paragraph{Write a script that:}
+\begin{enumerate}
+  \item Reads in the data, ignoring the first row (header) and first column (index).
+  \item Randomizes the data
+  \item Selects the first 2/3 (round up) of the data for training and the remaining for testing
+  \item Standardizes the data (except for the last column of course) base on the training data
+  \item While the termination criteria (mentioned above in the implementation details) hasn't been met
+  \begin{enumerate}
+  	\item Compute the RMSE of the \emph{training} data
+  	\item While we can't let the testing set affect our training process, also compute the RMSE of the testing error at each iteration of the algorithm (it'll be interesting to see).
+  	\item Update each parameter using \emph{batch} gradient descent
+  \end{enumerate}
+  \item Compute the RMSE of the testing data.
+\end{enumerate}
+
+
+
+\paragraph{What you will need for your report}
+\begin{enumerate}
+\item Final model
+\item A graph of the RMSE if the \emph{training} and \emph{testing} sets as a function of the iteration
+\item The final RMSE \emph{testing} error.
+\end{enumerate}
+
+
+\newpage
+\section*{Submission}
+For your submission, upload to Blackboard a single zip file containing:
+
+\begin{enumerate}
+\item PDF Writeup
+\item Source Code Jupyter Notebook
+\end{enumerate}
+
+\noindent
+The PDF document should contain the following:
+
+\begin{enumerate}
+\item Part 1:
+	\begin{enumerate}
+	\item Your solutions to the theory question
+	\end{enumerate}
+\item Part 2:
+	\begin{enumerate}
+	\item Final Model
+	\item RMSE
+	\end{enumerate}
+\item Part 3:
+	\begin{enumerate}
+	\item RMSE
+	\end{enumerate}	
+\item Part 4:
+	\begin{enumerate}
+	\item Final Model
+	\item RMSE
+	\item Plot of RMSE for Training and Testing Data vs Gradient Descent iteration number
+	\end{enumerate}
+\end{enumerate}
+\end{document}
+

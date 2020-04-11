@@ -14,3 +14,7 @@ def generate(n):
     return list
 
 print(generate(7))
+g = generate(7)
+f = open('pswd', 'w')
+for i in g:
+    f.write(str(i)+'\n')

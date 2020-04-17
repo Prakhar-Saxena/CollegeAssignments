@@ -2,8 +2,8 @@
 
 from random import randint
 
-def H(n):
-    return n + 273
+from H import H
+from misc import fileWriterList, fileWriterNum
 
 def generate(n):
     rndm = randint(0,100)
@@ -13,8 +13,9 @@ def generate(n):
         list.append(H(list[i-1]))
     return list
 
-print(generate(7))
-g = generate(7)
-f = open('pswd', 'w')
-for i in g:
-    f.write(str(i)+'\n')
+def doit(n):
+    g = generate(n)
+    fileWriterList(g[:-1],'user_passwords')
+    fileWriterNum(g[len(g)-1], 'server_password')
+
+doit(7)

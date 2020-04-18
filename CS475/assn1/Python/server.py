@@ -8,9 +8,8 @@ from misc import fileWriterList, fileWriterNum, fileReader
 
 filename = 'server_password'
 
-# pass_arg = int(sys.argv[1])
 
-address = ('localhost', 8181)
+address = ('localhost', 6000)
 listener = Listener(address, authkey='predator')
 conn = listener.accept()
 print('connection accepted from', listener.last_accepted)
@@ -29,3 +28,14 @@ while True:
         conn.close()
         break
 listener.close()
+
+'''
+pass_arg = int(sys.argv[1])
+password = int(fileReader(filename))
+password_received = int(pass_arg)
+if password == H(password_received):
+    print(True)
+    fileWriterNum(password_received, filename)
+else:
+    print(False)
+'''

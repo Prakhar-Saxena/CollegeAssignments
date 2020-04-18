@@ -3,7 +3,7 @@ from multiprocessing.connection import Client
 from user import getPassword
 
 address = ('localhost', 8181)
-conn = Client(address, authkey='3.14159265')
+conn = Client(address, authkey='predator')
 conn.send(getPassword('user_passwords'))
 conn.send('close')
 # can also send arbitrary objects:

@@ -10,15 +10,14 @@ filename = 'server_password'
 
 # pass_arg = int(sys.argv[1])
 
-password = int(fileReader(filename))
-
 address = ('localhost', 8181)
-listener = Listener(address, authkey='3.14159265')
+listener = Listener(address, authkey='predator')
 conn = listener.accept()
 print('connection accepted from', listener.last_accepted)
 while True:
     msg = conn.recv()
     
+    password = int(fileReader(filename))
     password_received = int(msg)
     if password == H(password_received):
         print(True)

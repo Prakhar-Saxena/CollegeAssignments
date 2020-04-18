@@ -16,6 +16,9 @@ port = 3141
 s.bind(('',port))
 print('socket binded to ', port)
 
+print('Hostname: ', socket.gethostname())
+print('IP: ', socket.gethostbyname(socket.gethostname()))
+
 s.listen(5)
 print('socket is listening')
 

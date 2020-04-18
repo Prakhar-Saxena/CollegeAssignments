@@ -1,14 +1,33 @@
 #!/usr/bin/env python3
 
 import sys
-from multiprocessing.connection import Listener
+import socket
 
 from H import H
 from misc import fileWriterList, fileWriterNum, fileReader
 
 filename = 'server_password'
 
+s = socket.socket()
+print('socket created')
 
+port = 3141
+
+s.bind(('',port))
+print('socket binded to ', port)
+
+s.listen(5)
+print('socket is listening')
+
+while True:
+    c, addr = s.accept()
+    print('Got connection from', addr)
+
+    c.send('Thank you for connecting')
+
+    c.close()
+
+'''
 address = ('localhost', 6000)
 listener = Listener(address, authkey='predator')
 conn = listener.accept()
@@ -28,14 +47,4 @@ while True:
         conn.close()
         break
 listener.close()
-
-'''
-pass_arg = int(sys.argv[1])
-password = int(fileReader(filename))
-password_received = int(pass_arg)
-if password == H(password_received):
-    print(True)
-    fileWriterNum(password_received, filename)
-else:
-    print(False)
 '''

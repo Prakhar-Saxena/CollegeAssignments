@@ -15,7 +15,7 @@ server:
 	python3 server.py
 
 client:
-	python3 client.py tux5 3141
+	python3 client.py tux4 3141
 
 cgs:
 	make clean generate server

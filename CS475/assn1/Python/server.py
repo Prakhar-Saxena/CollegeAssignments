@@ -21,33 +21,25 @@ print('IP: ', socket.gethostbyname(socket.gethostname()))
 
 s.listen(5)
 print('socket is listening')
+try:
+    while True:
+        c, addr = s.accept()
+        print('Got connection from', addr)
 
-while True:
-    c, addr = s.accept()
-    print('Got connection from', addr)
+        c.send(str.encode('Thank you for connecting'))
 
-    c.send('Thank you for connecting')
+        password: int = int(fileReader(filename))
+        password_received = c.recv(1024)
+        print('password received:', password_received)
 
-    c.close()
+        if password == H(int(password_received)):
+            print('Password Match!')
+            fileWriterNum(int(password_received), filename)
+            c.send(str.encode('Password Match!'))
+        else:
+            print('Invalid Pasword')
+            c.send(str.encode('Ivalid Password'))
 
-'''
-address = ('localhost', 6000)
-listener = Listener(address, authkey='predator')
-conn = listener.accept()
-print('connection accepted from', listener.last_accepted)
-while True:
-    msg = conn.recv()
-    
-    password = int(fileReader(filename))
-    password_received = int(msg)
-    if password == H(password_received):
-        print(True)
-        fileWriterNum(password_received, filename)
-    # else:
-    #     print(False)
-
-    if msg == 'close':
-        conn.close()
-        break
-listener.close()
-'''
+        c.close()
+except:
+    print('Didn\'t work')

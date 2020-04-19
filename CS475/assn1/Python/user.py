@@ -9,5 +9,3 @@ def getPassword(filename):
     fileWriterList(passwords, filename)
     print('Current Password', current_password)
     return current_password
-
-getPassword('user_passwords')

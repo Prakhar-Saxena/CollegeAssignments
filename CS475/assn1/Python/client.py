@@ -1,26 +1,38 @@
+#!/usr/bin/env python3
+
+import sys
 from multiprocessing.connection import Client
 import socket
 
 from user import getPassword
 
+if len(sys.argv) != 3:
+    print('Invalid inpt')
+    sys.exit()
+
+hostname = sys.argv[1]
+port = sys.argv[2]
+
 s = socket.socket()
 
-port = 3141
+print('Attempting to connect to')
+print('\thost:', hostname)
 
-s.connect((socket.gethostbyname('tux2'), port))
+try:
+    ip = socket.gethostbyname(hostname)
+    print('\tIP:', ip)
 
-print('server IP: ', socket.gethostbyname('tux2'))
-
-print(s.recv(1024))
-s.close()
+    s.connect((ip, int(port)))
 
 
-'''
-address = ('localhost', 6000)
-conn = Client(address, authkey='predator')
-conn.send(getPassword('user_passwords'))
-conn.send('close')
-# can also send arbitrary objects:
-# conn.send(['a', 2.5, None, int, sum])
-conn.close()
-'''
+    password = getPassword('user_passwords')
+
+    print(s.recv(1024))
+
+    s.send(str.encode(password))
+
+    print(s.recv(1024))
+
+    s.close()
+except:
+    print('Didn\'t work')

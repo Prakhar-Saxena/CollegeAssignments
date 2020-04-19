@@ -1,2 +1,0 @@
-S:\workspace\CollegeAssignments\CS475\assn1\assn1\Debug\assn1.exe
-S:\workspace\CollegeAssignments\CS475\assn1\assn1\Debug\assn1.pdb

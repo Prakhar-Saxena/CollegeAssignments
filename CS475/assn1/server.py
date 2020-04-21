@@ -1,26 +1,33 @@
 #!/usr/bin/env python3
 
+'''
+https://www.geeksforgeeks.org/socket-programming-python/
+'''
+
 import sys
 import socket
 
 from H import H
 from misc import fileWriterList, fileWriterNum, fileReader
 
-filename = 'server_password'
+try:
+    filename = 'server_password'
 
-s = socket.socket()
-print('socket created')
+    s = socket.socket()
+    print('socket created')
 
-port = 3141
+    port = 3141
 
-s.bind(('',port))
-print('socket binded to ', port)
+    s.bind(('',port))
+    print('socket binded to ', port)
 
-print('Hostname: ', socket.gethostname())
-print('IP: ', socket.gethostbyname(socket.gethostname()))
+    print('Hostname: ', socket.gethostname())
+    print('IP: ', socket.gethostbyname(socket.gethostname()))
 
-s.listen(5)
-print('socket is listening')
+    s.listen(5)
+    print('socket is listening')
+except:
+    print('Didn\'t work')
 try:
     while True:
         c, addr = s.accept()

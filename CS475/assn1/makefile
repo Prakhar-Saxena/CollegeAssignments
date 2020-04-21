@@ -1,5 +1,5 @@
 main:
-	python3 generate.py
+	make clean generate
 
 test:
 	python3 test.py
@@ -15,7 +15,7 @@ server:
 	python3 server.py
 
 client:
-	python3 client.py tux4 3141
+	python3 client.py tux5 3141
 
 cgs:
 	make clean generate server

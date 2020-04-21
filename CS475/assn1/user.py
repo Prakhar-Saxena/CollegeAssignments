@@ -9,3 +9,6 @@ def getPassword(filename):
     fileWriterList(passwords, filename)
     print('Current Password', current_password)
     return current_password
+
+if __name__ == '__main__':
+    getPassword('user_passwords')

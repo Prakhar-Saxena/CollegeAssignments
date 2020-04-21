@@ -6,7 +6,7 @@ from H import H
 from misc import fileWriterList, fileWriterNum
 
 def generate(n):
-    rndm = randint(0,100)
+    rndm = randint(10000,100000)
     list = []
     list.append(H(rndm))
     for i in range(1,n):
@@ -18,4 +18,4 @@ def doit(n):
     fileWriterList(g[:-1],'user_passwords')
     fileWriterNum(g[len(g)-1], 'server_password')
 
-doit(7)
+doit(10)

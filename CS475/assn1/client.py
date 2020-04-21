@@ -10,12 +10,15 @@ import socket
 
 from user import getPassword
 
-if len(sys.argv) != 3:
+if len(sys.argv) < 3:
     print('Invalid inpt')
     sys.exit()
 
 hostname = sys.argv[1]
 port = sys.argv[2]
+pw = ''
+if len(sys.argv) > 3:
+    pw = sys.argv[3]
 
 s = socket.socket()
 
@@ -28,14 +31,21 @@ try:
 
     s.connect((ip, int(port)))
 
-
-    password = getPassword('user_passwords')
+    password = ''
+    if pw == '':
+        password = getPassword('user_passwords')
+    else:
+        password = pw
 
     print(s.recv(1024))
 
     s.send(str.encode(password))
 
-    print(s.recv(1024))
+    status = s.recv(1024)
+    if status == 'Password Match!':
+        getPassword('user_passwords')
+
+    print(status)
 
     s.close()
 except:

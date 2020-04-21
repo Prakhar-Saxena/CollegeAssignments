@@ -14,12 +14,12 @@ SELECT COUNT(DISTINCT(team)) FROM nba WHERE season = '2017-18';
 
 -- this is for Q2
 
-SELECT player, salary FROM nba ORDER BY salary DESC LIMIT 1;
+SELECT player, salary FROM nba ORDER BY salary DESC FETCH first 1 rows only;
 
 
 -- this is for Q3
 
-SELECT player, salary, team, season FROM nba ORDER BY salary ASC LIMIT 1;
+SELECT player, salary, team, season FROM nba ORDER BY salary ASC FETCH first 1 rows only; -- NOT USING LIMIT!
 
 
 -- this is for Q4
@@ -45,12 +45,12 @@ SELECT team, MIN(season_start) AS "first", MAX(season_end) AS "last", COUNT(DIST
 
 -- this is for Q8
 
-SELECT team, MIN(season_start) AS "first" FROM nba GROUP BY team ORDER BY "first" DESC LIMiT 1;
+SELECT team, MIN(season_start) AS "first" FROM nba GROUP BY team ORDER BY "first" DESC FETCH first 1 rows only;
 
 
 -- this is for Q9
 
-SELECT team, COUNT(DISTINCT(player)) AS "no_player" from nba GROUP BY team ORDER BY "no_player" DESC LIMIT 1;
+SELECT team, COUNT(DISTINCT(player)) AS "no_player" from nba GROUP BY team ORDER BY "no_player" DESC FETCH first 1 rows only;
 
 
 -- this is for Q10

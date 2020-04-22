@@ -1,0 +1,35 @@
+Hi,
+this README shall suffice as my design document and test report.
+
+Firstly, I'll share how exactly to run this program.
+	
+	You will need two tux sessions, one for the server, one for the client.
+	Now whichever tux session you choose for server, please note that down, for this instance let's say it's 'tux5'.
+	now on the client session, I will need you to change the makefile a tad bit, I just need you to change the argument passed into 'client'. The way I've designed it, it takes in the tux session as an argument. It will make sense once you open the makefile. I apologize that you have to do this, but it's just to make it easier for you to run it.
+	Now, in the tux session for server enter:
+		make clean
+		make generate
+		make server
+		
+		OR just type:
+			make cgs
+
+	This should start the server.
+
+	Now in the tux session of the client, I'll assume that you made that makefile client change; all you need to do is to type in:
+		make client
+
+	And that's it! Viola, the client should send an passowrd, every time you run 'make client'. and when it runs out, it should print out 'Didn't work'
+
+	I tried to keep things as simple as possible, I'm taking 19 credits this term and working part-time, so it is really hard for me to dedicate longer hours into any assignment in any course whatsoever.
+
+
+Now about the Hash function:
+	my hash function is not that complicated, I add the digits oft he argument passed into the function and I add that sum to the number and return that.
+	The reason, why I designed this Hash was becuase it made sense to me that creating an inverse function of this function wouldn't be too easy, when I was writing it, I actually thought it would be impossible, soon to realise that it probably isn't impossible.
+	Another obvious thing of note is that I created a hash function only for numbers and not characters, I did it because that's what I've seeen many corporate entities use.
+
+
+Now the testing, I tried entering differnt values through client into the server, and I handle all those exceptions/errors with printing 'Didn't work'. Again, I kept it all really simple.
+I did add the functionality in client to take a password to pass into the server. you would have to type in:
+	python3 client.py tux5 3141 <password>

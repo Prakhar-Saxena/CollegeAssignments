@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import Card
+from Card import Card
+
 
 class Hand:
     def __init__(self, cards):
@@ -23,7 +24,7 @@ class Hand:
             return card1V * 100
         else:
             return card1V + card2V
-    
+
     def getCards(self):
         return self.cards
 
@@ -33,7 +34,7 @@ class Hand:
             cardValues.append(card.getCardValue())
         return cardValues
 
-    def addCardToHand(self, cardValue):
+    def addCard(self, cardValue):
         if self.numCards() > 2:
             print('Can\'t add the card, already have a pair')
             return False
@@ -68,18 +69,18 @@ class Hand:
         return self.discard(3)
 
     def discard(self, cardValue):
-        if !self.inHand(cardValue):
+        if self.inHand(cardValue):
             return False
         for card in self.cards:
             if card.getCardValue == cardValue:
                 self.cards.remove(card)
-                print(card, 'discarded from hand.')
+                print(str(card), 'discarded from hand.')
                 return True
 
-    def swapCardsByValue(self, cardOutValue, cardInValue):
-        if !self.discard(cardOutValue):
-            print('Can\'t swap card, because', cardOutValue, 'doesn\'t exist in the hand.')
+    def swapCards(self, cardOutValue, cardInValue):
+        if not self.discard(cardOutValue):
+            print('Can\'t swap card, because', str(cardOutValue), 'doesn\'t exist in the hand.')
             return False
         else:
-            addCardToHandByValue(cardInValue)
+            self.addCard(cardInValue)
             return True

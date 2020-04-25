@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import Card
-import Deck
-import Hand
+from Card import Card
+from Deck import Deck
+from Hand import Hand
+
 
 class Player:
     def __init__(self, name, hand):
@@ -34,6 +35,10 @@ class Player:
         if self.hand.discard(cardValue):
             print(self, 'is discarding a ', cardValue)
 
+    def swapCard(self):
+        raise NotImplementedError('swapCard() not implemented')
+
+
 '''
     def drawCard(self, deck):
         if len(self.hand.numCards()) >= 2:
@@ -42,6 +47,3 @@ class Player:
             self.hand.addCardToHand(deck.drawCard())
             print('now the Player\'s hand has', self.hand)
 '''
-
-    def swapCard(self):
-        raise NotImplementedError('swapCard() not implemented')

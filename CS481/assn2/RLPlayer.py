@@ -22,19 +22,35 @@ class RLPlayer(Player):
             print('Can\'t instantiate Player, because can\'t draw 2 cards from teh deck')
 
     def getCurrentState(self):
-        cardValues = self.hand.getCardValues()
-        return tuple(sorted((cardValues[0], cardValues[1])))
+        return tuple(sorted(self.hand.getCardValues()))
 
-    def getStatesOnMove(self, move):
-        possibleStates = []
-        currentState = self.getCurrentState()
-        legalMoves = self.getLegalMoves()
-        if move not in legalMoves:
+    def getStatesOnMove(self, move):  # 0 means stand; 1 means discard 1; 2 means discard 2; 3 means discard 3
+        if move == 0:
+            return [self.getCurrentState()]
+        if move not in self.getLegalMoves():
             return None
         else:
-            for legalMove in legalMoves:
+            possibleStates = []
+            currentState = self.getCurrentState()
+            for i in range(1, 4):
                 testHand = Hand([Card(currentState[0]), Card(currentState[1])])
-                testHand.s
+                testHand.swapCards(move, i)  # don't have to worry about move card existing because it's checked earlier
+                possibleStates.append(tuple(sorted(testHand.getCardValues())))
+            return possibleStates
+
+    def getProbability(self, stateI, stateJ):  # it's an approximation
+        stateI = tuple(sorted(stateI))
+        stateJ = tuple(sorted(stateJ))
+        intersectionSet = set(stateI).intersection(set(stateJ))
+        if len(intersectionSet) == 0:
+            return 0
+        deck = [1, 2, 3, 1, 2, 3, 1, 2, 3]
+        deck.remove(stateI[0])
+        deck.remove(stateI[1])
+        changeCard = tuple(set(stateJ).difference(set(stateI)))[0]
+        return deck.count(changeCard) / len(deck)
+
+
 
     def getLegalMoves(self):
         legalMoves = []

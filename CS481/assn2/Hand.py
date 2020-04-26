@@ -10,6 +10,7 @@ class Hand:
             return
         else:
             self.cards = cards[:]
+            self.sortCards()
 
     def __str__(self):
         cardValues = []
@@ -32,9 +33,11 @@ class Hand:
             return card1V + card2V
 
     def getCards(self):
+        self.sortCards()
         return self.cards
 
     def getCardValues(self):
+        self.sortCards()
         cardValues = []
         for card in self.cards:
             cardValues.append(card.getCardValue())
@@ -43,6 +46,7 @@ class Hand:
     def addCard(self, cardValue):
         if self.canAdd():
             self.cards.append(Card(cardValue))
+            self.sortCards()
             return True
         else:
             print('Can\'t add the card, already have a pair')

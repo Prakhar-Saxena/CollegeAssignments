@@ -24,7 +24,7 @@ v = [((1, 1), 0.5),
 
 class PreschoolPoker:
     def __init__(self, player1Name, player1Type, player2Name, player2Type):
-        initialCardsInDeck = [Card(1), Card(2), Card(3), Card(1), Card(2), Card(3)]
+        initialCardsInDeck = [Card(1), Card(2), Card(3), Card(1), Card(2), Card(3), Card(1), Card(2), Card(3)]
         self.deck = Deck(initialCardsInDeck)
         self.player1 = self.getPlayer(player1Name, player1Type)
         self.player2 = self.getPlayer(player2Name, player2Type)
@@ -58,15 +58,11 @@ class PreschoolPoker:
 def main():
     initialCardsInDeck = [Card(1), Card(2), Card(3), Card(1), Card(2), Card(3)]
     deck = Deck(initialCardsInDeck)
-    hand = Hand([Card(3), Card(2)])
-    print(hand)
-    hand.sortCards()
-    print(hand)
-    # print(deck)
+    print(deck)
     # # player = Player('eh', deck)
-    # randy = Randy('Random Player', deck)
+    randy = Randy('Random Player', deck)
     # # deepPreschooler = DeepPreschooler(deck)
-    # # Human = Human(deck)
+    # Human = Human(deck)
     # randy.makeAMove(deck)
     # print(deck)
 

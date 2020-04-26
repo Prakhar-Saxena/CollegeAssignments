@@ -50,4 +50,4 @@ class Player:
         return self.hand.numCards()
 
     def makeAMove(self, deck):
-        raise NotImplementedError('swapCard() not implemented')
+        raise NotImplementedError('makeAMove() not implemented')

@@ -16,6 +16,11 @@ class Deck:
             cardValues.append(str(card.getCardValue()))
         return 'Cards in Deck: ' + ', '.join(cardValues)
 
+    def getCardValues(self):
+        cardValues = []
+        for card in self.cards:
+            self.append = cardValues.append(card.getCardValue())
+
     def numCards(self):
         return len(self.cards)
 

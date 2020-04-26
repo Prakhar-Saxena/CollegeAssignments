@@ -17,6 +17,9 @@ class Hand:
             cardValues.append(str(card.getCardValue()))
         return 'Cards in Hand: ' + ', '.join(cardValues)
 
+    def sortCards(self):
+        self.cards = sorted(self.cards)
+
     def getHandValue(self):
         if self.numCards() != 2:
             return 0
@@ -72,6 +75,7 @@ class Hand:
             if card.getCardValue() == cardValue:
                 self.cards.remove(card)
                 print(str(card), 'discarded from hand.')
+                self.sortCards()
                 return True
 
     def swapCards(self, cardOutValue, cardInValue):
@@ -80,4 +84,5 @@ class Hand:
             return False
         else:
             self.addCard(cardInValue)
+            self.sortCards()
             return True

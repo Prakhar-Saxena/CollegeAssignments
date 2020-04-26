@@ -12,7 +12,10 @@ class Hand:
             self.cards = cards[:]
 
     def __str__(self):
-        return ', '.join(self.cards)
+        cardValues = []
+        for card in self.cards:
+            cardValues.append(str(card.getCardValue()))
+        return 'Cards in Hand: ' + ', '.join(cardValues)
 
     def getHandValue(self):
         if self.numCards() != 2:
@@ -48,7 +51,7 @@ class Hand:
     def hasPair(self):
         if self.numCards() < 2:
             return False
-        if self.cards[0].value == self.cards[1].value:
+        if self.cards[0].getCardvalue() == self.cards[1].getCardvalue():
             return True
         else:
             return False
@@ -62,17 +65,11 @@ class Hand:
     def canAdd(self):
         return True if self.numCards() < 2 else False
 
-    def inHand(self, cardValue):
-        for card in self.cards:
-            if card.getCardValue == cardValue:
-                return True
-        return False
-
     def discard(self, cardValue):
-        if self.inHand(cardValue):
+        if not self.hasA(cardValue):
             return False
         for card in self.cards:
-            if card.getCardValue == cardValue:
+            if card.getCardValue() == cardValue:
                 self.cards.remove(card)
                 print(str(card), 'discarded from hand.')
                 return True

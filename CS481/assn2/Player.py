@@ -6,15 +6,24 @@ from Hand import Hand
 
 
 class Player:
-    def __init__(self, name, hand):
+    def __init__(self, name, deck):
         self.name = name
-        self.hand = hand
+        if deck.canDraw2():
+            card1 = deck.drawCard()
+            card2 = deck.drawCard()
+            self.hand = Hand([card1, card2])
+            print(self.name, 'initialised with ', str(self.hand))
+        else:
+            print('Can\'t instantiate Player, because can\'t draw 2 cards from teh deck')
 
     def __str__(self):
-        return self.name + '\n\t Hand: ' + str(self.hand)
+        return self.name + '\n\t ' + str(self.hand)
+
+    def getHandValue(self):
+        return self.hand.getHandValue()
 
     def addCard(self, deck):
-        if deck.canDraw() and self.hand.canAdd() :
+        if deck.canDraw() and self.hand.canAdd():
             deck.drawCard()
             return True
         else:
@@ -31,10 +40,10 @@ class Player:
 
     def discard(self, cardValue):
         if self.hand.discard(cardValue):
-            print(self, 'is discarding a', cardValue)
+            # print(self, 'is discarding a', cardValue)
             return True
         else:
-            print(self, 'can\'t discard a', cardValue)
+            # print(self, 'can\'t discard a', cardValue)
             return False
 
     def cardsInHand(self):

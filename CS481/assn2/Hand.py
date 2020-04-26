@@ -15,7 +15,7 @@ class Hand:
         return ', '.join(self.cards)
 
     def getHandValue(self):
-        if self.numCards() < 2:
+        if self.numCards() != 2:
             return 0
 
         card1V = self.cards[0].getCardValue()
@@ -35,17 +35,17 @@ class Hand:
         return cardValues
 
     def addCard(self, cardValue):
-        if self.numCards() > 2:
-            print('Can\'t add the card, already have a pair')
-            return False
-        else:
+        if self.canAdd():
             self.cards.append(Card(cardValue))
             return True
+        else:
+            print('Can\'t add the card, already have a pair')
+            return False
 
     def numCards(self):
         return len(self.cards)
 
-    def isPair(self):
+    def hasPair(self):
         if self.numCards() < 2:
             return False
         if self.cards[0].value == self.cards[1].value:
@@ -53,20 +53,20 @@ class Hand:
         else:
             return False
 
+    def hasA(self, cardValue):
+        for card in self.cards:
+            if card.getCardValue() == cardValue:
+                return True
+        return False
+
+    def canAdd(self):
+        return True if self.numCards() < 2 else False
+
     def inHand(self, cardValue):
         for card in self.cards:
             if card.getCardValue == cardValue:
                 return True
         return False
-
-    def discard1(self):
-        return self.discard(1)
-
-    def discard2(self):
-        return self.discard(2)
-
-    def discard3(self):
-        return self.discard(3)
 
     def discard(self, cardValue):
         if self.inHand(cardValue):

@@ -13,37 +13,32 @@ class Player:
     def __str__(self):
         return self.name + '\n\t Hand: ' + str(self.hand)
 
-    def discard1(self):
-        if self.hand.discard1():
-            print(self, 'is discarding a 1')
+    def addCard(self, deck):
+        if deck.canDraw() and self.hand.canAdd() :
+            deck.drawCard()
             return True
         else:
-            print(self, 'can\'t discard a 1')
+            return False
+
+    def discard1(self):
+        return self.discard(1)
 
     def discard2(self):
-        if self.hand.discard2():
-            print(self, 'is discarding a 2')
-            return True
-        else:
-            print(self, 'can\'t discard a 2')
+        return self.discard(2)
 
     def discard3(self):
-        if self.hand.discard3():
-            print(self, 'is discarding a 3')
+        return self.discard(3)
 
     def discard(self, cardValue):
         if self.hand.discard(cardValue):
-            print(self, 'is discarding a ', cardValue)
-
-    def swapCard(self):
-        raise NotImplementedError('swapCard() not implemented')
-
-
-'''
-    def drawCard(self, deck):
-        if len(self.hand.numCards()) >= 2:
-            print('Player can\'t draw any more cards')
+            print(self, 'is discarding a', cardValue)
+            return True
         else:
-            self.hand.addCardToHand(deck.drawCard())
-            print('now the Player\'s hand has', self.hand)
-'''
+            print(self, 'can\'t discard a', cardValue)
+            return False
+
+    def cardsInHand(self):
+        return self.hand.numCards()
+
+    def makeAMove(self, deck):
+        raise NotImplementedError('swapCard() not implemented')

@@ -1,0 +1,51 @@
+players.csv
+    PLAYER_NAME = Player's name
+    TEAM_ID = ID of the team
+    PLAYER_ID = ID of the player
+    SEASON = Season
+
+teams.csv
+    LEAGUE_ID = ID of the league (here only NBA)
+	TEAM_ID = ID of the team
+	MIN_YEAR = Minimum year of the team into NBA championship
+	MAX_YEAR = Maximum year of the team into NBA championship
+	ABBREVIATION = Abbreviation of team name
+	TEAM_NAME = Team's name
+	YEARFOUNDED = Founded Year
+	CITY = Team's city
+	ARENA = Team's stadium
+	ARENACAPACITY = Capacity of the stadium
+	OWNER = Owner of the team (last one)
+	GENERAL_MANAGER = General manager
+	HEAD_COACH = Head coach
+	LEAGUE_AFFILIATION = League Affiliation
+
+game_details.csv
+	GAME_ID = ID of the game
+	TEAM_ID = ID of the team
+	TEAM_ABBREVIATION = Team's abbreviation
+	TEAM_CITY = City where the game was played
+	PLAYER_ID = ID of the player
+	PLAYER_NAME = Player's name
+	PLAYER_POSITION = Position of the player (if nothing then he's on the bench)
+	COMMENT = Comment
+	MIN = Minutes played
+	FGM = Field Goals Made
+	FGA = Field Goals Attempted
+	FG_PCT = Field Goal Percentage
+	FG3M = Three Pointers Made
+	FG3A = Three Pointers Attempted
+	FG3_PCT = Three Point Percentage
+	FTM = Free Throws Made
+	FTA = Free Throws Attempted
+	FT_PCT = Free Throw Percentage
+	OREB = Offensive Rebounds
+	DREB = Defensive Rebounds
+	REB = Rebounds
+	AST = Assists
+	STL = Steals
+	BLK = Blocked shots
+	TOVR = Turnovers
+	PF = Personnal Foul
+	PTS = Number of points scored by the player
+	PLUS_MINUS = Plus - Minus

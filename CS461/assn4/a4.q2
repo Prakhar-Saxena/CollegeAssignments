@@ -1,0 +1,3 @@
+SELECT p.player_name, t.team_name, p.season FROM players p, teams t  WHERE p.player_name LIKE '%Antetokounmpo%' AND p.team_id=t.team_id ORDER BY p.player_name, p.season;
+-- OR
+--SELECT p.player_name, t.team_name, p.season FROM players p INNER JOIN teams t ON p.team_id=t.team_id WHERE p.player_name LIKE '%Antetokounmpo%' ORDER BY p.player_name, p.season;

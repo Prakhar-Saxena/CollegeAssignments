@@ -11,16 +11,13 @@ from DeepPreschooler import DeepPreschooler
 from Human import Human
 from RLPlayer import RLPlayer
 
-v = [((1, 1), 0.5),
-     ((1, 2), 0.5),
-     ((1, 3), 0.5),
-     # ((2, 1), 0.5),
-     ((2, 2), 0.5),
-     ((2, 3), 0.5),
-     # ((3, 1), 0.5),
-     # ((3, 2), 0.5),
-     ((3, 3), 0.5),
-     ]
+v = {(1, 1): 0.5,
+     (1, 2): 0.5,
+     (1, 3): 0.5,
+     (2, 2): 0.5,
+     (2, 3): 0.5,
+     (3, 3): 0.5,
+     }
 
 class PreschoolPoker:
     def __init__(self, player1Name, player1Type, player2Name, player2Type):

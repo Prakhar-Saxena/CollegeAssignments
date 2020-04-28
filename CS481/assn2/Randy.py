@@ -6,7 +6,7 @@ from Player import Player
 
 
 class Randy(Player):
-    def makeAMove(self, deck):
+    def doit(self, deck):
         cardValues = self.hand.getCardValues()
         cardValues.append(0)
         cardOutValue = random.choice(cardValues)

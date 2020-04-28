@@ -9,7 +9,7 @@ from Player import Player
 from Randy import Randy
 from DeepPreschooler import DeepPreschooler
 from Human import Human
-from RLPlayer import RLPlayer
+from Smarty import RLPlayer
 
 v = {(1, 1): 0.5,
      (1, 2): 0.5,
@@ -47,8 +47,8 @@ class PreschoolPoker:
             return None
 
     def play(self):
-        self.player1.makeAMove(self.deck)
-        self.player2.makeAMove(self.deck)
+        self.player1.doit(self.deck)
+        self.player2.doit(self.deck)
         print('Winner is: ', self.winner())
 
 

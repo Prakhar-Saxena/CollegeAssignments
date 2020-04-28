@@ -6,7 +6,7 @@ from Player import Player
 
 
 class Human(Player):
-    def makeAMove(self, deck):
+    def doit(self, deck):
         # print('Human (', self.name, ') enter your move:')
         legalMoves = ['stand', 'discard1', 'discard2', 'discard3']
         print('Move Options: \n\t 1) stand \n\t 2) discard1 \n\t 3) discard2 \n\t 4) discard3 \n')

@@ -49,5 +49,5 @@ class Player:
     def cardsInHand(self):
         return self.hand.numCards()
 
-    def makeAMove(self, deck):
+    def doit(self, deck):
         raise NotImplementedError('makeAMove() not implemented')

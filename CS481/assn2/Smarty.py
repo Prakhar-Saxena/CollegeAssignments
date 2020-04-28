@@ -7,17 +7,24 @@ from Hand import Hand
 from Player import Player
 
 
-class RLPlayer(Player):
+class Smarty(Player):
     actions = ['stand', 'discard1', 'discard2', 'discard3']
 
-    def __init__(self, name, deck, v):
+    def __init__(self, name, deck, alpha):
         self.name = name
         if deck.canDraw2():
             card1 = deck.drawCard()
             card2 = deck.drawCard()
             self.hand = Hand([card1, card2])
             print(self.name, 'initialised with ', str(self.hand))
-            self.v = v
+            self.v = {(1, 1): 0.5,
+                      (1, 2): 0.5,
+                      (1, 3): 0.5,
+                      (2, 2): 0.5,
+                      (2, 3): 0.5,
+                      (3, 3): 0.5,
+                      }
+            self.alpha = alpha
         else:
             print('Can\'t instantiate Player, because can\'t draw 2 cards from teh deck')
 
@@ -41,8 +48,10 @@ class RLPlayer(Player):
     def getProbability(self, stateI, stateJ):  # it's an approximation
         stateI = tuple(sorted(stateI))
         stateJ = tuple(sorted(stateJ))
+        if stateI ==  stateJ:  # if both the states are same
+            return 1
         intersectionSet = set(stateI).intersection(set(stateJ))
-        if len(intersectionSet) == 0:
+        if len(intersectionSet) == 0:  # if both states have different different cards e.g. (1,2) to (3,3)
             return 0
         deck = [1, 2, 3, 1, 2, 3, 1, 2, 3]
         deck.remove(stateI[0])
@@ -64,18 +73,32 @@ class RLPlayer(Player):
         return legalMoves
 
     def swapCards(self, cardOutValue, deck):
-        legalValues = self.getLegalMoves()
-        if deck.canDraw() and cardOutValue in legalValues:
+        if deck.canDraw() and cardOutValue in self.getLegalMoves():
             cardInValue = deck.drawCard().getCardValue()
             if self.hand.swapCards(cardOutValue, cardInValue):
                 print('RLPlayer (', self.name, ') swapped', cardOutValue, 'for', cardInValue)
                 return True
         return False
 
-    def makeAMove(self, deck):
+    def getPossibleStates(self):
+        possibleStates = []
+        for legalMove in self.getLegalMoves():
+            possibleStates = possibleStates + self.getStatesOnMove(legalMove)
+        return possibleStates
+
+
+    def doit(self, deck):
         currentState = self.getCurrentState()
         legalMoves = self.getLegalMoves()
         maxV = 0
+        moveToStates = {}
+        stateProbability = {}
+        for legalMove in legalMoves:
+            moveToStates[legalMove] = self.getStatesOnMove(legalMove)
+        for m in legalMoves:
+            statesOnMove = self.getStatesOnMove(m)
+            for state in statesOnMove:
+                stateProbability[state] = self.getProbability(self.getCurrentState(), state)
         for i in self.v:
 
             if i[0] > maxV:

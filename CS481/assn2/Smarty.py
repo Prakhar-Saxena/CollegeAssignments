@@ -101,9 +101,12 @@ class Smarty(DeepPreschooler):
         if len(probabilities) != 0:
             bestState = probabilities[-1]
             if bestState[1] > self.v[self.getCurrentState()]:
+                if len(tuple(set(self.getCurrentState()).difference(set(bestState[0])))) == 0:
+                    self.discard(0)
+                    return True
                 bestMove = tuple(set(self.getCurrentState()).difference(set(bestState[0])))[0]
                 # self.discard(bestMove)
-                self.hand.swapCards(bestMove, deck.drawCard())
+                self.hand.swapCards(bestMove, deck.drawCard().getCardValue())
                 return True
             else:
                 self.discard(0)  # stand

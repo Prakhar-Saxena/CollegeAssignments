@@ -20,7 +20,6 @@ class Hand:
 
     def sortCards(self):
         if self.numCards() > 1:
-            print('eh')
             if self.cards[0].getCardValue() > self.cards[1].getCardValue():
                 self.cards = [self.cards[1], self.cards[0]]
             elif self.cards[0].getCardValue() > self.cards[1].getCardValue():

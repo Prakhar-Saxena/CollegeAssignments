@@ -41,7 +41,7 @@ class PreschoolPoker:
     def winnerPlayerNum(self):
         if self.player1.getHandValue() > self.player2.getHandValue():
             return 1 #self.player1
-        elif self.player1.getHandValue() > self.player2.getHandValue():
+        elif self.player1.getHandValue() < self.player2.getHandValue():
             return 2 #self.player2
         else:
             return None
@@ -78,21 +78,27 @@ def teach(numTrials):  # here I always want player 2 to be the Smarty
          (2, 3): 0.5,
          (3, 3): 0.5,
          }
+    smartyWins = 0
+    otherWins = 0
     for i in range(numTrials):
-        preSchoolPoker = PreschoolPoker('Randy', 'Randy', 'Smarty', 'Smarty', v)
+        preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Smarty', 'Smarty', v)
         preSchoolPoker.play()
         if preSchoolPoker.winnerPlayerNum() == 2:
+            smartyWins = smartyWins + 1
             preSchoolPoker.getPlayer2().learn(preSchoolPoker.getPlayer2().getCurrentState(), 1)
         else:
+            otherWins = otherWins + 1
             preSchoolPoker.getPlayer2().learn(preSchoolPoker.getPlayer2().getCurrentState(), 0)
         v = preSchoolPoker.getPlayer2().getV()
-        print('v:',v)
+        print('v:', v)
     # print(v)
+    print('Smarty won', smartyWins, 'times.')
+    print('Other won', otherWins, 'times.')
     return v
 
 
 def main():
-    teach(20)
+    teach(1000)
     # initialCardsInDeck = [Card(1), Card(2), Card(3), Card(1), Card(2), Card(3)]
     # deck = Deck(initialCardsInDeck)
     # print(deck)

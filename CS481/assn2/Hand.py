@@ -63,7 +63,7 @@ class Hand:
     def hasPair(self):
         if self.numCards() < 2:
             return False
-        if self.cards[0].getCardvalue() == self.cards[1].getCardvalue():
+        if self.cards[0].getCardValue() == self.cards[1].getCardValue():
             return True
         else:
             return False

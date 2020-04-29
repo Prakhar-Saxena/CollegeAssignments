@@ -5,28 +5,34 @@ import random
 from Card import Card
 from Hand import Hand
 from Player import Player
+from DeepPreschooler import DeepPreschooler
 
 
-class Smarty(Player):
+# class Smarty(Player):
+class Smarty(DeepPreschooler):
     actions = ['stand', 'discard1', 'discard2', 'discard3']
 
-    def __init__(self, name, deck, alpha):
+    def __init__(self, name, deck, v, alpha):
         self.name = name
         if deck.canDraw2():
             card1 = deck.drawCard()
             card2 = deck.drawCard()
             self.hand = Hand([card1, card2])
             print(self.name, 'initialised with ', str(self.hand))
-            self.v = {(1, 1): 0.5,
-                      (1, 2): 0.5,
-                      (1, 3): 0.5,
-                      (2, 2): 0.5,
-                      (2, 3): 0.5,
-                      (3, 3): 0.5,
-                      }
+            self.v = v
+                    # {(1, 1): 0.5,
+                    #   (1, 2): 0.5,
+                    #   (1, 3): 0.5,
+                    #   (2, 2): 0.5,
+                    #   (2, 3): 0.5,
+                    #   (3, 3): 0.5,
+                    #   }
             self.alpha = alpha
         else:
             print('Can\'t instantiate Player, because can\'t draw 2 cards from teh deck')
+
+    def getV(self):
+        return self.v
 
     def getCurrentState(self):
         return tuple(sorted(self.hand.getCardValues()))
@@ -48,7 +54,7 @@ class Smarty(Player):
     def getProbability(self, stateI, stateJ):  # it's an approximation
         stateI = tuple(sorted(stateI))
         stateJ = tuple(sorted(stateJ))
-        if stateI ==  stateJ:  # if both the states are same
+        if stateI == stateJ:  # if both the states are same
             return 1
         intersectionSet = set(stateI).intersection(set(stateJ))
         if len(intersectionSet) == 0:  # if both states have different different cards e.g. (1,2) to (3,3)
@@ -58,8 +64,6 @@ class Smarty(Player):
         deck.remove(stateI[1])
         changeCard = tuple(set(stateJ).difference(set(stateI)))[0]
         return deck.count(changeCard) / len(deck)
-
-
 
     def getLegalMoves(self):
         legalMoves = []
@@ -86,21 +90,26 @@ class Smarty(Player):
             possibleStates = possibleStates + self.getStatesOnMove(legalMove)
         return possibleStates
 
-
     def doit(self, deck):
-        currentState = self.getCurrentState()
-        legalMoves = self.getLegalMoves()
-        maxV = 0
-        moveToStates = {}
-        stateProbability = {}
-        for legalMove in legalMoves:
-            moveToStates[legalMove] = self.getStatesOnMove(legalMove)
-        for m in legalMoves:
-            statesOnMove = self.getStatesOnMove(m)
-            for state in statesOnMove:
-                stateProbability[state] = self.getProbability(self.getCurrentState(), state)
-        for i in self.v:
+        possibleStates = self.getPossibleStates()
+        probabilities = []
+        for p in self.v.items():  # this can probably be shortened, but I don't know python that well..
+            if p[0] in possibleStates:
+                probabilities.append(p)
+        probabilities = sorted(probabilities, key=lambda p: p[1])  # https://stackoverflow.com/questions/3121979/how-to-sort-a-list-tuple-of-lists-tuples-by-the-element-at-a-given-index
 
-            if i[0] > maxV:
-                maxV
-        return
+        if len(probabilities) != 0:
+            bestState = probabilities[-1]
+            if bestState[1] > self.v[self.getCurrentState()]:
+                bestMove = tuple(set(self.getCurrentState()).difference(set(bestState[0])))[0]
+                self.discard(bestMove)
+                return True
+            else:
+                self.discard(0)  # stand
+                return True
+        else:
+            super(Smarty, self).doit(deck)
+            return True
+
+    def learn(self, state, result):  # result -> 0 = Lose, 1 = Win
+        self.v[state] = self.v[state] + (self.alpha * (result - self.v[state]))

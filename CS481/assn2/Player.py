@@ -40,10 +40,10 @@ class Player:
 
     def discard(self, cardValue):
         if self.hand.discard(cardValue):
-            # print(self, 'is discarding a', cardValue)
+            print(self, 'is discarding a', cardValue)
             return True
         else:
-            # print(self, 'can\'t discard a', cardValue)
+            print(self, 'can\'t discard a', cardValue)
             return False
 
     def cardsInHand(self):

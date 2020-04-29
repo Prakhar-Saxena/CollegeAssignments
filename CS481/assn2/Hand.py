@@ -19,7 +19,13 @@ class Hand:
         return 'Cards in Hand: ' + ', '.join(cardValues)
 
     def sortCards(self):
-        self.cards = sorted(self.cards)
+        if self.numCards() > 1:
+            print('eh')
+            if self.cards[0].getCardValue() > self.cards[1].getCardValue():
+                self.cards = [self.cards[1], self.cards[0]]
+            elif self.cards[0].getCardValue() > self.cards[1].getCardValue():
+                self.cards = [self.cards[0], self.cards[1]]
+        # self.cards = sorted(self.cards)
 
     def getHandValue(self):
         if self.numCards() != 2:
@@ -73,12 +79,14 @@ class Hand:
         return True if self.numCards() < 2 else False
 
     def discard(self, cardValue):
+        if cardValue == 0:
+            return True
         if not self.hasA(cardValue):
             return False
         for card in self.cards:
             if card.getCardValue() == cardValue:
                 self.cards.remove(card)
-                print(str(card), 'discarded from hand.')
+                # print(str(card), 'discarded from hand.')
                 self.sortCards()
                 return True
 

@@ -102,7 +102,8 @@ class Smarty(DeepPreschooler):
             bestState = probabilities[-1]
             if bestState[1] > self.v[self.getCurrentState()]:
                 bestMove = tuple(set(self.getCurrentState()).difference(set(bestState[0])))[0]
-                self.discard(bestMove)
+                # self.discard(bestMove)
+                self.hand.swapCards(bestMove, deck.drawCard())
                 return True
             else:
                 self.discard(0)  # stand
@@ -112,4 +113,5 @@ class Smarty(DeepPreschooler):
             return True
 
     def learn(self, state, result):  # result -> 0 = Lose, 1 = Win
-        self.v[state] = self.v[state] + (self.alpha * (result - self.v[state]))
+        update = (self.alpha * (result - self.v[state]))
+        self.v[state] = self.v[state] + update

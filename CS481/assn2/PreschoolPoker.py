@@ -9,7 +9,9 @@ from Player import Player
 from Randy import Randy
 from DeepPreschooler import DeepPreschooler
 from Human import Human
+from Oddball import Oddball
 from Smarty import Smarty
+
 
 class PreschoolPoker:
     def __init__(self, player1Name, player1Type, player2Name, player2Type, v):
@@ -25,7 +27,6 @@ class PreschoolPoker:
             self.player2 = self.getPlayer(player2Name, player2Type)
             self.player1 = self.getPlayer(player1Name, player1Type)
 
-
     def getPlayer(self, playerName, playerType):
         if playerType == 'Randy':
             return Randy(playerName, self.deck)
@@ -35,14 +36,16 @@ class PreschoolPoker:
             return Human(playerName, self.deck)
         elif playerType == 'Smarty':
             return Smarty(playerName, self.deck, self.v, 0.5)
+        elif playerType == 'Oddball':
+            return Oddball(playerName, self.deck)
         else:
             return Player(playerName, self.deck)
 
     def winnerPlayerNum(self):
         if self.player1.getHandValue() > self.player2.getHandValue():
-            return 1 #self.player1
+            return 1  # self.player1
         elif self.player1.getHandValue() < self.player2.getHandValue():
-            return 2 #self.player2
+            return 2  # self.player2
         else:
             return None
 
@@ -103,9 +106,10 @@ def teach(numTrials, opponentName, opponentType):  # here I always want player 2
 def main():
     vD = teach(1000, 'DeepPreschooler', 'DeepPreschooler')
     vR = teach(1000, 'Randy', 'Randy')
+    vO = teach(1000, 'Oddball', 'Oddball')
     # print(vD)
     # print(vR)
-    print('-'*100)
+    print('-' * 100)
     smartyWins1 = 0
     deepWins = 0
     for i in range(100):
@@ -126,12 +130,26 @@ def main():
         else:
             randyWins += 1
 
+    smartyWins2 = 0
+    oddWins = 0
+    for i in range(100):
+        preSchoolPoker = PreschoolPoker('Oddball', 'Oddball', 'Smarty', 'Smarty', vO[0])
+        preSchoolPoker.play()
+        if preSchoolPoker.winnerPlayerNum() == 2:
+            smartyWins2 += 1
+        else:
+            oddWins += 1
+
+    print('-' * 100)
+
     print('Smarty won', smartyWins1, 'times.')
-    print('Deep won', deepWins, 'times.')
+    print('DeepPreschooler won', deepWins, 'times.')
     print()
     print('Smarty won', smartyWins2, 'times.')
-    print('Random won', randyWins, 'times.')
-
+    print('Randy won', randyWins, 'times.')
+    print()
+    print('Smarty won', smartyWins2, 'times.')
+    print('Oddball won', oddWins, 'times.')
 
 
 if __name__ == '__main__':

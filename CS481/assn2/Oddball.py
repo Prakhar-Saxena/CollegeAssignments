@@ -23,11 +23,11 @@ class Oddball(Player):
         else:
             return 0
 
-    def makeAMove(self, deck):
+    def doit(self, deck):
         lowestOdd = self.getLowestOdd()
         if lowestOdd != 0 and deck.canDraw():
             cardInValue = deck.drawCard().getCardValue()
             if self.hand.swapCards(lowestOdd, cardInValue):
                 print('Oddball (', self.name, ') swapped', lowestOdd, 'for', cardInValue)
                 return True
-            return False
+        return False

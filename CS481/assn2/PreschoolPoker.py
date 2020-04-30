@@ -72,7 +72,7 @@ class PreschoolPoker:
         print('Winner is: ', self.winner())
 
 
-def teach(numTrials):  # here I always want player 2 to be the Smarty
+def teach(numTrials, opponentName, opponentType):  # here I always want player 2 to be the Smarty
     v = {(1, 1): 0.5,
          (1, 2): 0.5,
          (1, 3): 0.5,
@@ -83,7 +83,7 @@ def teach(numTrials):  # here I always want player 2 to be the Smarty
     smartyWins = 0
     otherWins = 0
     for i in range(numTrials):
-        preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Smarty', 'Smarty', v)
+        preSchoolPoker = PreschoolPoker(opponentName, opponentType, 'Smarty', 'Smarty', v)
         # preSchoolPoker = PreschoolPoker('Randy', 'Randy', 'Smarty', 'Smarty', v)
         preSchoolPoker.play()
         if preSchoolPoker.winnerPlayerNum() == 2:
@@ -97,16 +97,41 @@ def teach(numTrials):  # here I always want player 2 to be the Smarty
     # print(v)
     print('Smarty won', smartyWins, 'times.')
     print('Other won', otherWins, 'times.')
-    return v
+    return v, ('smarty Wins', smartyWins), ('other Wins: ', otherWins)
 
 
 def main():
-    v = teach(10000)
-    # for i in range(20):
-    #     preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Randy', 'Randy', 0)
-    #     preSchoolPoker.play()
-    # for i in range(20):
-    #     preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Smarty', 'Smarty', v)
+    vD = teach(1000, 'DeepPreschooler', 'DeepPreschooler')
+    vR = teach(1000, 'Randy', 'Randy')
+    # print(vD)
+    # print(vR)
+    print('-'*100)
+    smartyWins1 = 0
+    deepWins = 0
+    for i in range(100):
+        preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Smarty', 'Smarty', vD[0])
+        preSchoolPoker.play()
+        if preSchoolPoker.winnerPlayerNum() == 2:
+            smartyWins1 += 1
+        else:
+            deepWins += 1
+
+    smartyWins2 = 0
+    randyWins = 0
+    for i in range(100):
+        preSchoolPoker = PreschoolPoker('Randy', 'Randy', 'Smarty', 'Smarty', vR[0])
+        preSchoolPoker.play()
+        if preSchoolPoker.winnerPlayerNum() == 2:
+            smartyWins2 += 1
+        else:
+            randyWins += 1
+
+    print('Smarty won', smartyWins1, 'times.')
+    print('Deep won', deepWins, 'times.')
+    print()
+    print('Smarty won', smartyWins2, 'times.')
+    print('Random won', randyWins, 'times.')
+
 
 
 if __name__ == '__main__':

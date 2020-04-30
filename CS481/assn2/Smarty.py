@@ -88,7 +88,7 @@ class Smarty(DeepPreschooler):
         possibleStates = []
         for legalMove in self.getLegalMoves():
             possibleStates = possibleStates + self.getStatesOnMove(legalMove)
-        return possibleStates
+        return list(set(possibleStates))
 
     def doit(self, deck):
         possibleStates = self.getPossibleStates()

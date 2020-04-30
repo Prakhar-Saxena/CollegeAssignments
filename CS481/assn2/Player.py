@@ -50,4 +50,4 @@ class Player:
         return self.hand.numCards()
 
     def doit(self, deck):
-        raise NotImplementedError('makeAMove() not implemented')
+        raise NotImplementedError('doit() not implemented')

@@ -65,8 +65,10 @@ class PreschoolPoker:
         coinFlip = random.choice(coin)
         if coinFlip == 'H':
             self.player1.doit(self.deck)
+            self.player2.doit(self.deck)
         else:
             self.player2.doit(self.deck)
+            self.player1.doit(self.deck)
         print('Winner is: ', self.winner())
 
 
@@ -82,6 +84,7 @@ def teach(numTrials):  # here I always want player 2 to be the Smarty
     otherWins = 0
     for i in range(numTrials):
         preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Smarty', 'Smarty', v)
+        # preSchoolPoker = PreschoolPoker('Randy', 'Randy', 'Smarty', 'Smarty', v)
         preSchoolPoker.play()
         if preSchoolPoker.winnerPlayerNum() == 2:
             smartyWins = smartyWins + 1
@@ -98,16 +101,12 @@ def teach(numTrials):  # here I always want player 2 to be the Smarty
 
 
 def main():
-    teach(1000)
-    # initialCardsInDeck = [Card(1), Card(2), Card(3), Card(1), Card(2), Card(3)]
-    # deck = Deck(initialCardsInDeck)
-    # print(deck)
-    # # player = Player('eh', deck)
-    # randy = Randy('Random Player', deck)
-    # # deepPreschooler = DeepPreschooler(deck)
-    # Human = Human(deck)
-    # randy.makeAMove(deck)
-    # print(deck)
+    v = teach(10000)
+    # for i in range(20):
+    #     preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Randy', 'Randy', 0)
+    #     preSchoolPoker.play()
+    # for i in range(20):
+    #     preSchoolPoker = PreschoolPoker('DeepPreschooler', 'DeepPreschooler', 'Smarty', 'Smarty', v)
 
 
 if __name__ == '__main__':

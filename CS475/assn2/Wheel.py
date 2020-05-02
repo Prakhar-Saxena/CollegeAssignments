@@ -23,6 +23,17 @@ class Wheel:
             contactOut += 36
         return contactOut
 
+    def getDContactOut(self, dContactIn):
+        chin = self.wheel[dContactIn + self.orientation]
+        chout = ''
+        for key, value in self.wiring.items():
+            if value == chin:
+                chout = key
+        if chout == '':
+            print('Something\'s wrong, I can feel it.')
+        reverseContactOut = self.wheel.index(chout) - self.orientation
+        return reverseContactOut
+
     def turn(self):
         # self.wheel = self.wheel[1:] + [self.wheel[0]]
         self.orientation += 1
@@ -33,3 +44,6 @@ class Wheel:
         self.orientation -= 1
         if self.orientation == -1:
             self.orientation = 35
+
+    def setOrientation(self, o):
+        self.orientation = o

@@ -24,7 +24,9 @@ class Wheel:
         return contactOut
 
     def getDContactOut(self, dContactIn):
-        chin = self.wheel[dContactIn + self.orientation]
+        i = dContactIn + self.orientation
+        i %= 36
+        chin = self.wheel[i]
         chout = ''
         for key, value in self.wiring.items():
             if value == chin:

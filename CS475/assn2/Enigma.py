@@ -55,18 +55,34 @@ class Enigma:
             output += self.getChout(char)
         return output
 
-    # def getDChout(self, chin):
-    #     leftOut_midIn = self.leftWheel.getDContactOut(self.wheel.index(chin))
-    #     midOut_rightIn = self.mi
+    def getDChout(self, chin):
+        self.characterCounter -= 1
+        leftOut_midIn = self.leftWheel.getDContactOut(self.wheel.index(chin))
+        if self.characterCounter % 5 == 0:
+            self.leftWheel.turnOtherWay()
+        midOut_rightIn = self.middleWheel.getDContactOut(leftOut_midIn)
+        if self.characterCounter % 7 == 0:
+            self.middleWheel.turnOtherWay()
+        rightOut = self.rightWheel.getDContactOut(midOut_rightIn)
+        self.rightWheel.turnOtherWay()
+        return self.wheel[rightOut]
 
 
-
-    # def decrypt(self, message):
-    #     chars = list(message)
-    #     numChars = len(chars)
-    #     charsReversed = chars[::-1]
-    #     for char in charsReversed:
-    #         # leftOut_midIn = self.rightWheel.getReverseContactOut()
+    def decrypt(self, message):
+        chars = list(message)
+        self.characterCounter = len(chars)
+        for i in range(self.characterCounter):
+            self.rightWheel.turn()
+            if i % 7 == 0:
+                self.middleWheel.turn()
+            if i % 5 == 0:
+                self.leftWheel.turn()
+        charsReversed = chars[::-1]
+        output = ''
+        for char in charsReversed:
+            output = self.getDChout(char) + output
+        return output
+            # leftOut_midIn = self.rightWheel.getReverseContactOut()
 
 
 def main():
@@ -79,9 +95,15 @@ def main():
     # print(wheel.getContactOut(0))
     enigma = Enigma()
     # print(enigma.getChout('A'))
-    print(enigma.getChout('C'))
-    print(enigma.getChout('C'))
-    print(enigma.getChout('I'))
+    # print(enigma.encrypt('THEBEATLES'))
+    enigmaD = Enigma()
+    # print(enigmaD.decrypt('KWN7M2873W'))
+    print(enigma.encrypt('CCI'))
+    print(enigmaD.decrypt('YL3'))
+    # print(enigmaD.getDChout('Y'))
+    # print(enigmaD.getDChout('L'))
+    # print(enigmaD.getDChout('3'))
+
     # enigma2 = Enigma()
     # print(enigma2.getChout_ver2('C'))
     # print(enigma2.getChout_ver2('C'))

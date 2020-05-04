@@ -31,6 +31,7 @@ class Wheel:
         for key, value in self.wiring.items():
             if value == chin:
                 chout = key
+                break
         if chout == '':
             print('Something\'s wrong, I can feel it.')
         reverseContactOut = self.wheel.index(chout) - self.orientation
@@ -49,3 +50,6 @@ class Wheel:
 
     def setOrientation(self, o):
         self.orientation = o
+
+    def getOrientation(self):
+        return self.orientation

@@ -25,15 +25,22 @@ class Enigma:
         self.characterCounter = 0  # can be used both for encryption and decryption
 
     def getChout(self, chin):
+        print('Processing character', chin)
         self.characterCounter += 1
         rightOut_midIn = self.rightWheel.getContactOut(self.wheel.index(chin))
         self.rightWheel.turn()
+        print('The right wheel turns.')
         midOut_leftIn = self.middleWheel.getContactOut(rightOut_midIn)
         if self.characterCounter % 7 == 0:
             self.middleWheel.turn()
+            print('The middle wheel turns.')
         leftOut = self.leftWheel.getContactOut(midOut_leftIn)
         if self.characterCounter % 5 == 0:
             self.leftWheel.turn()
+            print('The left wheel turns.')
+        print('Encrypted letter:', self.wheel[leftOut])
+        print('The wheel orientations from left to right are:',
+              self.leftWheel.getOrientation(), self.middleWheel.getOrientation(), self.rightWheel.getOrientation())
         return self.wheel[leftOut]
 
     # def getChout_ver2(self, chin):
@@ -56,22 +63,34 @@ class Enigma:
         return output
 
     def getDChout(self, chin):
-        self.characterCounter -= 1
-        leftOut_midIn = self.leftWheel.getDContactOut(self.wheel.index(chin))
+        print('Processing character', chin)
         if self.characterCounter % 5 == 0:
             self.leftWheel.turnOtherWay()
-        midOut_rightIn = self.middleWheel.getDContactOut(leftOut_midIn)
+            print('The left wheel turns the other way.')
+        leftOut_midIn = self.leftWheel.getDContactOut(self.wheel.index(chin))
+        # if self.characterCounter % 5 == 0:
+        #     self.leftWheel.turnOtherWay()
         if self.characterCounter % 7 == 0:
             self.middleWheel.turnOtherWay()
-        rightOut = self.rightWheel.getDContactOut(midOut_rightIn)
+            print('The middle wheel turns the other way.')
+        midOut_rightIn = self.middleWheel.getDContactOut(leftOut_midIn)
+        # if self.characterCounter % 7 == 0:
+        #     self.middleWheel.turnOtherWay()
         self.rightWheel.turnOtherWay()
+        print('The right wheel turns the other way.')
+        rightOut = self.rightWheel.getDContactOut(midOut_rightIn)
+        print('Decrypted Letter:', self.wheel[rightOut])
+        print('The wheel orientations from left to right are:',
+              self.leftWheel.getOrientation(), self.middleWheel.getOrientation(), self.rightWheel.getOrientation())
+        # self.rightWheel.turnOtherWay()
+        self.characterCounter -= 1
         return self.wheel[rightOut]
 
 
     def decrypt(self, message):
         chars = list(message)
         self.characterCounter = len(chars)
-        for i in range(self.characterCounter):
+        for i in range(1, self.characterCounter+1):
             self.rightWheel.turn()
             if i % 7 == 0:
                 self.middleWheel.turn()
@@ -95,11 +114,13 @@ def main():
     # print(wheel.getContactOut(0))
     enigma = Enigma()
     # print(enigma.getChout('A'))
-    # print(enigma.encrypt('THEBEATLES'))
+    print(enigma.encrypt('THEBEATLES'))
     enigmaD = Enigma()
-    # print(enigmaD.decrypt('KWN7M2873W'))
-    print(enigma.encrypt('CCI'))
-    print(enigmaD.decrypt('YL3'))
+    print(enigmaD.decrypt('KWN7M2873W'))
+    # print(enigma.encrypt('CCI'))
+    # print(enigmaD.decrypt('YL3'))
+    # print(enigma.encrypt('CCI'))
+    # print(enigmaD.decrypt('YL3'))
     # print(enigmaD.getDChout('Y'))
     # print(enigmaD.getDChout('L'))
     # print(enigmaD.getDChout('3'))

@@ -105,31 +105,12 @@ class Enigma:
 
 
 def main():
-    # wheel = Wheel(
-    #     ['2', 'Y', 'Z', '0', '1', 'A', 'W', 'I', 'P', 'K', 'S', 'N', '3', 'T', 'E', 'R', 'M', 'U', 'C', '5', 'V',
-    #      '6', 'X', '7', 'F', 'Q', 'O', 'L', '4', '8', 'G', 'D', '9', 'B', 'J', 'H'],
-    #     0
-    # )
-    # wheel.turn()
-    # print(wheel.getContactOut(0))
-    enigma = Enigma()
-    # print(enigma.getChout('A'))
-    print(enigma.encrypt('THEBEATLES'))
+    enigmaE = Enigma()
+    print(enigmaE.encrypt('THEBEATLES'))
     enigmaD = Enigma()
     print(enigmaD.decrypt('KWN7M2873W'))
     # print(enigma.encrypt('CCI'))
     # print(enigmaD.decrypt('YL3'))
-    # print(enigma.encrypt('CCI'))
-    # print(enigmaD.decrypt('YL3'))
-    # print(enigmaD.getDChout('Y'))
-    # print(enigmaD.getDChout('L'))
-    # print(enigmaD.getDChout('3'))
-
-    # enigma2 = Enigma()
-    # print(enigma2.getChout_ver2('C'))
-    # print(enigma2.getChout_ver2('C'))
-    # print(enigma2.getChout_ver2('I'))
-
 
 if __name__ == '__main__':
     main()

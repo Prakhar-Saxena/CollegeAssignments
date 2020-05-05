@@ -38,12 +38,16 @@ def connect(sql, pswd):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print('You haven\'t entered a password. Can\'t let you through..')
+        sys.exit()
     pswd = sys.argv[1]
     # print(pswd)
     while True:
         # try:
             inp = int(input('1 - Find players named Antetokounmpo\n2 - Find teams for which players named Antetokounmpo played for over the years\n3 - Find games each season where each player named Antetokounmpo had teh most points.\n0 - Exit\n'))
-            if inp == 0 :
+            if inp == 0:
+                print('अलविदा')
                 sys.exit()
             elif inp == 1:
                 file = open('a4.q1', 'r')

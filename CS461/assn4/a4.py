@@ -47,7 +47,7 @@ if __name__ == '__main__':
         # try:
             inp = int(input('1 - Find players named Antetokounmpo\n2 - Find teams for which players named Antetokounmpo played for over the years\n3 - Find games each season where each player named Antetokounmpo had teh most points.\n0 - Exit\n'))
             if inp == 0:
-                print('अलविदा')
+                print('Bye..')
                 sys.exit()
             elif inp == 1:
                 file = open('a4.q1', 'r')
@@ -64,5 +64,9 @@ if __name__ == '__main__':
                 sql = file.readlines()[0]
                 file.close()
                 connect(sql, pswd)
+            else:
+                print()
+                print('It appears that you\'ve entered an invalid option. Try again please.')
+                print()
         # except:
             # print('Something didn\'t work, try again.')

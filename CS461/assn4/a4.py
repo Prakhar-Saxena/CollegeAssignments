@@ -5,7 +5,7 @@ import sys
 def config(filename='a4.ini', section='settings', pswd=''):
     parser = ConfigParser()
     parser.read(filename)
-    db = {}# dict()
+    db = {}  # dict()
     if parser.has_section(section):
         params = parser.items(section)
         for param in params:
@@ -49,18 +49,16 @@ if __name__ == '__main__':
                 file = open('a4.q1', 'r')
                 sql = file.readlines()[0]
                 file.close()
-                connect(pswd, sql)
+                connect(sql, pswd)
             elif inp == 2:
                 file = open('a4.q2', 'r')
                 sql = file.readlines()[0]
                 file.close()
-                connect(pswd, sql)
+                connect(sql, pswd)
             elif inp == 3:
                 file = open('a4.q3', 'r')
                 sql = file.readlines()[0]
                 file.close()
-                connect(pswd, sql)
+                connect(sql, pswd)
         # except:
             # print('Something didn\'t work, try again.')
-
-    connect()

@@ -16,7 +16,9 @@ class Wheel:
         return self.wiring[chin]
 
     def getContactOut(self, contactIn):
-        chin = self.wheel[contactIn + self.orientation]  # because the wheel has turned self.orienteation turns, so the character in is the contactIn + orientation
+        i = contactIn + self.orientation
+        i %= 36
+        chin = self.wheel[i]  # because the wheel has turned self.orienteation turns, so the character in is the contactIn + orientation
         chout = self.getChout(chin)
         contactOut = self.wheel.index(chout) - self.orientation
         if contactOut < 0:

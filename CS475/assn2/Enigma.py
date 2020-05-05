@@ -4,7 +4,7 @@ from Wheel import Wheel
 
 
 class Enigma:
-    def __init__(self):
+    def __init__(self, orientations, permutator):
         self.wheel = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
                       'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
         self.leftWheel = Wheel(
@@ -23,12 +23,87 @@ class Enigma:
             0
         )
         self.characterCounter = 0  # can be used both for encryption and decryption
+        for orientation in range(orientations[0]):
+            self.leftWheel.turn()
+        for orientation in range(orientations[1]):
+            self.middleWheel.turn()
+        for orientation in range(orientations[2]):
+            self.rightWheel.turn()
+        self.permutator = permutator
 
     def printState(self):
         print('The wheel orientations from left to right are:',
               self.leftWheel.getOrientation(), self.middleWheel.getOrientation(), self.rightWheel.getOrientation())
 
     def getChout(self, chin):
+        print('Processing character', chin)
+        self.characterCounter += 1
+        self.rightWheel.turn()
+        print('The right wheel turns.')
+        if self.characterCounter % 7 == 0:
+            self.middleWheel.turn()
+            print('The middle wheel turns.')
+        if self.characterCounter % 5 == 0:
+            self.leftWheel.turn()
+            print('The left wheel turns.')
+        self.printState()
+        print('Still processing', chin)
+        rightOut_midIn = self.rightWheel.getContactOut(self.wheel.index(chin))
+        midOut_leftIn = self.middleWheel.getContactOut(rightOut_midIn)
+        leftOut = self.leftWheel.getContactOut(midOut_leftIn)
+        print('Encrypted letter:', self.wheel[leftOut])
+        self.printState()
+        return self.wheel[leftOut]
+
+    def encrypt(self, message):
+        chars = list(message)
+        output = ''
+        for char in chars:
+            output += self.getChout(char)
+        return output
+
+    def getDChout(self, chin):
+        print('Processing character', chin)
+        self.printState()
+        leftOut_midIn = self.leftWheel.getDContactOut(self.wheel.index(chin))
+        # if self.characterCounter % 5 == 0:
+        #     self.leftWheel.turnOtherWay()
+        midOut_rightIn = self.middleWheel.getDContactOut(leftOut_midIn)
+        # if self.characterCounter % 7 == 0:
+        #     self.middleWheel.turnOtherWay()
+        rightOut = self.rightWheel.getDContactOut(midOut_rightIn)
+        print('Decrypted Letter:', self.wheel[rightOut])
+        self.printState()
+        # self.rightWheel.turnOtherWay()
+        if self.characterCounter % 5 == 0:
+            self.leftWheel.turnOtherWay()
+            print('The left wheel turns the other way.')
+        if self.characterCounter % 7 == 0:
+            self.middleWheel.turnOtherWay()
+            print('The middle wheel turns the other way.')
+        self.rightWheel.turnOtherWay()
+        print('The right wheel turns the other way.')
+        self.characterCounter -= 1
+        return self.wheel[rightOut]
+
+
+    def decrypt(self, message):
+        chars = list(message)
+        self.characterCounter = len(chars)
+        for i in range(1, self.characterCounter+1):
+            self.rightWheel.turn()
+            if i % 7 == 0:
+                self.middleWheel.turn()
+            if i % 5 == 0:
+                self.leftWheel.turn()
+        charsReversed = chars[::-1]
+        output = ''
+        for char in charsReversed:
+            output = self.getDChout(char) + output
+        return output
+            # leftOut_midIn = self.rightWheel.getReverseContactOut()
+
+    def protoGetChout(self, chin):
         print('Processing character', chin)
         self.printState()
         self.characterCounter += 1
@@ -47,26 +122,14 @@ class Enigma:
         self.printState()
         return self.wheel[leftOut]
 
-    # def getChout_ver2(self, chin):
-    #     self.characterCounter += 1
-    #     self.rightWheel.turn()
-    #     rightOut_midIn = self.rightWheel.getContactOut(self.wheel.index(chin))
-    #     if self.characterCounter % 7 == 0:
-    #         self.middleWheel.turn()
-    #     midOut_leftIn = self.middleWheel.getContactOut(rightOut_midIn)
-    #     if self.characterCounter % 5 == 0:
-    #         self.leftWheel.turn()
-    #     leftOut = self.leftWheel.getContactOut(midOut_leftIn)
-    #     return self.wheel[leftOut]
-
-    def encrypt(self, message):
+    def protoEncrypt(self, message):
         chars = list(message)
         output = ''
         for char in chars:
-            output += self.getChout(char)
+            output += self.protoGetChout(char)
         return output
 
-    def getDChout(self, chin):
+    def protoGetDChout(self, chin):
         print('Processing character', chin)
         self.printState()
         if self.characterCounter % 5 == 0:
@@ -90,8 +153,7 @@ class Enigma:
         self.characterCounter -= 1
         return self.wheel[rightOut]
 
-
-    def decrypt(self, message):
+    def protoDecrypt(self, message):
         chars = list(message)
         self.characterCounter = len(chars)
         for i in range(1, self.characterCounter+1):
@@ -103,19 +165,25 @@ class Enigma:
         charsReversed = chars[::-1]
         output = ''
         for char in charsReversed:
-            output = self.getDChout(char) + output
+            output = self.protoGetDChout(char) + output
         return output
             # leftOut_midIn = self.rightWheel.getReverseContactOut()
 
 
-def main():
-    enigmaE = Enigma()
-    enigmaD = Enigma()
-    print(enigmaE.encrypt('THEBEATLES'))
-    print('-'*100)
-    print(enigmaD.decrypt('KWN7M2873W'))
+if __name__ == '__main__':
+    orientation = [0, 0, 0]
+    permutator = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    enigmaE = Enigma(orientation, permutator)
+    enigmaD = Enigma(orientation, permutator)
+    # encryption = enigmaE.encrypt('YUMMYRAMEN')  # J3VK9D0TZT
+    # encryption = enigmaE.encrypt('THEBEATLES')
+    encryption = enigmaE.encrypt('CCICCI')
+    # print(enigmaE.encrypt('THEBEATLES'))
+    print('-' * 100)
+    decryption = enigmaD.decrypt(encryption)
+    print('-' * 100)
+    print(encryption)
+    print('-' * 100)
+    print(decryption)
     # print(enigmaE.encrypt('CCI'))
     # print(enigmaD.decrypt('YL3'))
-
-if __name__ == '__main__':
-    main()

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 from Wheel import Wheel
 
 
@@ -56,7 +57,13 @@ class Enigma:
         return self.wheel[leftOut]
 
     def encrypt(self, message):
-        chars = list(message)
+        initChars = list(message)
+        chars = []
+        if len(initChars) == 10:
+            for i in self.permutator:
+                chars.append(initChars[i])
+        else:
+            chars = initChars[:]
         output = ''
         for char in chars:
             output += self.getChout(char)
@@ -100,8 +107,16 @@ class Enigma:
         output = ''
         for char in charsReversed:
             output = self.getDChout(char) + output
-        return output
-            # leftOut_midIn = self.rightWheel.getReverseContactOut()
+        properOutput = ['', '', '', '', '', '', '', '', '', '', '']
+        if len(chars) == 10:
+            for i, j in zip(self.permutator, range(0, 10)):
+                properOutput[i] = output[j]
+        else:
+            properOutput = output[:]
+        op = ''
+        for i in properOutput:
+            op += i
+        return op
 
     def protoGetChout(self, chin):
         print('Processing character', chin)
@@ -171,19 +186,28 @@ class Enigma:
 
 
 if __name__ == '__main__':
-    orientation = [0, 0, 0]
-    permutator = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    if len(sys.argv) != 3:
+        print('You didn\'t pass enough arguments.')
+        sys.exit()
+    textIn = sys.argv[2]
+    orientation = [5, 4, 2]
+    # permutator = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    permutator = [3, 1, 4, 2, 8, 5, 0, 7, 6, 9]
     enigmaE = Enigma(orientation, permutator)
     enigmaD = Enigma(orientation, permutator)
-    # encryption = enigmaE.encrypt('YUMMYRAMEN')  # J3VK9D0TZT
+    # encryption = enigmaE.encrypt('YUMMYRAMEN')
     # encryption = enigmaE.encrypt('THEBEATLES')
-    encryption = enigmaE.encrypt('CCICCI')
-    # print(enigmaE.encrypt('THEBEATLES'))
-    print('-' * 100)
-    decryption = enigmaD.decrypt(encryption)
-    print('-' * 100)
-    print(encryption)
-    print('-' * 100)
-    print(decryption)
-    # print(enigmaE.encrypt('CCI'))
-    # print(enigmaD.decrypt('YL3'))
+    # encryption = enigmaE.encrypt('CCICCI')
+    print('String entered:', textIn)
+    if sys.argv[1] == 'encrypt':
+        encryption = enigmaE.encrypt(textIn.upper())
+        print('-' * 100)
+        print(encryption)
+        print('-' * 100)
+    elif sys.argv[1] == 'decrypt':
+        decryption = enigmaD.decrypt(textIn.upper())
+        print('-' * 100)
+        print(decryption)
+        print('-' * 100)
+    else:
+        print('Didn\'t work')

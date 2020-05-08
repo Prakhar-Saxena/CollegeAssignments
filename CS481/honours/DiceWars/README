@@ -1,0 +1,11 @@
+Hello Professor,
+You will need Python 2 and package pygame installed. You can install it using pip: pip install pygame.
+Now all you need to run this game is to execute it using python.exe (Python2):
+    python run_game.py
+And Viola! hopefully it works. I have not tested this game on tux, because I didn't create it in tux.
+There are some components like the chat box might not function well, I was just experimenting around with that.
+But since it wasn't a part of the requirements, I just dropped it as it is. I'm taking a lot of classes this term,
+so I didn't have much time to be done with it.
+Hope you enjoy playing this.
+Cheers
+Prakhar Saxena

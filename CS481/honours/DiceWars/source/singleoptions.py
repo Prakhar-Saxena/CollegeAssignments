@@ -74,12 +74,12 @@ class Singleoptions(events.EventEnabled):
         self.texts.append(gui.text.Text( \
             "Quick instructions", font, (10, 460)))
         self.texts.append(gui.text.Text( \
-            "right click to end turn, left click to select lands", font, \
+            "Right click to end turn, Left click to select lands", font, \
                                                                     (10, 500)))
         self.texts.append(gui.text.Text( \
-            "you have to first select a own land with more than 1 dice on it, then you can attack an", font, (10, 530)))
+            "You have to first select any of your regions with more than 1 dice on it, then you can attack an", font, (10, 530)))
         self.texts.append(gui.text.Text( \
-             "ajectant land of different color"        , font, (10, 560)))
+             "adjacent region of different colour/player"        , font, (10, 560)))
 
         # data
         self._running = True

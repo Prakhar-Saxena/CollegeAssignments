@@ -38,7 +38,7 @@ class Singleoptions(events.EventEnabled):
         # create gui elements
         self.buttons = []
         self.buttons.append(gui.Button(font, "randomize map", (50,350), self.rand_map))
-        self.buttons.append(gui.Button(font, "randomize lands", (200,350), self.rand_lands))
+        self.buttons.append(gui.Button(font, "randomize regions", (200,350), self.rand_lands))
         self.buttons.append(gui.Button(font, "exit", (500,350), self.quit))
         self.buttons.append(gui.Button(font, "start", (600,350), self.start_game))
         
@@ -74,7 +74,7 @@ class Singleoptions(events.EventEnabled):
         self.texts.append(gui.text.Text( \
             "Quick instructions", font, (10, 460)))
         self.texts.append(gui.text.Text( \
-            "Right click to end turn, Left click to select lands", font, \
+            "Right click to end turn, Left click to select regions", font, \
                                                                     (10, 500)))
         self.texts.append(gui.text.Text( \
             "You have to first select any of your regions with more than 1 dice on it, then you can attack an", font, (10, 530)))
@@ -173,7 +173,7 @@ class Singleoptions(events.EventEnabled):
         """
         
         """
-        print "randomizing lands"
+        print "randomizing regions"
         num_players = self.spinners[0].get_current_value()
         lands = list(config.world.get_lands())
         player_num_lands = len(lands) / num_players

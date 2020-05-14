@@ -116,7 +116,7 @@ class GameState(events.EventEnabled):
 ##                print "gamestate dropdice, land", land.get_id(), "has", land.num_dice
             else:
                 # TODO: ?
-                print "WARNING: no land foun to drop dice, land id:", land_id
+                print "WARNING: no region found to drop dice, region id:", land_id
         
     def on_selectresult(self, event):
         """

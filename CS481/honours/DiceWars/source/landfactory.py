@@ -6,13 +6,13 @@ import random
 
 class LandFactory(object):
     """
-    As the name says, this class it for creating new Lands.
+    As the name says, this class it for creating new Regions.
     """
     _land_id = -1  # let it start at 0
     
     def __init__(self, mapref):
         """
-        map because a Land needs a reference to the map it belongs.
+        map because a Region needs a reference to the map it belongs.
         """
         object.__init__(self)
         self._world = mapref

@@ -100,7 +100,7 @@ if __name__=='__main__':
         config.players.append(p)
     # set player to lands
     num_land = len(config.world._lands)/len(config.players)
-    print "num_land:", num_land
+    print "num_region:", num_land
     #TODO: hack!!
     lands = list(config.world._lands)
     player = None

@@ -82,36 +82,37 @@ def getWords(byteCode):
     return words
 
 
-byteCode = readBinaryFile('binary.txt')
-words = getWords(byteCode)
-lc = 0
-instructions = []
-for word in words:
-    binOpcode = word[0:4]
-    opcode = hex(int(binOpcode, 2))
-    if opcode == '0x0':
-        rA = word[4:9]
-        rB = word[9:14]
-        rC = word[14:19]
-        binSubOpcode = word[19:24]
-        opcodeTxt = returnOpcode(opcode)
-        subOpcode = hex(int(binSubOpcode, 2))
-        subOpcodeTxt = returnSubOpcode(subOpcode)
-        hex_rA = ''
-        hex_rB = ''
-        hex_rC = ''
-        if subOpcodeTxt not in ['nop', 'rts', 'halt']:
-            hex_rA = hex(int(rA, 2))
-            hex_rB = hex(int(rB, 2))
-            hex_rC = hex(int(rC, 2))
-        instructions.append([lc, subOpcodeTxt, getRegName(hex_rA), getRegName(hex_rB), getRegName(hex_rC)])
-    else:
-        reg = word[4:9]
-        address = word[9:24]
-        opcodeTxt = returnOpcode(opcode)
-        hexAddress = hex(int(address, 2))
-        hex_reg = hex(int(reg, 2))
-        instructions.append([lc, opcodeTxt, getRegName(hex_reg), hexAddress, ''])
-    lc = lc + 1
+if __name__ == '__main__':
+    byteCode = readBinaryFile('binary.txt')
+    words = getWords(byteCode)
+    lc = 0
+    instructions = []
+    for word in words:
+        binOpcode = word[0:4]
+        opcode = hex(int(binOpcode, 2))
+        if opcode == '0x0':
+            rA = word[4:9]
+            rB = word[9:14]
+            rC = word[14:19]
+            binSubOpcode = word[19:24]
+            opcodeTxt = returnOpcode(opcode)
+            subOpcode = hex(int(binSubOpcode, 2))
+            subOpcodeTxt = returnSubOpcode(subOpcode)
+            hex_rA = ''
+            hex_rB = ''
+            hex_rC = ''
+            if subOpcodeTxt not in ['nop', 'rts', 'halt']:
+                hex_rA = hex(int(rA, 2))
+                hex_rB = hex(int(rB, 2))
+                hex_rC = hex(int(rC, 2))
+            instructions.append([lc, subOpcodeTxt, getRegName(hex_rA), getRegName(hex_rB), getRegName(hex_rC)])
+        else:
+            reg = word[4:9]
+            address = word[9:24]
+            opcodeTxt = returnOpcode(opcode)
+            hexAddress = hex(int(address, 2))
+            hex_reg = hex(int(reg, 2))
+            instructions.append([lc, opcodeTxt, getRegName(hex_reg), hexAddress, ''])
+        lc = lc + 1
 
-traceCodeExecution(instructions)
+    traceCodeExecution(instructions)

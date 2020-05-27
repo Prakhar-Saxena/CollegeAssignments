@@ -1,0 +1,134 @@
+// Q1
+
+db.emp.insert({
+	ssn: "123-22-3666",
+	name: "Attishoo",
+	rating:  8,
+	wages:   10,
+	hours: 40
+})
+
+db.emp.insert({
+	ssn: "231-31-5368",
+	name: "Smiley",
+	rating:  8,
+	wages:   10,
+	hours: 30
+})
+db.emp.insert({
+	ssn: "131-24-3650",
+	name: "Smethurst",
+	rating:  5,
+	wages:   7,
+	hours: 30
+})
+db.emp.insert({
+	ssn: "434-26-3751",
+	name: "Guldu",
+	rating:  5,
+	wages:   7,
+	hours: 32
+})
+db.emp.insert({
+	ssn: "612-67-4134",
+	name: "Madayan",
+	rating:  8,
+	wages:   10,
+	hours: 40
+})
+
+
+// Q2
+
+db.emp.find( { rating: 5 } ).pretty()
+
+
+// Q3
+
+db.emp.find( {rating: 5 }, { name: 1, _id: 0 } )
+
+
+// Q4
+
+db.emp.find( { $and: [ { rating: 8 }, { hours: 40 } ] } )
+
+
+// Q5
+
+db.emp.aggregate(
+   [
+     {
+       $group:
+         {
+           _id: "$rating",
+           minQuantity: { $min: "$hours" }
+         }
+     }
+   ]
+)
+
+
+// Q6
+
+db.createCollection("wages")
+db.wages.insert({
+	_id: 8,
+	wages: 10
+})
+db.createCollection("wages")
+db.wages.insert({
+	_id: 5,
+	wages: 7
+})
+db.wages.find().pretty()
+
+
+// Q7
+
+db.createCollection("emp2")
+db.emp2.insert({
+	ssn: "123-22-3666",
+	name: "Attishoo",
+	rating: 8,
+	hours: 40
+})
+db.emp2.insert({
+	ssn: "231-31-5368",
+	name: "Smiley",
+	rating: 8,
+	hours: 30
+})
+db.emp2.insert({
+	ssn: "131-24-3650",
+	name: "Smethurst",
+	rating: 5,
+	hours: 30
+})
+db.emp2.insert({
+	ssn: "434-26-3751",
+	name: "Guldu",
+	rating: 5,
+	hours: 32
+})
+db.emp2.insert({
+	ssn: "612-67-4134",
+	name: "Madayan",
+	rating: 8,
+	hours: 40
+})
+db.emp2.find().pretty()
+
+
+// Q8
+
+db.emp2.find({},{_id: 0}).sort({name: 1})
+db.wages.find({},{_id: 0}).sort({_id:-1})
+
+
+// Q9
+
+db.wages.find({},{_id: 0}).sort({_id:-1})
+
+
+// Q10
+

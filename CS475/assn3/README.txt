@@ -7,3 +7,7 @@ To give different Machine code instructions, please make changes to the "binary.
 To run the program run it with python3:
 
 python3 disassembler.py
+
+or just enter "make"
+
+Thanks

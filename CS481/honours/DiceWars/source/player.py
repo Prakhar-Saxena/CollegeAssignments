@@ -392,17 +392,17 @@ class Ai1(AiPassive):
         """
         AiPassive.__init__(self, data)
         self.type = AI_1
-        self.num_qonquer = 0
+        self.num_conquer = 0
 
     def on_newturn(self, event):
         """
-        
+
         """
         self.on_gamestate_update(event)
 
     def on_gamestate_update(self, event):
         """
-        
+
         """
 
         lands = self._data.get_selectable_lands()
@@ -414,27 +414,27 @@ class Ai1(AiPassive):
             max_dice = len(lands) * 8
             full = (max_dice <= num_dice)
             print "full:", full, "<<<<<<<<<<<<<<<<<<<"
-            if self.num_qonquer < 1:
+            if self.num_conquer < 1:
                 if full:
-                    self.num_qonquer = get_num_dice / 8
+                    self.num_conquer = get_num_dice / 8
                     land = random.choice(lands.keys())
                     defensor = random.choice(lands[land])
                     eventtypes.post_select_land(self._source, self._player_id, land.get_id())
                     eventtypes.post_select_land(self._source, self._player_id, defensor.get_id())
 
                 else:
-                    self.num_qonquer = 0
+                    self.num_conquer = 0
                     self._data.send_end_turn()
             else:
-                print "num_qonquer", self.num_qonquer
+                print "num_conquer", self.num_conquer
                 print "max_dice", max_dice
                 ##            print "num_lands", num_lands
                 print "num_dice", num_dice
-                self.num_qonquer -= 1
+                self.num_conquer -= 1
                 land = random.choice(lands.keys())
                 defensor = random.choice(lands[land])
                 eventtypes.post_select_land(self._source, self._player_id, land.get_id())
                 eventtypes.post_select_land(self._source, self._player_id, defensor.get_id())
         else:
-            self.num_qonquer = 0
+            self.num_conquer = 0
             self._data.send_end_turn()

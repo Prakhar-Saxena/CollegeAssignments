@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import random
 from fractions import gcd
 
@@ -60,9 +62,9 @@ def phi(p, q):
 def get_public_key(p, q):  # e
     phiN = phi(p, q)
     for i in range(2, phiN):
-        if is_coprime(i, N) and is_coprime(phiN):
+        if is_coprime(i, N) and is_coprime(i, phiN):
             return i
-    return 314159265
+    return -1  # 314159265
 
 
 def get_private_key(p, q):  # d

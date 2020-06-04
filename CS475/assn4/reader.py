@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from configparser import ConfigParser
 import psycopg2 as ps
 import sys

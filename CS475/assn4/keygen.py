@@ -35,7 +35,7 @@ def get_public_key(p, q):  # e
     phiN = phi(p, q)
     for i in range(2, phiN):
         if is_coprime(i, N) and is_coprime(i, phiN):
-            return i
+            return i, (p * q)
     return -1  # 314159265
 
 
@@ -45,4 +45,8 @@ def get_private_key(p, q):  # d
     e = get_public_key(p, q)
     # e * d mod phi(p,q) = 1
     d = ((phiN - 1) * e) / e
-    return d
+    return d, (p * q)
+
+
+def encrypt_decrypt(key, message):
+    return (key[0] ** message) % key[1]  # (x^m) mod N

@@ -1,23 +1,44 @@
 #!/usr/bin/env python3
 
 from keygen import __all__
-import sys
-import socket
+from misc import __all__
+import sys, socket, random
+
 
 p, q = 2, 7
 N = p * q  # 14
 
-def initialise_keys():
-    p = prime_gen(0)
-    q = prime_gen(1)
-    public_key = get_public_key(p, q)
-    private_key = get_private_key(p, q)
+
+class Server:
+    def __init__(self):
+        self.p = prime_gen(0)
+        self.q = prime_gen(1)
+        self.public_key = get_public_key(self.p, self.q)
+        self.private_key = get_private_key(self.p, self.q)
+        # self.session_keys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        # self.sessions = {} #random.randint(1, 100)
+        self.clients = {}
+        fileWriterNum(self.public_key, 'server_public_key')
+
+    def session_key_gen(self, client_name):
+        session_key = random.choice(self.session_keys)
+        self.sessions[session_key] = client_name
+
+    def add_client(self, client_name, client_public_key):
+        self.clients[client_name] = client_public_key
+
+    def get_client_key(self, client_name):
+        return self.clients[client_name]
+
+    def E(self, ):
+
 
 '''
 https://www.geeksforgeeks.org/socket-programming-python/
 '''
 
 try:
+    initialise_keys()
     s = socket.socket()
     print('socket created')
 
@@ -31,10 +52,10 @@ try:
 
     s.listen(5)
     print('socket is listening')
-# except:
-#     print('Didn\'t work')
-#
-# try:
+    # except:
+    #     print('Didn\'t work')
+    #
+    # try:
     while True:
         c, addr = s.accept()
         print('Got connection from', addr)
@@ -43,8 +64,6 @@ try:
 
         msg = c.recv(1024)
         print('Message received:', msg)
-
-
 
         if password == H(int(password_received)):
             print('Password Match!')
@@ -57,4 +76,3 @@ try:
         c.close()
 except:
     print('Didn\'t work')
-

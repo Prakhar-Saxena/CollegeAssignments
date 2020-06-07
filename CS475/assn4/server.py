@@ -5,7 +5,7 @@ from misc import __all__
 import sys, socket, random
 
 
-class Server:
+class Server(ServerClient):
     def __init__(self):
         self.p = prime_gen(0)
         self.q = prime_gen(1)
@@ -26,13 +26,11 @@ class Server:
     def get_client_key(self, client_name):
         return self.clients[client_name]
 
-    def e_d_char(self, char, key):
-        return encrypt_decrypt(char, key)
-
-    def e_d_string(self, string, key):
-        charsN = [ord(char) for char in list(string)]
-        L = [encrypt_decrypt(key, charN) for charN in charsN]
-        ''.join(chr(i) for i in L)
+    def check_client(self, client_name):
+        if list(self.clients.keys()).contains(client_name):
+            return True
+        else:
+            return False
 
 
 
@@ -41,7 +39,7 @@ https://www.geeksforgeeks.org/socket-programming-python/
 '''
 
 try:
-    initialise_keys()
+    server = Server()
     s = socket.socket()
     print('socket created')
 

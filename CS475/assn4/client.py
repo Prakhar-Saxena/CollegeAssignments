@@ -8,6 +8,8 @@ import sys
 import socket
 import rsa
 
+from misc import *
+
 
 class Client(ServerClient):
     def __init__(self, name):

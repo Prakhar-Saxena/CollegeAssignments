@@ -5,7 +5,7 @@ import rsa
 import socket
 import sys
 
-from misc import __all__
+from misc import *
 
 
 class Server(ServerClient):

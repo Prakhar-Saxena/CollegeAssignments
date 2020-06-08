@@ -1,0 +1,17 @@
+Hi,
+
+I've tried my best. But this won't work on tux. I can't even test it, because the 'rsa' library is not supported on tux.
+I tried pip install rsa, but it was pointless because in the python3 shell, it still threw an error when I tried to
+import rsa.
+
+Anyway, I understand how the encryption works. I find the mathematics behind it a lot more fascinating than using a
+library for it. I tried to implement it, but I was short on time, so had to use the library for it, you can check my
+implementation in the keygen.py file.
+
+As far as testing is concerned, I can't test it out, because tux won't allow it.
+
+But you can see my code, it is coherent with the logic of the assignment. Unfortunately, it just didn't work out. And
+I didn't have enough time to try to figure it all out.
+
+Cheers
+Thanks

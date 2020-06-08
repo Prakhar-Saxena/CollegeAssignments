@@ -20,7 +20,7 @@ class Client:
         pub = pub.split(',')
         print(pub)
         self.server_public_key = rsa.PublicKey()
-        fileWriterString(str(self.public_key.n) + ',' + str(self.public_key.e), name + '_public_key')
+        fileWriterString(str(str(self.public_key.n) + str(',') + str(self.public_key.e)), name + '_public_key')
 
     def encrypt(self, message):
         return rsa.encrypt(message, self.server_public_key)

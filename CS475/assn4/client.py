@@ -5,18 +5,26 @@ https://www.geeksforgeeks.org/socket-programming-python/
 """
 
 import sys
-# from multiprocessing.connection import Client
-from keygen import __all__
 import socket
+import rsa
+
 
 class Client(ServerClient):
     def __init__(self, name):
         self.name = name
-        self.p = prime_gen(7)
-        self.q = prime_gen(8)
-        self.public_key = get_public_key(self.p, self.q)
-        self.private_key = get_private_key(self.p, self.q)
-    def send_message(self, message):
+        self.public_key, self.private_key = rsa.newkeys(512)
+        pub = fileReader('server_public_key')
+        print(pub)
+        pub = pub.split(',')
+        print(pub)
+        self.server_public_key = rsa.PublicKey()
+        fileWriterString(str(self.public_key.n) + ',' + str(self.public_key.e), name + '_public_key')
+
+    def encrypt(self, message):
+        return rsa.encrypt(message, self.server_public_key)
+
+    def decrypt(self, message):
+        return rsa.decrypt(message, self.private_key)
 
 if len(sys.argv) < 3:
     print('Invalid inpt')
@@ -34,21 +42,35 @@ print('Attempting to connect to')
 print('\thost:', hostname)
 
 try:
+    isAuthenticated = False
+    isConnected = False
     client = Client("client_ps")
-    ip = socket.gethostbyname(hostname)
-    print('\tIP:', ip)
+    while True:
+        if not isConnected:
+            ip = socket.gethostbyname(hostname)
+            print('\tIP:', ip)
 
-    s.connect((ip, int(port)))
+            s.connect((ip, int(port)))
 
-    print(s.recv(1024))  # checking if connected here or not
+            print(s.recv(1024))  # checking if connected here or not
+            isConnected = True
 
-    s.send(str.encode(password))
+        # Authentication
 
-    status = s.recv(1024)
-    if status == 'Password Match!':
-        getPassword('user_passwords')
+        if not isAuthenticated:
+            e_client_name = client.encrypt(client.name)  ## assuming the server is up.
+            s.send(e_client_name)
+            nk = c.recv(1024)
+            d_nk = client.decrypt(nk)
+            if str(d_nk).split(',')[0] == client.name:
+                c.send(b'1')
+                isAuthenticated = True
+            else:
+                c.send(b'0')
+                isConnected = False
 
-    print(status)
+
+        inp = raw_imput('Enter a message to send.')
 
     s.close()
 except:

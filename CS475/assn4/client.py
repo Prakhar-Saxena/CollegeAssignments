@@ -15,12 +15,14 @@ class Client:
     def __init__(self, name):
         self.name = name
         self.public_key, self.private_key = rsa.newkeys(512)
-        pub = fileReader('server_public_key')
-        print(pub)
-        pub = pub.split(',')
-        print(pub)
+        pubn = self.public_key.n
+        pube = self.public_key.e
+        server_pub = fileReader('server_public_key')
+        print(server_pub)
+        server_public_key = server_pub.split(',')
+        print(server_pub)
         self.server_public_key = rsa.PublicKey()
-        fileWriterString(str(str(self.public_key.n) + str(',') + str(self.public_key.e)), name + '_public_key')
+        fileWriterString(str(str(pubn) + str(',') + str(pube)), name + '_public_key')
 
     def encrypt(self, message):
         return rsa.encrypt(message, self.server_public_key)

@@ -8,7 +8,7 @@ import sys
 from misc import *
 
 
-class Server(ServerClient):
+class Server:
     def __init__(self):
         self.public_key, self.private_key = rsa.newkeys(512)
         self.available_sessions = [1, 2, 3, 4, 5, 6, 7, 8, 9]

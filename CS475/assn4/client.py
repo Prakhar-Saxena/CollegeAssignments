@@ -11,7 +11,7 @@ import rsa
 from misc import *
 
 
-class Client(ServerClient):
+class Client:
     def __init__(self, name):
         self.name = name
         self.public_key, self.private_key = rsa.newkeys(512)

@@ -3,15 +3,6 @@
 import random
 from fractions import gcd
 
-class ServerClient:
-    def e_d_char(self, char, key):
-        return encrypt_decrypt(char, key)
-
-    def e_d_string(self, string, key):
-        charsN = [ord(char) for char in list(string)]
-        L = [encrypt_decrypt(key, charN) for charN in charsN]
-        ''.join(chr(i) for i in L)
-
 
 """
 https://www.youtube.com/watch?v=oOcTVTpUsPQ

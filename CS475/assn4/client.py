@@ -73,7 +73,9 @@ try:
 
 
         inp = raw_imput('Enter a message to send.')
-
-    s.close()
+        s.send(client.encrypt(str.encode(inp)))
+        if inp == 'exit':
+            s.close()
+            sys.exit(0)
 except:
     print('Didn\'t work')

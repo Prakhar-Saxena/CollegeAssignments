@@ -43,7 +43,7 @@ s = socket.socket()
 print('Attempting to connect to')
 print('\thost:', hostname)
 
-try:
+def doit():
     isAuthenticated = False
     isConnected = False
     client = Client("client_ps")
@@ -71,11 +71,15 @@ try:
                 c.send(b'0')
                 isConnected = False
 
-
         inp = raw_imput('Enter a message to send.')
         s.send(client.encrypt(str.encode(inp)))
         if inp == 'exit':
             s.close()
             sys.exit(0)
-except:
-    print('Didn\'t work')
+
+doit()
+
+# try:
+#     doit()
+# except:
+#     print('Didn\'t work')

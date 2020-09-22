@@ -1,0 +1,50 @@
+Hello Professor,
+We did a group project with a team of three students, which includes me Prakhar Saxena, Stephen Hansen, and Tharindu Mendis 
+It's on Classification of Crime data of the city of San Francisco
+---
+Let's get started
+
+First up, the problem:
+Police Resources need to be properly allocated.
+For example: districts and areas that are more vulnerable to more criminal incidents would require mroe attention from the police. Major incidents might need more resources allocated to them. There's no need to dispatch 10 officers for a noise complaint.
+
+Now, what we want to do.
+
+given the basic data, we want to predict what type or category of crime occured. These classification predictions could help get a better idea of as to what resources to allocate for an incident; that is until we learn any further details about it.
+
+Now for the approach:
+there have been studies from other universities, involving different statistical approaches to this problem such as Naive Bayes, Linear Regression et cetera.
+Our approach uses k-Nearest neighbours, decision trees, support vector machines and K-means clustering
+
+---
+
+Now here we see this map, which shows the incident density in the city, where red means higher crime and green means lower.
+This can be a basis for trying to use different models to classify these incidents.
+
+---
+
+Let's talk about the dataset schema.
+We have 6 relevant attributes, Date, Time, Day of the Week, Police District, and the X & Y coordinates. We are to use these attributes to predict the category.
+We did make certain necessary changes to these attributes, like dividing up date and time, turning categorical data into numbers, we've covred all that in more detail in our Project's Write-up.
+
+---
+So, In this project, we tried the following Classification methods:
+
+Now since, we're three students, we thought of chosing different classification models, so that we can compare them, and figure out which one fits the best with the data. And to be honest, this was the reason why we picked a classification project, because we knew that we have many ways of classifying the data. So, as a group project, it all fit very well with our team.
+
+k-Nearest Neighbours, which was implemented by me, Prakhar Saxena
+Decision Trees and Support Vector Machines (SVM) implemented by Stephen Hansen
+And k-Means Clustering with PCA, implemented by Tharindu Mendis
+
+---
+
+Now, let's talk about the classification that I implemented. k-Nearest Neighbours.
+This is one of the most straightforward classification algorithms out there. The Idea is to compute the classification by a plurality vote of the neighbouring data-points.
+---
+However, I soon realised this was not a great idea for this dataset. k-NN classification algorithm is well known to be extremely slow when working with large datasets, such as the one we had.
+We had over 700,000 rows in our training dataset and over 150,000 rows in testing.
+I had to tone things down dramatically in the test dataset. Because of the large training dataset, each test-data point was taking at leaast a second. That's when I realised that if let be, it would take close to two entire days to classify all the data-points. I had to tone it down. I broght down the test dataset to a 1000 data-points. It was extremely disappointing, but it was the only way to get the classification done in a realistic amount of time. It must be noted, that it still took several minutes to classify the shortened test data.
+---
+Here, As you can see, my implementation had very similar accuraty as that of the sklearn's implementation.
+I knew that k-NN doesn't work well with large datasets, and now I have evidence.
+Hopefully, my teammates Stephen and Tharindu had better luck.

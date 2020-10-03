@@ -16,4 +16,4 @@ class Logger:
 
     @staticmethod
     def log(msg):
-        Logger.f.write(str(datetime.datetime.now()) + "\t" + msg + "\n")
+        Logger.f.write(str(datetime.datetime.now()) + '\t' + msg + '\n')

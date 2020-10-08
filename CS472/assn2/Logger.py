@@ -17,3 +17,7 @@ class Logger:
     @staticmethod
     def log(msg):
         Logger.f.write(str(datetime.datetime.now()) + '\t' + msg + '\n')
+
+    @staticmethod
+    def log_err(err_msg):
+        Logger.f.write(str(datetime.datetime.now()) + '\t' + 'X'*25 + 'ERROR' + 'X'*25 + '\n\t\t\t' + err_msg + '\n')

@@ -10,9 +10,19 @@ class FtpClient:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.commands = ['USER', 'PASS', 'CWD', 'QUIT', 'PASV', 'EPSV', 'PORT', 'EPRT', 'RETR', 'STOR', 'PWD', 'SYST',
-                         'LIST', 'HELP']
+        self.commands = ['USER', 'PASS', 'CWD', 'QUIT', 'PASV',
+                         'EPSV', 'PORT', 'EPRT', 'RETR', 'STOR',
+                         'PWD', 'SYST', 'LIST', 'HELP']
         self.s = None
+
+    def initialise(self):
+        self.connect_server()
+        self.menu_repl()
+
+    def response(self):
+        response = self.s.recv(1024)
+        Logger.log('Response received: ' + str(response))
+        return response
 
     def connect_server(self):
         try:
@@ -34,7 +44,17 @@ class FtpClient:
         return
 
     def quit_command(self):
-        return
+        try:
+            Logger.log('Attempting to quit.')
+            quit = self.s.send('QUIT')
+            Logger.log('Sent: QUIT')
+            response = self.response()
+            print(str(response))
+            print('Quiting.')
+            Logger.log('Quiting.')
+            sys.exit(0)
+        except socket.error as e:
+            Logger.log_err('Socket Error:' + str(e))
 
     def pasv_command(self):
         return
@@ -66,6 +86,9 @@ class FtpClient:
     def help_command(self):
         return
 
+    '''
+    REPL: Read-Evaluate-Print-Loop
+    '''
     def menu_repl(self):
         Logger.log('Initialising menu REPL.')
         print('Hello there!\n You\'re in the menu REPL now.')
@@ -133,7 +156,8 @@ def main():
     Logger.log('IP: ' + ip)
     Logger.log('Port: ' + port)
 
-    ftpClient = FtpClient(ip, port)
+    ftp_client = FtpClient(ip, port)
+    ftp_client.initialise()
 
     Logger.log('-' * 25 + 'STOPS HERE' + '-' * 25)
 

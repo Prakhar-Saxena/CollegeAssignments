@@ -2,7 +2,6 @@
 
 import socket
 import sys
-import datetime
 from Logger import Logger
 
 
@@ -17,20 +16,26 @@ class FtpClient:
 
     def initialise(self):
         self.connect_server()
-        self.user_command() # includes PASS command
+        self.user_command()  # includes PASS command
         self.menu_repl()
 
     def response(self):
-        response = self.s.recv(1024)
+        response = str(self.s.recv(1024))
         Logger.log_response(response)
         return response
+
+    @staticmethod
+    def str_to_bytes(string):
+        return bytes(string, 'utf-8')
 
     def connect_server(self):
         try:
             Logger.log_attempt('server connection with sockets.')
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             Logger.log('Socket created.')
-            self.s.connect((self.ip, self.port))
+            self.s.connect((self.ip, int(self.port)))
+            response = self.response()
+            print(response)
             Logger.log('Socket Successfully connected to ' + str(self.ip) + ' at port ' + str(self.ip))
         except socket.error as e:
             Logger.log_socket_error(str(e))
@@ -39,8 +44,10 @@ class FtpClient:
         try:
             Logger.log_attempt('USER')
             user_name = input('Enter username: ')
-            self.s.send('USER ' + user_name)
+            self.s.send(FtpClient.str_to_bytes('USER ' + user_name + '\n'))
             Logger.log('Sent: USER - ' + user_name)
+            response = self.response()
+            print(response)
             self.pass_command()
         except socket.error as e:
             Logger.log_socket_error(str(e))
@@ -49,11 +56,10 @@ class FtpClient:
         try:
             Logger.log_attempt('PASS')
             password = input('Enter password: ')
-            self.s.send('PASS ' + password)
+            self.s.send(FtpClient.str_to_bytes('PASS ' + password + '\n'))
             Logger.log('Sent: PASS ' + password)
             response = self.response()
             print(response)
-            Logger.log_response(response)
         except socket.error as e:
             Logger.log_socket_error(str(e))
 
@@ -61,17 +67,18 @@ class FtpClient:
         try:
             Logger.log_attempt('CWD')
             cd_input = input('Enter directory: ')
-            self.s.send('CWD ' + cd_input)
+            self.s.send(FtpClient.str_to_bytes('CWD ' + cd_input + '\n'))
             Logger.log('Sent: CWD ' + cd_input)
             response = self.response()
             print(response)
-            Logger.log_response(response)
+        except Exception as e:
+            Logger.log_err('Error: ' + str(e))
         return
 
     def quit_command(self):
         try:
             Logger.log_attempt('QUIT')
-            quit = self.s.send('QUIT')
+            quit = self.s.send(FtpClient.str_to_bytes('QUIT \n'))
             Logger.log('Sent: QUIT')
             response = self.response()
             print(str(response))
@@ -102,11 +109,10 @@ class FtpClient:
     def pwd_command(self):
         try:
             Logger.log_attempt('PWD')
-            self.s.send('PWD')
+            self.s.send(FtpClient.str_to_bytes('PWD \n'))
             Logger.log('Sent: PWD')
             response = self.response()
             print(response)
-            Logger.log_response(response)
         except socket.error as e:
             Logger.log_socket_error(str(e))
 
@@ -162,6 +168,7 @@ class FtpClient:
                 self.help_command()
             else:
                 print('Invalid command entered. Try again.\n')
+                Logger.log('Invalid command entered: ' + user_choice)
                 print('-' * 25)
 
 

@@ -9,10 +9,13 @@ class FtpClient:
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
-        self.commands = ['USER', 'PASS', 'CWD', 'QUIT', 'PASV',
-                         'EPSV', 'PORT', 'EPRT', 'RETR', 'STOR',
-                         'PWD', 'SYST', 'LIST', 'HELP']
+        self.commands = ['USER', 'PASS', 'PWD', 'CWD', 'HELP',
+                         'PASV', 'EPSV', 'PORT', 'EPRT', 'RETR',
+                         'STOR', 'SYST', 'LIST', 'QUIT']
         self.s = None
+
+        self.is_passive = False
+        self.is_port = False
 
     def initialise(self):
         self.connect_server()
@@ -20,7 +23,8 @@ class FtpClient:
         self.menu_repl()
 
     def response(self):
-        response = str(self.s.recv(1024))
+        response = str(self.s.recv(1024)).strip()
+        print(response)
         Logger.log_response(response)
         return response
 
@@ -35,7 +39,6 @@ class FtpClient:
             Logger.log('Socket created.')
             self.s.connect((self.ip, int(self.port)))
             response = self.response()
-            print(response)
             Logger.log('Socket Successfully connected to ' + str(self.ip) + ' at port ' + str(self.ip))
         except socket.error as e:
             Logger.log_socket_error(str(e))
@@ -47,7 +50,6 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('USER ' + user_name + '\n'))
             Logger.log('Sent: USER - ' + user_name)
             response = self.response()
-            print(response)
             self.pass_command()
         except socket.error as e:
             Logger.log_socket_error(str(e))
@@ -59,7 +61,6 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('PASS ' + password + '\n'))
             Logger.log('Sent: PASS ' + password)
             response = self.response()
-            print(response)
         except socket.error as e:
             Logger.log_socket_error(str(e))
 
@@ -70,8 +71,6 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('CWD ' + cd_input + '\n'))
             Logger.log('Sent: CWD ' + cd_input)
             response = self.response()
-            print(response)
-            Logger.log_response(response)
             self.pwd_command()
         except Exception as e:
             Logger.log_err('Error: ' + str(e))
@@ -83,21 +82,47 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('QUIT \n'))
             Logger.log('Sent: QUIT')
             response = self.response()
-            print(str(response))
             print('Quiting.')
             Logger.log('Quiting.')
+            self.s.close()
             sys.exit(0)
         except socket.error as e:
             Logger.log_socket_error(str(e))
 
     def pasv_command(self):
-        return
+        try:
+            Logger.log_attempt('PASV')
+            if self.is_passive:
+                self.is_passive = False
+                self.s.send(FtpClient.str_to_bytes('PASV n \n'))
+            elif not self.is_passive:
+                self.is_passive = True
+                self.s.send(FtpClient.str_to_bytes('PASV \n'))
+            else:
+                print('This should be impossible.')
+                Logger.log('This should be impossible.')
+            response = self.response()
+        except socket.error as e:
+            Logger.log_socket_error(str(e))
 
     def epsv_command(self):
         return
 
     def port_command(self):
-        return
+        try:
+            Logger.log_attempt('PORT')
+            if self.is_port:
+                self.is_port = False
+                self.s.send(FtpClient.str_to_bytes('PORT \n'))
+            elif not self.is_port:
+                self.is_port = True
+                self.s.send(FtpClient.str_to_bytes('PORT \n'))
+            else:
+                print('This should be impossible.')
+                Logger.log('This should be impossible.')
+            response = self.response()
+        except socket.error as e:
+            Logger.log_socket_error(str(e))
 
     def eprt_command(self):
         return
@@ -114,8 +139,6 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('PWD \n'))
             Logger.log('Sent: PWD')
             response = self.response()
-            print(response)
-            Logger.log_response(response)
         except socket.error as e:
             Logger.log_socket_error(str(e))
 
@@ -131,8 +154,6 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('HELP \n'))
             Logger.log('Sent: HELP')
             response = self.response()
-            print(response)
-            Logger.log_response(response)
         except socket.error as e:
             Logger.log_socket_error(str(e))
 
@@ -155,33 +176,33 @@ class FtpClient:
             print()
             print('-' * 25)
             user_choice = input('Enter your command: ').upper()
-            if user_choice == self.commands[0]:  # USER
+            if user_choice == 'USER':
                 self.user_command()
-            elif user_choice == self.commands[1]:  # PASS
+            elif user_choice == 'PASS':
                 self.pass_command()
-            elif user_choice == self.commands[2]:  # CWD
+            elif user_choice == 'CWD':
                 self.cwd_command()
-            elif user_choice == self.commands[3]:  # QUIT
+            elif user_choice == 'QUIT':
                 self.quit_command()
-            elif user_choice == self.commands[4]:  # PASV
+            elif user_choice == 'PASV':
                 self.pasv_command()
-            elif user_choice == self.commands[5]:  # EPSV
+            elif user_choice == 'EPSV':
                 self.epsv_command()
-            elif user_choice == self.commands[6]:  # PORT
+            elif user_choice == 'PORT':
                 self.port_command()
-            elif user_choice == self.commands[7]:  # EPRT
+            elif user_choice == 'EPRT':
                 self.eprt_command()
-            elif user_choice == self.commands[8]:  # RETR
+            elif user_choice == 'RETR':
                 self.retr_command()
-            elif user_choice == self.commands[9]:  # STOR
+            elif user_choice == 'STOR':
                 self.stor_command()
-            elif user_choice == self.commands[10]:  # PWD
+            elif user_choice == 'PWD':
                 self.pwd_command()
-            elif user_choice == self.commands[11]:  # SYST
+            elif user_choice == 'SYST':
                 self.syst_command()
-            elif user_choice == self.commands[12]:  # LIST
+            elif user_choice == 'LIST':
                 self.list_command()
-            elif user_choice == self.commands[13]:  # HELP
+            elif user_choice == 'HELP':
                 self.help_command()
             else:
                 print('Invalid command entered. Try again.\n')

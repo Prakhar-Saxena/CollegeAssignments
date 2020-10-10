@@ -94,16 +94,13 @@ class FtpClient:
             Logger.log_attempt('PASV')
             if self.is_passive:
                 self.is_passive = False
-                self.s.send(FtpClient.str_to_bytes('PASV n \n'))
             elif not self.is_passive:
                 self.is_passive = True
-                self.s.send(FtpClient.str_to_bytes('PASV \n'))
             else:
                 print('This should be impossible.')
                 Logger.log('This should be impossible.')
-            response = self.response()
-        except socket.error as e:
-            Logger.log_socket_error(str(e))
+        except Exception as e:
+            Logger.log_err(str(e))
 
     def epsv_command(self):
         return
@@ -113,16 +110,13 @@ class FtpClient:
             Logger.log_attempt('PORT')
             if self.is_port:
                 self.is_port = False
-                self.s.send(FtpClient.str_to_bytes('PORT \n'))
             elif not self.is_port:
                 self.is_port = True
-                self.s.send(FtpClient.str_to_bytes('PORT \n'))
             else:
                 print('This should be impossible.')
                 Logger.log('This should be impossible.')
-            response = self.response()
-        except socket.error as e:
-            Logger.log_socket_error(str(e))
+        except Exception as e:
+            Logger.log_err(str(e))
 
     def eprt_command(self):
         return
@@ -151,9 +145,6 @@ class FtpClient:
     def help_command(self):
         try:
             Logger.log_attempt('HELP')
-            self.s.send(FtpClient.str_to_bytes('HELP \n'))
-            Logger.log('Sent: HELP')
-            response = self.response()
         except socket.error as e:
             Logger.log_socket_error(str(e))
 

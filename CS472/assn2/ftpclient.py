@@ -71,6 +71,8 @@ class FtpClient:
             Logger.log('Sent: CWD ' + cd_input)
             response = self.response()
             print(response)
+            Logger.log_response(response)
+            self.pwd_command()
         except Exception as e:
             Logger.log_err('Error: ' + str(e))
         return
@@ -78,7 +80,7 @@ class FtpClient:
     def quit_command(self):
         try:
             Logger.log_attempt('QUIT')
-            quit = self.s.send(FtpClient.str_to_bytes('QUIT \n'))
+            self.s.send(FtpClient.str_to_bytes('QUIT \n'))
             Logger.log('Sent: QUIT')
             response = self.response()
             print(str(response))
@@ -113,6 +115,7 @@ class FtpClient:
             Logger.log('Sent: PWD')
             response = self.response()
             print(response)
+            Logger.log_response(response)
         except socket.error as e:
             Logger.log_socket_error(str(e))
 
@@ -123,7 +126,15 @@ class FtpClient:
         return
 
     def help_command(self):
-        return
+        try:
+            Logger.log_attempt('HELP')
+            self.s.send(FtpClient.str_to_bytes('HELP \n'))
+            Logger.log('Sent: HELP')
+            response = self.response()
+            print(response)
+            Logger.log_response(response)
+        except socket.error as e:
+            Logger.log_socket_error(str(e))
 
     '''
     REPL: Read-Evaluate-Print-Loop
@@ -134,8 +145,14 @@ class FtpClient:
         print('-' * 25)
         while True:
             print('List of available commands ' + '(' + str(len(self.commands)) + ' commands):')
+            cnt = 1
             for command in self.commands:
-                print(command)
+                if (cnt % 5) == 0:
+                    print(str(cnt) + ') ' + command)
+                else:
+                    print(str(cnt) + ') ' + command + '\t\t\t', end='')
+                cnt = cnt + 1
+            print()
             print('-' * 25)
             user_choice = input('Enter your command: ').upper()
             if user_choice == self.commands[0]:  # USER

@@ -58,3 +58,26 @@
 2020-10-08 21:21:26.475351	Response Received: b'220 Welcome to CS472 FTP Server\r\n'
 2020-10-08 21:21:26.475852	Socket Successfully connected to 10.246.251.93 at port 10.246.251.93
 2020-10-08 21:21:26.475852	Attempting USER
+2020-10-10 10:06:23.983292	-------------------------STARTS HERE-------------------------
+2020-10-10 10:06:23.983292	New ftp client intialised.
+2020-10-10 10:06:23.983292	IP: 10.246.251.93
+2020-10-10 10:06:23.983292	Port: 21
+2020-10-10 10:06:23.983292	Attempting server connection with sockets.
+2020-10-10 10:06:23.984317	Socket created.
+2020-10-10 10:06:24.023640	Response Received: b'220 Welcome to CS472 FTP Server\r\n'
+2020-10-10 10:06:24.023640	Socket Successfully connected to 10.246.251.93 at port 10.246.251.93
+2020-10-10 10:06:24.023640	Attempting USER
+2020-10-10 10:06:29.350411	Sent: USER - cs472
+2020-10-10 10:06:29.366896	Response Received: b'331 Please specify the password.\r\n'
+2020-10-10 10:06:29.366896	Attempting PASS
+2020-10-10 10:06:32.200937	Sent: PASS hw2ftp
+2020-10-10 10:06:32.282843	Response Received: b'230 Login successful.\r\n'
+2020-10-10 10:06:32.282843	Initialising menu REPL.
+2020-10-10 10:06:34.836244	Attempting HELP
+2020-10-10 10:06:34.836244	Sent: HELP
+2020-10-10 10:06:34.859100	Response Received: b'214-The following commands are recognized.\r\n'
+2020-10-10 10:06:34.859605	Response Received: b'214-The following commands are recognized.\r\n'
+2020-10-10 10:06:57.554967	Attempting QUIT
+2020-10-10 10:06:57.554967	Sent: QUIT
+2020-10-10 10:06:57.554967	Response Received: b' ABOR ACCT ALLO APPE CDUP CWD  DELE EPRT EPSV FEAT HELP LIST MDTM MKD\r\n MODE NLST NOOP OPTS PASS PASV PORT PWD  QUIT REIN REST RETR RMD  RNFR\r\n RNTO SITE SIZE SMNT STAT STOR STOU STRU SYST TYPE USER XCUP XCWD XMKD\r\n XPWD XRMD\r\n214 Help OK.\r\n'
+2020-10-10 10:06:57.554967	Quiting.

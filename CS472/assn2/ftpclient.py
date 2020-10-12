@@ -31,10 +31,27 @@ class FtpClient:
     def str_to_bytes(string):
         return bytes(string, 'utf-8')
 
+    @staticmethod
+    def create_receiving_socket():
+        try:
+            socket_rec = FtpClient.create_new_socket()
+            socket_rec.bind((socket.gethostbyname(), 0))
+            socket_rec.listen(1)
+            logger.log('New Socket created, for data receiving.')
+            return socket_rec
+        except socket.error as e:
+            logger.log_socket_error(str(e))
+        except Exception as e:
+            logger.log_err(str(e))
+
+    @staticmethod
+    def create_new_socket():
+        return socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
     def connect_server(self):
         try:
             logger.log_attempt('server connection with sockets.')
-            self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.s = FtpClient.create_new_socket()
             logger.log('Socket created.')
             self.s.connect((self.ip, int(self.port)))
             response = self.response()
@@ -116,8 +133,7 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('EPSV \n'))
             response = self.response()
             port = response.split('|')[3]
-            socket_rec = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            logger.log('New Socket created, for data receiving.')
+            socket_rec = FtpClient.create_receiving_socket()
             socket_rec.connect((self.ip, port))
             socket_rec.close()
         except socket.error as e:
@@ -140,12 +156,12 @@ class FtpClient:
 
     def eprt_command(self):
         try:
-            socket_rec = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            socket_rec.bind(socket.gethostbyname(socket.gethostbyname(), 0))
+            socket_rec = FtpClient.create_new_socket()
+            socket_rec.bind(socket.gethostbyname(socket.gethostbyname(socket.gethostname()), 0))
             socket_rec.listen(1)
-            logger.log('New Socket created, for data receiving.')
+            logger.log('New data receiving socket created.')
             port = str(socket_rec.getsockname()[1])
-            ip = str(socket.gethostbyname(socket.gethostbyname()))
+            ip = str(socket.gethostbyname(socket.gethostname()))
             self.s.send('EPRT | 1 | ' + ip + ' | ' + port + '\n')
             logger.log('Sent: EPRT')
             response = self.response()
@@ -158,7 +174,55 @@ class FtpClient:
         return
 
     def stor_command(self):
-        return
+        try:
+            logger.log_attempt('STOR')
+            socket_rec = FtpClient.create_new_socket()
+            socket_rec.bind((socket.gethostbyname(socket.gethostname()), 0))
+            socket_rec.listen(1)
+            logger.log('New data receiving socket created.')
+
+            if self.is_port and not self.is_passive:
+                port_1 = int((socket_rec.getsockname()[1]) / 256)
+                port_2 = int((socket_rec.getsockname()[1]) - (port_1 * 256))
+                port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2) +'\n'
+                self.s.send(FtpClient.str_to_bytes(port_command))
+                logger.log('Sent: ' + port_command)
+                response = self.response()
+
+            elif self.is_passive:
+                socket_rec.close()
+                print('The client is in passive mode.')
+                self.s.send('PASV \n')
+                logger.log('Sent: PASV')
+                response = self.response()
+                address = response[27:-4].split(',')
+                ip = address[0] + '.' + address[1] + '.' + address[2] + '.' + address[3]
+                port_1 = int(address[4])
+                port_2 = int(address[5])
+                port = int((port_1 * 256) + port_2)
+                socket_rec = FtpClient.create_new_socket()
+                logger.log('New data receiving socket created.')
+                socket_rec.connect((ip, port))
+
+
+            else:
+                socket_rec.close()
+                print('Not in Port ot Passive mode.')
+                logger.log()
+
+            user_file_name = input('Enter file name to be stored:')
+            self.s.send('SEND ' + user_file_name + '\n')
+            logger.log('Sent: STOR' + user_file_name)
+            user_file = open(user_file_name, 'r')
+            file_data = FtpClient.str_to_bytes(user_file.read())
+            response = self.response()
+            conn, host = socket_rec.accept()
+            conn.send(file_data)
+            user_file.close()
+        except socket.error as e:
+            logger.log_socket_error(str(e))
+        except Exception as e:
+            logger.log_err(str(e))
 
     def pwd_command(self):
         try:

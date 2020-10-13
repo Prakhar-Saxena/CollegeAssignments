@@ -23,7 +23,7 @@ class Logger:
         self.f.write(str(datetime.datetime.now()) + '\t' + msg + '\n')
 
     def log_err(self, err_msg):
-        self.f.write(str(datetime.datetime.now()) + '\t' + 'X'*25 + 'ERROR' + 'X'*25 + '\n\t\t\t' + err_msg + '\n')
+        self.f.write(str(datetime.datetime.now()) + '\t' + 'X'*25 + ' ERROR ' + 'X'*25 + '\n\t\t\t\t\t' + err_msg + '\n')
         # print('Something didn\'t work and now the whole thing is blown.')
 
     def log_socket_error(self, error_msg):  # created this because Socket error is the most expected/caught error.

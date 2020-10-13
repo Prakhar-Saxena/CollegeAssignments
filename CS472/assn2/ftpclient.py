@@ -185,7 +185,7 @@ class FtpClient:
             logger.log('New data receiving socket created.')
             port = str(socket_rec.getsockname()[1])
             ip = str(socket.gethostbyname(socket.gethostname()))
-            self.s.send('EPRT | 1 | ' + ip + ' | ' + port + '\n')
+            self.s.send(FtpClient.str_to_bytes('EPRT | 1 | ' + ip + ' | ' + port + '\n'))
             logger.log('Sent: EPRT')
             response = self.response()
         except socket.error as e:
@@ -214,7 +214,7 @@ class FtpClient:
                 response = self.response()
             elif self.is_passive:
                 print('The client is in passive mode.')
-                self.s.send('PASV \n')
+                self.s.send(FtpClient.str_to_bytes('PASV \n'))
                 logger.log('Sent: PASV')
                 response = self.response()
                 address = response[27:-4].split(',')
@@ -269,7 +269,7 @@ class FtpClient:
                 response = self.response()
             elif self.is_passive:
                 print('The client is in passive mode.')
-                self.s.send('PASV \n')
+                self.s.send(FtpClient.str_to_bytes('PASV \n'))
                 logger.log('Sent: PASV')
                 response = self.response()
                 address = response[27:-4].split(',')
@@ -287,7 +287,7 @@ class FtpClient:
                 return
 
             user_file_name = input('Enter file name to be stored:')
-            self.s.send('SEND ' + user_file_name + '\n')
+            self.s.send(FtpClient.str_to_bytes('SEND ' + user_file_name + '\n'))
             logger.log('Sent: STOR' + user_file_name)
             user_file = open(user_file_name, 'r')
             file_data = FtpClient.str_to_bytes(user_file.read())
@@ -359,7 +359,7 @@ class FtpClient:
                 logger.log('User attempted STOR whilst not being in Port or Passive mode.')
                 return
 
-            self.s.send('LIST \n')
+            self.s.send(FtpClient.str_to_bytes('LIST \n'))
             response = self.response()
             conn, host = socket_rec.accept()
             while True:

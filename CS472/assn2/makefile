@@ -3,3 +3,6 @@ main:
 
 tux:
 	python3 ftpclient.py tux.cs.drexel.edu log_file 2121
+
+clean:
+	truncate -s 0 log_file

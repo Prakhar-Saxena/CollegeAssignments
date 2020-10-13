@@ -129,8 +129,12 @@ class FtpClient:
             logger.log_attempt('PASV')
             if self.is_passive:
                 self.is_passive = False
+                print('The client is not in passive mode now.')
+                logger.log('The client is not in passive mode now.')
             elif not self.is_passive:
                 self.is_passive = True
+                print('The client is in passive mode now.')
+                logger.log('The client is in passive mode now.')
             else:
                 print('This should be impossible.')
                 logger.log('This should be impossible.')
@@ -159,8 +163,12 @@ class FtpClient:
             logger.log_attempt('PORT')
             if self.is_port:
                 self.is_port = False
+                print('The client is not in port mode now.')
+                logger.log('The client is not in port mode now.')
             elif not self.is_port:
                 self.is_port = True
+                print('The client is in port mode now.')
+                logger.log('The client is in port mode now.')
             else:
                 print('This should be impossible.')
                 logger.log('This should be impossible.')

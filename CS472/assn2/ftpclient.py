@@ -278,6 +278,19 @@ class FtpClient:
                 self.s.send(FtpClient.str_to_bytes(port_command + '\n'))
                 logger.log('Sent: ' + port_command)
                 response = self.response()
+                user_file_name = input('Enter file name to be retrieved: ')
+                retr_command = 'RETR ' + user_file_name
+                self.s.send(FtpClient.str_to_bytes(retr_command + '\n'))
+                logger.log('SENT: ' + retr_command)
+                user_file = open(user_file_name, 'w')
+                response = self.response()
+                conn, host = socket_rec.accept()
+                while True:
+                    list_response = conn.recv(1024)
+                    if not list_response:
+                        break
+                    user_file.write(list_response)
+                    logger.log('Received: ' + str(list_response))
             elif self.is_passive:
                 print('The client is in passive mode.')
                 self.s.send(FtpClient.str_to_bytes('PASV \n'))
@@ -291,30 +304,31 @@ class FtpClient:
                 socket_rec = FtpClient.create_new_socket()
                 logger.log('New data receiving socket created.')
                 socket_rec.connect((ip, port))
+                user_file_name = input('Enter file name to be retrieved: ')
+                retr_command = 'RETR ' + user_file_name
+                self.s.send(FtpClient.str_to_bytes(retr_command + '\n'))
+                logger.log('SENT: ' + retr_command)
+                user_file = open(user_file_name, 'w')
+                file_data = FtpClient.str_to_bytes(user_file.read())
+                response = self.response()
+                while True:
+                    list_response = socket_rec.recv(1024)
+                    if not list_response:
+                        break
+                    user_file.write(list_response)
+                    logger.log('Received: ' + list_response)
+                self.response()
             else:
                 socket_rec.close()
                 print('Not in Port ot Passive mode.')
                 logger.log('User attempted STOR whilst not being in Port or Passive mode.')
                 return
-            user_file_name = input('Enter file name to be retrieved: ')
-            self.s.send(FtpClient.str_to_bytes('RETR ' + user_file_name + '\n'))
-            response = self.response()
-            user_file = open(user_file_name, 'r')
-            file_data = FtpClient.str_to_bytes(user_file.read())
-            response = self.response()
-            conn, host = socket_rec.accept()
-            while True:
-                list_response = conn.recv(1024)
-                if not list_response:
-                    break
-                print(list_response)
-                logger.log('Received: ' + str(list_response))
-            response = self.response()
         except socket.error as e:
             logger.log_socket_error(str(e))
             return
         except Exception as e:
             logger.log_err(str(e))
+            sys.exit(0)
             return
 
     '''

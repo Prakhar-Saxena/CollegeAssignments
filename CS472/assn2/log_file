@@ -286,3 +286,40 @@
 2020-10-13 13:44:48.346292	Sent: QUIT
 2020-10-13 13:44:48.391971	Response Received: b'221 Goodbye.\r\n'
 2020-10-13 13:44:48.391971	Quiting.
+2020-10-13 14:52:09.792696	-------------------------STARTS HERE-------------------------
+2020-10-13 14:52:09.792696	New ftp client intialised.
+2020-10-13 14:52:09.792696	IP: 10.246.251.93
+2020-10-13 14:52:09.792696	Port: 21
+2020-10-13 14:52:09.792696	Attempting server connection with sockets.
+2020-10-13 14:52:09.794222	Socket created.
+2020-10-13 14:52:09.833814	Response Received: b'220 Welcome to CS472 FTP Server\r\n'
+2020-10-13 14:52:09.833814	Socket Successfully connected to 10.246.251.93 at port 10.246.251.93
+2020-10-13 14:52:09.833814	Attempting USER
+2020-10-13 14:52:11.736876	Sent: USER - cs472
+2020-10-13 14:52:11.752941	Response Received: b'331 Please specify the password.\r\n'
+2020-10-13 14:52:11.752941	Attempting PASS
+2020-10-13 14:52:13.996004	Sent: PASS hw2ftp
+2020-10-13 14:52:14.086106	Response Received: b'230 Login successful.\r\n'
+2020-10-13 14:52:14.086106	Initialising menu REPL.
+2020-10-13 14:52:36.736141	Attempting PASV
+2020-10-13 14:52:36.736141	The client is in passive mode now.
+2020-10-13 14:52:39.374970	Attempting RETR
+2020-10-13 14:52:39.386503	New Socket created, for data receiving.
+2020-10-13 14:52:39.386503	New data receiving socket created.
+2020-10-13 14:52:39.386503	Sent: PASV
+2020-10-13 14:52:39.434328	Response Received: b'227 Entering Passive Mode (10,246,251,93,51,248).\r\n'
+2020-10-13 14:52:39.434833	New data receiving socket created.
+2020-10-13 14:52:44.187816	SENT: RETR test.txt
+2020-10-13 14:52:44.188320	XXXXXXXXXXXXXXXXXXXXXXXXX ERROR XXXXXXXXXXXXXXXXXXXXXXXXX
+					Socket Error: not readable
+2020-10-13 14:52:52.815473	Invalid command entered: 
+2020-10-13 14:52:56.490394	Attempting PWD
+2020-10-13 14:52:56.490394	Sent: PWD
+2020-10-13 14:52:56.490887	Response Received: b'150 Opening BINARY mode data connection for test.txt (0 bytes).\r\n226 Transfer complete.\r\n'
+2020-10-13 14:53:00.193287	Attempting PWD
+2020-10-13 14:53:00.193287	Sent: PWD
+2020-10-13 14:53:00.193755	Response Received: b'257 "/home/cs472" is the current directory\r\n'
+2020-10-13 14:53:06.708489	Attempting QUIT
+2020-10-13 14:53:06.708489	Sent: QUIT
+2020-10-13 14:53:06.708995	Response Received: b'257 "/home/cs472" is the current directory\r\n'
+2020-10-13 14:53:06.708995	Quiting.

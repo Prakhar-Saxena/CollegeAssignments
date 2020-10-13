@@ -286,11 +286,14 @@ class FtpClient:
                 response = self.response()
                 conn, host = socket_rec.accept()
                 while True:
-                    list_response = conn.recv(1024)
+                    list_response = str(conn.recv(1024))
                     if not list_response:
                         break
                     user_file.write(list_response)
-                    logger.log('Received: ' + str(list_response))
+                    logger.log('Received: ' + list_response)
+                response = str(socket_rec.recv(1024))
+                print(response)
+                logger.log('Received: ' + response)
             elif self.is_passive:
                 print('The client is in passive mode.')
                 self.s.send(FtpClient.str_to_bytes('PASV \n'))
@@ -309,20 +312,23 @@ class FtpClient:
                 self.s.send(FtpClient.str_to_bytes(retr_command + '\n'))
                 logger.log('SENT: ' + retr_command)
                 user_file = open(user_file_name, 'w')
-                file_data = FtpClient.str_to_bytes(user_file.read())
+                response = self.response()
                 response = self.response()
                 while True:
-                    list_response = socket_rec.recv(1024)
+                    list_response = str(socket_rec.recv(1024))
                     if not list_response:
                         break
                     user_file.write(list_response)
                     logger.log('Received: ' + list_response)
-                self.response()
+                response = str(socket_rec.recv(1024))
+                print(response)
+                logger.log('Received: ' + response)
             else:
                 socket_rec.close()
                 print('Not in Port ot Passive mode.')
                 logger.log('User attempted STOR whilst not being in Port or Passive mode.')
                 return
+            response = self.response()
         except socket.error as e:
             logger.log_socket_error(str(e))
             return
@@ -372,10 +378,9 @@ class FtpClient:
                 user_file_name = input('Enter file name to be stored:')
                 self.s.send(FtpClient.str_to_bytes('STOR ' + user_file_name + '\n'))
                 logger.log('Sent: STOR' + user_file_name)
+                response = self.response()
                 user_file = open(user_file_name, 'r')
                 file_data = FtpClient.str_to_bytes(user_file.read())
-                response = self.response()
-                # conn, host = socket_rec.accept()
                 socket_rec.send(file_data)
                 user_file.close()
             else:

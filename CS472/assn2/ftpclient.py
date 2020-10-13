@@ -179,7 +179,7 @@ class FtpClient:
     def eprt_command(self):
         try:
             logger.log_attempt('EPRT')
-            socket_rec = FtpClient.create_new_socket()
+            socket_rec = FtpClient.create_receiving_socket()
             logger.log('New data receiving socket created.')
             port = str(socket_rec.getsockname()[1])
             ip = str(socket.gethostbyname(socket.gethostname()))
@@ -197,7 +197,7 @@ class FtpClient:
     def retr_command(self):
         try:
             logger.log_attempt('RETR')
-            socket_rec = FtpClient.create_new_socket()
+            socket_rec = FtpClient.create_receiving_socket()
             logger.log('New data receiving socket created.')
             if self.is_port and not self.is_passive:
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
@@ -249,7 +249,7 @@ class FtpClient:
     def stor_command(self):
         try:
             logger.log_attempt('STOR')
-            socket_rec = FtpClient.create_new_socket()
+            socket_rec = FtpClient.create_receiving_socket()
             logger.log('New data receiving socket created.')
             if self.is_port and not self.is_passive:
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
@@ -322,7 +322,7 @@ class FtpClient:
     def list_command(self):
         try:
             logger.log_attempt('LIST')
-            socket_rec = FtpClient.create_new_socket()
+            socket_rec = FtpClient.create_receiving_socket()
             if self.is_port and not self.is_passive:
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
                 port_2 = int((socket_rec.getsockname()[1]) - (port_1 * 256))

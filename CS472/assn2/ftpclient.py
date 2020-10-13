@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+#
+# CS 472 - Homework # 2
+# Prakhar Saxena
+# ftpclient.py
+#
+# This file contains implementation of an FTP client that can login, list directory info, and store and retrieve info
+# from a server hosting the FTP service.
+#
 
 import socket
 import sys

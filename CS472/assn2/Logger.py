@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+#
+# CS 472 - Homework #2
+# Prakhar Saxena
+# Logger.py
+#
+# This file contains implementation of a logging tool, that is used by the FTP client in the same directory.
+#
 
 import sys
 import datetime

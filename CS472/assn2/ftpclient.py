@@ -510,7 +510,9 @@ class FtpClient:
                 logger.log('Invalid command entered: ' + user_choice)
                 print('-' * 25)
 
-
+'''
+main function.
+'''
 def main():
     ip = ''
     log_file_name = ''
@@ -542,6 +544,8 @@ def main():
 
     logger.log('-' * 25 + 'STOPS HERE' + '-' * 25 + '\n')
 
-
+'''
+Python main function name ceremony
+'''
 if __name__ == '__main__':
     main()

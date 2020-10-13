@@ -31,10 +31,10 @@ This is one of the hardest assignments I have ever encountered.
 The amount of hours I spent trying to comprehend the complex commands going through the RFCs and testing them out on the
 very inconsistent FTP clients on windows and tux, I found terribly frustrating.
 
-How to run teh program:
+How to run the program:
 I have created a makefile for your ease. All you have to do is type:
     make
-And it will ask you for teh username and password. Then you would find yourself in a menu REPL.
+And it will ask you for the username and password. Then you would find yourself in a menu REPL.
 The case of commands you type wouldn't matter, I handled it converting them all to upper case, following the FTP
 requirements.
 You can find the logs in:
@@ -42,6 +42,7 @@ You can find the logs in:
 In order to clean the log_file you can just run:
     make clean
 
+The 'Questions to be answered' are in a pdf in the same directory.
 
 Cheers
 

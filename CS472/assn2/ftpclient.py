@@ -183,8 +183,8 @@ class FtpClient:
             logger.log('New data receiving socket created.')
             port = str(socket_rec.getsockname()[1])
             ip = str(socket.gethostbyname(socket.gethostname()))
-            eprt_command = 'EPRT | 1 | ' + ip + ' | ' + port + ' | \n'
-            self.s.send(FtpClient.str_to_bytes(eprt_command))
+            eprt_command = 'EPRT | 1 | ' + ip + ' | ' + port + ' |'
+            self.s.send(FtpClient.str_to_bytes(eprt_command+ ' \n'))
             logger.log('Sent: ' + eprt_command)
             response = self.response()
         except socket.error as e:
@@ -202,8 +202,8 @@ class FtpClient:
             if self.is_port and not self.is_passive:
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
                 port_2 = int((socket_rec.getsockname()[1]) - (port_1 * 256))
-                port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2) +'\n'
-                self.s.send(FtpClient.str_to_bytes(port_command))
+                port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2)
+                self.s.send(FtpClient.str_to_bytes(port_command + '\n'))
                 logger.log('Sent: ' + port_command)
                 response = self.response()
             elif self.is_passive:
@@ -254,8 +254,8 @@ class FtpClient:
             if self.is_port and not self.is_passive:
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
                 port_2 = int((socket_rec.getsockname()[1]) - (port_1 * 256))
-                port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2) +'\n'
-                self.s.send(FtpClient.str_to_bytes(port_command))
+                port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2)
+                self.s.send(FtpClient.str_to_bytes(port_command + ' \n'))
                 logger.log('Sent: ' + port_command)
                 response = self.response()
             elif self.is_passive:
@@ -326,8 +326,8 @@ class FtpClient:
             if self.is_port and not self.is_passive:
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
                 port_2 = int((socket_rec.getsockname()[1]) - (port_1 * 256))
-                port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2) + '\n'
-                self.s.send(FtpClient.str_to_bytes(port_command))
+                port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2)
+                self.s.send(FtpClient.str_to_bytes(port_command + ' \n'))
                 logger.log('Sent: ' + port_command)
                 response = self.response()
             elif self.is_passive:
@@ -453,7 +453,7 @@ def main():
     ftp_client = FtpClient(ip, port)
     ftp_client.initialise()
 
-    logger.log('-' * 25 + 'STOPS HERE' + '-' * 25)
+    logger.log('-' * 25 + 'STOPS HERE' + '-' * 25 + '\n')
 
 
 if __name__ == '__main__':

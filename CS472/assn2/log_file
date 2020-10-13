@@ -1,0 +1,144 @@
+2020-10-13 13:16:39.031056	-------------------------STARTS HERE-------------------------
+2020-10-13 13:16:39.031056	New ftp client intialised.
+2020-10-13 13:16:39.031056	IP: 10.246.251.93
+2020-10-13 13:16:39.031056	Port: 21
+2020-10-13 13:16:39.031056	Attempting server connection with sockets.
+2020-10-13 13:16:39.032055	Socket created.
+2020-10-13 13:16:40.119265	Response Received: b'220 Welcome to CS472 FTP Server\r\n'
+2020-10-13 13:16:40.119265	Socket Successfully connected to 10.246.251.93 at port 10.246.251.93
+2020-10-13 13:16:40.119265	Attempting USER
+2020-10-13 13:16:42.371932	Sent: USER - cs472
+2020-10-13 13:16:42.390379	Response Received: b'331 Please specify the password.\r\n'
+2020-10-13 13:16:42.390379	Attempting PASS
+2020-10-13 13:16:45.027631	Sent: PASS hw2ftp
+2020-10-13 13:16:45.141308	Response Received: b'230 Login successful.\r\n'
+2020-10-13 13:16:45.141308	Initialising menu REPL.
+2020-10-13 13:16:47.203342	Attempting PASV
+2020-10-13 13:16:47.203342	The client is in passive mode now.
+2020-10-13 13:16:50.212117	Attempting LIST
+2020-10-13 13:16:50.226116	New Socket created, for data receiving.
+2020-10-13 13:16:50.257826	Response Received: b'227 Entering Passive Mode (10,246,251,93,27,248).\r\n'
+2020-10-13 13:16:50.257826	New data receiving socket created.
+2020-10-13 13:16:50.315481	Response Received: b'150 Here comes the directory listing.\r\n'
+2020-10-13 13:16:50.315481	XXXXXXXXXXXXXXXXXXXXXXXXX ERROR XXXXXXXXXXXXXXXXXXXXXXXXX
+					Socket Error: [WinError 10022] An invalid argument was supplied
+2020-10-13 13:17:09.517406	Attempting PWD
+2020-10-13 13:17:09.517406	Sent: PWD
+2020-10-13 13:17:09.517907	Response Received: b'226 Directory send OK.\r\n'
+2020-10-13 13:17:14.136407	Attempting PWD
+2020-10-13 13:17:14.136407	Sent: PWD
+2020-10-13 13:17:14.136407	Response Received: b'257 "/home/cs472" is the current directory\r\n'
+2020-10-13 13:20:09.716185	Attempting QUIT
+2020-10-13 13:20:09.716694	Sent: QUIT
+2020-10-13 13:20:09.716694	Response Received: b'257 "/home/cs472" is the current directory\r\n'
+2020-10-13 13:20:09.716694	Quiting.
+2020-10-13 13:20:21.396385	-------------------------STARTS HERE-------------------------
+2020-10-13 13:20:21.396385	New ftp client intialised.
+2020-10-13 13:20:21.396385	IP: 10.246.251.93
+2020-10-13 13:20:21.396385	Port: 21
+2020-10-13 13:20:21.396385	Attempting server connection with sockets.
+2020-10-13 13:20:21.397873	Socket created.
+2020-10-13 13:20:21.517406	Response Received: b'220 Welcome to CS472 FTP Server\r\n'
+2020-10-13 13:20:21.517406	Socket Successfully connected to 10.246.251.93 at port 10.246.251.93
+2020-10-13 13:20:21.517406	Attempting USER
+2020-10-13 13:20:26.724776	Sent: USER - cs472
+2020-10-13 13:20:26.860138	Response Received: b'331 Please specify the password.\r\n'
+2020-10-13 13:20:26.860138	Attempting PASS
+2020-10-13 13:20:29.283317	Sent: PASS hw2ftp
+2020-10-13 13:20:29.402944	Response Received: b'230 Login successful.\r\n'
+2020-10-13 13:20:29.402944	Initialising menu REPL.
+2020-10-13 13:20:32.598371	Attempting PASV
+2020-10-13 13:20:32.598371	The client is in passive mode now.
+2020-10-13 13:20:36.673430	Attempting LIST
+2020-10-13 13:20:36.697935	New Socket created, for data receiving.
+2020-10-13 13:20:36.723988	Response Received: b'227 Entering Passive Mode (10,246,251,93,132,244).\r\n'
+2020-10-13 13:20:36.724435	New data receiving socket created.
+2020-10-13 13:20:36.776428	Response Received: b'150 Here comes the directory listing.\r\n'
+2020-10-13 13:20:36.785935	Received: b'-rw-r--r--    1 1001     1001            0 Oct 12 17:38 \test.txt\r\n-rw-r--r--    1 1001     1001           18 Oct 12 21:16 HELLO.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 13 02:08 LifeGood.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 13 02:08 LifeGood2.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:54 LifeGood4.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 23:04 POG.txt\r\n-rw-r--r--    1 1001     1001       133014 Oct 13 11:56 RFC 959.pdf\r\ndrwxr-xr-x    2 1001     1001         4096 Oct 13 12:49 a\r\n-rw-r--r--    1 1001     1001           15 Oct 13 13:04 aaaaaaaa.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 00:39 abc\r\n-rw-r--r--    1 1001     1001           65 Oct 12 20:58 apple.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 12 20:58 applt.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 13 05:33 bryan.txt\r\n-rw-r--r--    1 1001     1001       211631 Oct 12 21:05 class1(1).pptx\r\n-rw-r--r--    1 1001     1001            0 Oct 12 00:18 client.py\r\n-rw-r--r--   '
+2020-10-13 13:20:36.785935	Received: b' 1 1001     1001            0 Oct 13 00:18 digfr.txt\r\ndrwxr-xr-x    2 1001     1001         4096 Oct 13 00:39 dln45\r\n-rw-r--r--    1 1001     1001           15 Oct 13 12:38 dln45.txt\r\n-rw-r--r--    1 1001     1001           14 Oct 13 00:47 dln45.txxt\r\n-rw-r--r--    1 1001     1001           55 Oct 12 11:26 e2.txt\r\n-rw-r--r--    1 1001     1'
+2020-10-13 13:20:36.785935	Received: b'001           55 Oct 12 11:36 e3.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 10 18:48 etest.txt\r\n-rw-r--r--    1 1001     1001           21 Oct 10 19:38 etest1.txt\r\n-rw-r--r--    1 1001     1001           44 Oct 12 11:11 etest2.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 20:13 ex.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:52 f f\r\n-rw-r--r--    1 1001     1001            9 Oct 12 16:25 f1 f1\r\n-rw-r--r--    1 1001     1001            9 Oct 12 16:25 f1 tri-file\r\n-rw-r--r--    1 1001     1001           46 Oct 10 21:10 f3\r\n-rw-r--r--    1 1001     1001           46 Oct 10 20:05 f3 f3\r\n-rw-r--r--    1 1001     1001            0 Oct 02 18:12 fil1\r\n-rw-r--r--    1 1001     1001            0 Oct 06 20:56 fil1231\r\n-rw-r--r--    1 1001     1001            0 Oct 06 20:52 fil3\r\n-rw-r--r--    1 1001     1001            0 Oct 08 12:17 file1\r\n-rw-r--r--    1 1001     1001            0 Oct 10 03:25 file1santra.txt\r\n-rw-r--r--    1 1001     1001           46 Oct 02 18:21 file2\r\n-rw-r--r--    1'
+2020-10-13 13:20:36.786437	Received: b' 1001     1001            0 Oct 10 03:51 file2santra.txt\r\n-rw-r--r--    1 1001     1001           46 Oct 06 20:56 file3\r\n-rw-r--r--    1 1001     1001          146 Oct 13 04:06 file3santra.txt\r\n-rw-r--r--    1 1001     1001       204232 Oct 13 09:11 ftp_dz.txt.pdf\r\n-rw-r--r--    1 1001     1001        85028 Oct 01 18:22 ftp_protocol.txt.pdf\r\n-rw-r--r--    1 1001     1001            6 Oct 12 15:01 list\r\n-rw-r--r--    1 1001     1001            0 Oct 12 22:57 log.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 17:57 logfile.txt\r\ndrwxr-xr-x    2 1001     1001         4096 Oct 13 12:28 mydir\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:28 mylog.txt\r\n-rw-r--r--    1 1001     1001           19 Oct 13 12:16 mytestfile.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 11 17:19 n\r\n-rw-r--r--    1 1001     1001            0 Oct 10 12:31 new_file\r\n-rw-r--r--    1 1001     1001           23 Oct 12 18:26 new_file.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 08 13:02 nf\r\n-rw-r--r--    1 1001     10'
+2020-10-13 13:20:36.786437	Received: b'01           15 Oct 13 11:45 nw.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:23 other.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 12 21:27 russell.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 16:40 sample.txt\r\n-rw-r--r--    1 1001     1001           30 Oct 11 11:09 sample_log.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 01:14 sdkfalsdkf;sdakfsd\r\n-rw-r--r--    1 1001     1001           56 Oct 13 11:56 specialname.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 19:02 stor.txt\r\n-rw-r--r--    1 1001     1001          138 Oct 13 02:01 storeTest.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 11 16:58 storeTest.txt .\r\n-rw-r--r--  '
+2020-10-13 13:20:36.786437	Received: b'  1 1001     1001            0 Oct 12 17:29 storport.txt\r\n-rw-r--r--    1 1001     1001         3072 Oct 13 12:14 t.txt \r\n-rw-r--r--    1 1001     1001           16 Oct 13 13:09 temp1111.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 19:10 tesst.123\r\n-rw-r--r--    1 1001     1001            5 Oct 12 20:02 test.123\r\n-rw-r--r--    1 1001     1001            9 Oct 13 11:36 test.1232\r\n-rw-r--r--    1 1001     1001            0 Oct 10 20:52 test.doc\r\n-rw-r--r--    1 1001     1001            0 Oct 13 00:19 test.txt\r\n-rw-r--r--    1 1001     1001         1052 Oct 12 22:32 test.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 11 10:48 test1.txt\r\n-rw-r--r--    1 1001     1001           40 Oct 11 17:26 test112233.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 14:12 testFile.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 09 09:24 testFile222.txt\r\n-rw-r--r--    1 1001     1001           77 Oct 13 13:17 testFileJace.txt\r\n-rw-r--r--    1 1001     1001           13 Oct 13 01:07 testSTOR.txt\r\n-rw-r--'
+2020-10-13 13:20:36.786929	Received: b'r--    1 1001     1001           28 Oct 13 01:17 testSTOR2.txt\r\n-rw-r--r--    1 1001     1001          667 Oct 12 12:00 test_155.txt\r\n-rw-r--r--    1 1001     1001           69 Oct 06 20:59 test_file.txt\r\n-rw-r--r--    1 1001     1001           68 Oct 13 09:02 test_store.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 17:25 tester.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 11 17:21 testfile112233.txt\r\n-rw-r--r--    1 1001     1001           35 Oct 09 09:25 testfile222.txt\r\n-rw-r--r--    1 1001     1001           22 Oct 12 14:12 testing.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 18:56 text\r\n-rw-r--r--    1 1001     1001            0 Oct 12 18:57 text.txt\r\n-rw-r--r--    1 1001     1001         3072 Oct 13 12:55 text.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 12 16:35 text123321.txt \r\n-rw-r--r--    1 1001     1001           38 Oct 12 15:06 viscoTestFile.txt\r\n-rw-r--r--    1 1001     1001           19 Oct 12 18:32 xxxx.txt\r\n-rw-r--r--    1 1001     1001        90112 Oct 13 12'
+2020-10-13 13:20:36.786929	Received: b':07 yatf.pdf\r\n-rw-r--r--    1 1001     1001           22 Oct 12 20:34 yyyy.txt\r\n-rw-r--r--    1 1001     1001           93 Oct 12 17:31 zztest.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 12 17:48 {filepath}\r\n-rw-r--r--    1 1001     1001            0 Oct 12 20:00 \xb8\x01 \r\n'
+2020-10-13 13:20:36.808449	Response Received: b'226 Directory send OK.\r\n'
+2020-10-13 13:21:29.283291	Attempting STOR
+2020-10-13 13:21:29.283792	New Socket created, for data receiving.
+2020-10-13 13:21:29.283792	New data receiving socket created.
+2020-10-13 13:21:29.284290	Sent: PASV
+2020-10-13 13:21:29.621767	Response Received: b'227 Entering Passive Mode (10,246,251,93,81,190).\r\n'
+2020-10-13 13:21:29.622264	New data receiving socket created.
+2020-10-13 13:21:40.560397	Sent: STORprasax_stor.txt
+2020-10-13 13:21:40.573825	Response Received: b'500 Unknown command.\r\n'
+2020-10-13 13:21:40.573825	XXXXXXXXXXXXXXXXXXXXXXXXX ERROR XXXXXXXXXXXXXXXXXXXXXXXXX
+					Socket Error: [WinError 10022] An invalid argument was supplied
+2020-10-13 13:22:27.512757	Attempting PASV
+2020-10-13 13:22:27.513258	The client is not in passive mode now.
+2020-10-13 13:22:52.793414	Attempting QUIT
+2020-10-13 13:22:52.793414	Sent: QUIT
+2020-10-13 13:22:52.842311	Response Received: b'221 Goodbye.\r\n'
+2020-10-13 13:22:52.842311	Quiting.
+2020-10-13 13:25:48.078242	-------------------------STARTS HERE-------------------------
+2020-10-13 13:25:48.078242	New ftp client intialised.
+2020-10-13 13:25:48.078242	IP: 10.246.251.93
+2020-10-13 13:25:48.078242	Port: 21
+2020-10-13 13:25:48.078242	Attempting server connection with sockets.
+2020-10-13 13:25:48.079247	Socket created.
+2020-10-13 13:25:48.243748	Response Received: b'220 Welcome to CS472 FTP Server\r\n'
+2020-10-13 13:25:48.243748	Socket Successfully connected to 10.246.251.93 at port 10.246.251.93
+2020-10-13 13:25:48.243748	Attempting USER
+2020-10-13 13:25:54.912733	Sent: USER - cs472
+2020-10-13 13:25:54.936270	Response Received: b'331 Please specify the password.\r\n'
+2020-10-13 13:25:54.936270	Attempting PASS
+2020-10-13 13:25:58.198716	Sent: PASS hw2ftp
+2020-10-13 13:25:58.293363	Response Received: b'230 Login successful.\r\n'
+2020-10-13 13:25:58.293363	Initialising menu REPL.
+2020-10-13 13:26:03.716684	Attempting PORT
+2020-10-13 13:26:03.716684	The client is in port mode now.
+2020-10-13 13:26:06.174813	Attempting LIST
+2020-10-13 13:26:06.188851	New Socket created, for data receiving.
+2020-10-13 13:26:06.189330	Sent: PORT 10,246,148,21,196,47
+2020-10-13 13:26:06.552311	Response Received: b'200 PORT command successful. Consider using PASV.\r\n'
+2020-10-13 13:26:06.652300	Response Received: b'150 Here comes the directory listing.\r\n'
+2020-10-13 13:26:06.654299	Received: b'-rw-r--r--    1 1001     1001            0 Oct 12 17:38 \test.txt\r\n-rw-r--r--    1 1001     1001           18 Oct 12 21:16 HELLO.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 13 02:08 LifeGood.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 13 02:08 LifeGood2.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:54 LifeGood4.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 23:04 POG.txt\r\n-rw-r--r--    1 1001     1001       133014 Oct 13 11:56 RFC 959.pdf\r\ndrwxr-xr-x    2 1001     1001         4096 Oct 13 12:49 a\r\n-rw-r--r--    1 1001     1001           15 Oct 13 13:04 aaaaaaaa.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 00:39 abc\r\n-rw-r--r--    1 1001     1001           65 Oct 12 20:58 apple.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 12 20:58 applt.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 13 05:33 bryan.txt\r\n-rw-r--r--    1 1001     1001       211631 Oct 12 21:05 class1(1).pptx\r\n-rw-r--r--    1 1001     1001            0 Oct 12 00:18 client.py\r\n-rw-r--r--   '
+2020-10-13 13:26:06.654299	Received: b' 1 1001     1001            0 Oct 13 00:18 digfr.txt\r\ndrwxr-xr-x    2 1001     1001         4096 Oct 13 00:39 dln45\r\n-rw-r--r--    1 1001     1001           15 Oct 13 13:23 dln45.txt\r\n-rw-r--r--    1 1001     1001           14 Oct 13 00:47 dln45.txxt\r\n-rw-r--r--    1 1001     1001           55 Oct 12 11:26 e2.txt\r\n-rw-r--r--    1 1001     1'
+2020-10-13 13:26:06.654818	Received: b'001           55 Oct 12 11:36 e3.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 10 18:48 etest.txt\r\n-rw-r--r--    1 1001     1001           21 Oct 10 19:38 etest1.txt\r\n-rw-r--r--    1 1001     1001           44 Oct 12 11:11 etest2.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 20:13 ex.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:52 f f\r\n-rw-r--r--    1 1001     1001            9 Oct 12 16:25 f1 f1\r\n-rw-r--r--    1 1001     1001            9 Oct 12 16:25 f1 tri-file\r\n-rw-r--r--    1 1001     1001           46 Oct 10 21:10 f3\r\n-rw-r--r--    1 1001     1001           46 Oct 10 20:05 f3 f3\r\n-rw-r--r--    1 1001     1001            0 Oct 02 18:12 fil1\r\n-rw-r--r--    1 1001     1001            0 Oct 06 20:56 fil1231\r\n-rw-r--r--    1 1001     1001            0 Oct 06 20:52 fil3\r\n-rw-r--r--    1 1001     1001            0 Oct 08 12:17 file1\r\n-rw-r--r--    1 1001     1001            0 Oct 10 03:25 file1santra.txt\r\n-rw-r--r--    1 1001     1001           46 Oct 02 18:21 file2\r\n-rw-r--r--    1'
+2020-10-13 13:26:06.655310	Received: b' 1001     1001            0 Oct 10 03:51 file2santra.txt\r\n-rw-r--r--    1 1001     1001           46 Oct 06 20:56 file3\r\n-rw-r--r--    1 1001     1001          146 Oct 13 04:06 file3santra.txt\r\n-rw-r--r--    1 1001     1001       204232 Oct 13 09:11 ftp_dz.txt.pdf\r\n-rw-r--r--    1 1001     1001        85028 Oct 01 18:22 ftp_protocol.txt.pdf\r\n-rw-r--r--    1 1001     1001            6 Oct 12 15:01 list\r\n-rw-r--r--    1 1001     1001            0 Oct 12 22:57 log.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 17:57 logfile.txt\r\ndrwxr-xr-x    2 1001     1001         4096 Oct 13 12:28 mydir\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:28 mylog.txt\r\n-rw-r--r--    1 1001     1001           19 Oct 13 12:16 mytestfile.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 11 17:19 n\r\n-rw-r--r--    1 1001     1001            0 Oct 10 12:31 new_file\r\n-rw-r--r--    1 1001     1001           23 Oct 12 18:26 new_file.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 08 13:02 nf\r\n-rw-r--r--    1 1001     10'
+2020-10-13 13:26:06.662798	Received: b'01           15 Oct 13 11:45 nw.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 12:23 other.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 12 21:27 russell.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 16:40 sample.txt\r\n-rw-r--r--    1 1001     1001           30 Oct 11 11:09 sample_log.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 13 01:14 sdkfalsdkf;sdakfsd\r\n-rw-r--r--    1 1001     1001           56 Oct 13 11:56 specialname.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 19:02 stor.txt\r\n-rw-r--r--    1 1001     1001          138 Oct 13 02:01 storeTest.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 11 16:58 storeTest.txt .\r\n-rw-r--r--    1 1001     1001            0 Oct 12 17:29 storport.txt\r\n-rw-r--r--    1 1001     1001         3072 Oct 13 12:14 t.txt \r\n-rw-r--r--    1 1001     1001           16 Oct 13 13:09 temp1111.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 19:10 tesst.123\r\n-rw-r--r--    1 1001     1001            5 Oct 12 20:02 test.123\r\n-rw-r--r--    1'
+2020-10-13 13:26:06.662798	Received: b' 1001     1001            9 Oct 13 11:36 test.1232\r\n-rw-r--r--    1 1001     1001            0 Oct 10 20:52 test.doc\r\n-rw-r--r--    1 1001     1001            0 Oct 13 00:19 test.txt\r\n-rw-r--r--    1 1001     1001         1052 Oct 12 22:32 test.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 11 10:48 test1.txt\r\n-rw-r--r--    1 1001     1001           40 Oct 11 17:26 test112233.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 14:12 testFile.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 09 09:24 testFile222.txt\r\n-rw-r--r--    1 1001     1001           77 Oct 13 13:17 testFileJace.txt\r\n-rw-r--r--    1 1001     1001           13 Oct 13 01:07 testSTOR.txt\r\n-rw-r--r--    1 1001     1001           28 Oct 13 01:17 testSTOR2.txt\r\n-rw-r--r--    1 1001     1001          667 Oct 12 12:00 test_155.txt\r\n-rw-r--r--    1 1001     1001           69 Oct 06 20:59 test_file.txt\r\n-rw-r--r--    1 1001     1001           68 Oct 13 09:02 test_store.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 17:25 tester.'
+2020-10-13 13:26:06.663300	Received: b'txt\r\n-rw-r--r--    1 1001     1001            0 Oct 11 17:21 testfile112233.txt\r\n-rw-r--r--    1 1001     1001           35 Oct 09 09:25 testfile222.txt\r\n-rw-r--r--    1 1001     1001           22 Oct 12 14:12 testing.txt\r\n-rw-r--r--    1 1001     1001            0 Oct 12 18:56 text\r\n-rw-r--r--    1 1001     1001            0 Oct 12 18:57 text.txt\r\n-rw-r--r--    1 1001     1001         3072 Oct 13 12:55 text.txt \r\n-rw-r--r--    1 1001     1001            0 Oct 12 16:35 text123321.txt \r\n-rw-r--r--    1 1001     1001           38 Oct 12 15:06 viscoTestFile.txt\r\n-rw-r--r--    1 1001     1001           19 Oct 12 18:32 xxxx.txt\r\n-rw-r--r--    1 1001     1001        90112 Oct 13 12:07 yatf.pdf\r\n-rw-r--r--    1 1001     1001           22 Oct 12 20:34 yyyy.txt\r\n-rw-r--r--    1 1001     1001           93 Oct 12 17:31 zztest.txt\r\n-rw-r--r--    1 1001     1001           26 Oct 12 17:48 {filepath}\r\n-rw-r--r--    1 1001     1001            0 Oct 12 20:00 \xb8\x01 \r\n'
+2020-10-13 13:26:06.703334	Response Received: b'226 Directory send OK.\r\n'
+2020-10-13 13:26:13.733328	Attempting QUIT
+2020-10-13 13:26:13.733328	Sent: QUIT
+2020-10-13 13:26:13.750402	Response Received: b'221 Goodbye.\r\n'
+2020-10-13 13:26:13.750402	Quiting.
+2020-10-13 13:28:13.544886	-------------------------STARTS HERE-------------------------
+2020-10-13 13:28:13.544886	New ftp client intialised.
+2020-10-13 13:28:13.544886	IP: 10.246.251.93
+2020-10-13 13:28:13.544886	Port: 21
+2020-10-13 13:28:13.544886	Attempting server connection with sockets.
+2020-10-13 13:28:13.546386	Socket created.
+2020-10-13 13:28:13.598386	Response Received: b'220 Welcome to CS472 FTP Server\r\n'
+2020-10-13 13:28:13.598386	Socket Successfully connected to 10.246.251.93 at port 10.246.251.93
+2020-10-13 13:28:13.598386	Attempting USER
+2020-10-13 13:28:15.436112	Sent: USER - cs472
+2020-10-13 13:28:15.451598	Response Received: b'331 Please specify the password.\r\n'
+2020-10-13 13:28:15.451598	Attempting PASS
+2020-10-13 13:28:18.456691	Sent: PASS hw2ftp
+2020-10-13 13:28:18.563905	Response Received: b'230 Login successful.\r\n'
+2020-10-13 13:28:18.563905	Initialising menu REPL.
+2020-10-13 13:28:25.764349	Attempting PASV
+2020-10-13 13:28:25.764349	The client is in passive mode now.
+2020-10-13 13:28:28.861114	Attempting STOR
+2020-10-13 13:28:28.872583	New Socket created, for data receiving.
+2020-10-13 13:28:28.872583	New data receiving socket created.
+2020-10-13 13:28:28.872583	Sent: PASV
+2020-10-13 13:28:28.890080	Response Received: b'227 Entering Passive Mode (10,246,251,93,190,51).\r\n'
+2020-10-13 13:28:28.890575	New data receiving socket created.
+2020-10-13 13:28:39.421298	Sent: STORprasax_stor.txt
+2020-10-13 13:28:39.437732	Response Received: b'500 Unknown command.\r\n'
+2020-10-13 13:29:09.624823	Attempting QUIT
+2020-10-13 13:29:09.625307	Sent: QUIT
+2020-10-13 13:29:09.640727	Response Received: b'221 Goodbye.\r\n'
+2020-10-13 13:29:09.640727	Quiting.

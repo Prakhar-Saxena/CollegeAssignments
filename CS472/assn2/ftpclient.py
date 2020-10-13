@@ -251,8 +251,8 @@ class FtpClient:
             logger.log('New data receiving socket created.')
             port = str(socket_rec.getsockname()[1])
             ip = str(socket.gethostbyname(socket.gethostname()))
-            eprt_command = 'EPRT | 1 | ' + ip + ' | ' + port + ' |'
-            self.s.send(FtpClient.str_to_bytes(eprt_command+ ' \n'))
+            eprt_command = 'EPRT |1|' + ip + '|' + port  # + '|'  # RFC is wrong.
+            self.s.send(FtpClient.str_to_bytes(eprt_command + ' \n'))
             logger.log('Sent: ' + eprt_command)
             response = self.response()
         except socket.error as e:
@@ -436,6 +436,7 @@ class FtpClient:
                     print(list_response)
                     logger.log('Received: ' + str(list_response))
                 response = self.response()
+                self.response()
             elif self.is_passive:
                 print('The client is in passive mode.')
                 self.s.send(FtpClient.str_to_bytes('PASV \n'))

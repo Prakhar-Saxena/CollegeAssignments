@@ -1,2 +1,2 @@
-Test file for STOR command.
+Test file for STOR with PASV command.
 3.1415926535897

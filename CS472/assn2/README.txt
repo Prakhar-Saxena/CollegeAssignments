@@ -1,7 +1,7 @@
 Prakhar Saxena | CS 472 Homework # 2 | October 12, 2020 | README
 
 Introduction
-THis assignment was implemented over a week using teh following softwares and tools:
+THis assignment was implemented over a week using the following software and tools:
     - PyCharm
     - ViM
     - git (GitHub)

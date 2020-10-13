@@ -13,32 +13,49 @@ import sys
 from Logger import Logger
 
 class FtpClient:
+    '''
+    initialise the client with ip, port, commands and other useful attributes
+    '''
     def __init__(self, ip, port):
         self.ip = ip
         self.port = port
         self.commands = ['USER', 'PASS', 'PWD', 'CWD', 'HELP',
                          'PASV', 'EPSV', 'PORT', 'EPRT', 'RETR',
                          'STOR', 'SYST', 'LIST', 'QUIT']
-        self.s = None
+        self.s = None  # main socket
 
-        self.is_passive = False
-        self.is_port = False
+        self.is_passive = False  # passive mode attribute
+        self.is_port = False  # port mode attribute
 
+    '''
+    initialise the client with connection, user-password and the menu-REPL
+    '''
     def initialise(self):
         self.connect_server()
         self.user_command()  # includes PASS command
         self.menu_repl()
 
+    '''
+    created this method because we need to record the response from the FTP server quite frequently
+    '''
     def response(self):
         response = str(self.s.recv(1024)).strip()
         print(response)
         logger.log_response(response)
         return response
 
+    '''
+    converts string to bytes
+    needed this method because sockets require bytes and not strings.
+    '''
     @staticmethod
     def str_to_bytes(string):
         return bytes(string, 'utf-8')
 
+    '''
+    creates a socket specifically used for receiving data.
+    needed this method because a lot of commands required a frequent creation of a socket like this
+    '''
     @staticmethod
     def create_receiving_socket():
         try:
@@ -54,10 +71,17 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    creates a new socket.
+    '''
     @staticmethod
     def create_new_socket():
         return socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    '''
+    connects to the FTP server
+    takes no arguments, because all the information like the ip and port is already available to the instance
+    '''
     def connect_server(self):
         try:
             logger.log_attempt('server connection with sockets.')
@@ -73,6 +97,11 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    USER command
+    lets the user type in the username for the FTP server
+    also calls the PASS Command
+    '''
     def user_command(self):
         try:
             logger.log_attempt('USER')
@@ -88,6 +117,10 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    PASS command
+    lets teh user type in the password for the username previously entered onto the FTP server
+    '''
     def pass_command(self):
         try:
             logger.log_attempt('PASS')
@@ -102,6 +135,13 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    CWD command
+    Change working directory
+    lets user change the working directory the client is accessing
+    equivalent to 'cd' in Windows or Unix console/terminal
+    calls the PWD command
+    '''
     def cwd_command(self):
         try:
             logger.log_attempt('CWD')
@@ -109,11 +149,15 @@ class FtpClient:
             self.s.send(FtpClient.str_to_bytes('CWD ' + cd_input + '\n'))
             logger.log('Sent: CWD ' + cd_input)
             response = self.response()
-            self.pwd_command()
+            self.pwd_command()  # calling the pwd, just to check what the directory is after the change
         except Exception as e:
             logger.log_err('Error: ' + str(e))
             return
 
+    '''
+    QUIT command
+    lets the user quit the menu-REPL and the client application.
+    '''
     def quit_command(self):
         try:
             logger.log_attempt('QUIT')
@@ -132,6 +176,10 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    PASV command
+    lets the user change turn the client into passive mode.
+    '''
     def pasv_command(self):
         try:
             logger.log_attempt('PASV')
@@ -150,6 +198,10 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    EPSV command
+    basically the same as PASV but with original IP and full port
+    '''
     def epsv_command(self):
         try:
             logger.log_attempt('EPSV')
@@ -166,6 +218,10 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    PORT command
+    lets the user change turn the client into port mode.
+    '''
     def port_command(self):
         try:
             logger.log_attempt('PORT')
@@ -184,6 +240,10 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    EPRT command
+    basically the same as PASV but with different format
+    '''
     def eprt_command(self):
         try:
             logger.log_attempt('EPRT')
@@ -202,12 +262,16 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    RETR command
+    to retrieve a file from the FTP server
+    '''
     def retr_command(self):
         try:
             logger.log_attempt('RETR')
             socket_rec = FtpClient.create_receiving_socket()
             logger.log('New data receiving socket created.')
-            if self.is_port and not self.is_passive:
+            if self.is_port and not self.is_passive:  # passive mode takes priority over port mode
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
                 port_2 = int((socket_rec.getsockname()[1]) - (port_1 * 256))
                 port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2)
@@ -253,13 +317,16 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
-
+    '''
+    STOR command
+    to store file onto the FTP server
+    '''
     def stor_command(self):
         try:
             logger.log_attempt('STOR')
             socket_rec = FtpClient.create_receiving_socket()
             logger.log('New data receiving socket created.')
-            if self.is_port and not self.is_passive:
+            if self.is_port and not self.is_passive:  # passive mode takes priority over port mode
                 port_1 = int((socket_rec.getsockname()[1]) / 256)
                 port_2 = int((socket_rec.getsockname()[1]) - (port_1 * 256))
                 port_command = 'PORT ' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2)
@@ -301,6 +368,11 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    PWD command
+    prints the working directory
+    same as the pwd command on the Unix terminal
+    '''
     def pwd_command(self):
         try:
             logger.log_attempt('PWD')
@@ -314,6 +386,9 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    SYST command
+    '''
     def syst_command(self):
         try:
             logger.log_attempt('SYST')
@@ -327,6 +402,10 @@ class FtpClient:
             logger.log_err(str(e))
             return
 
+    '''
+    LIST command
+    
+    '''
     def list_command(self):
         try:
             logger.log_attempt('LIST')

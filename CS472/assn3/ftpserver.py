@@ -6,6 +6,7 @@
 
 import sys
 import socket
+import os
 from Logger import Logger
 
 class FtpServer:
@@ -16,6 +17,8 @@ class FtpServer:
         self.is_logged_in = False
         self.user_name = None
         self.user_pass = None
+        self.is_port = False
+        self.is_passive = False
         try:
             self.s = socket.socket()
         except Exception as e:
@@ -35,11 +38,23 @@ class FtpServer:
     def str_to_bytes(string):
         return bytes(string, 'utf-8')
 
-    def is_logged_in(self):
+    def logged_in_check(self):
         if not self.is_logged_in:
             self.c.send('530 Login with USER and PASS.\n')
         else:
             return
+
+    def pwd_command(self):
+        try:
+            self.logged_in_check()
+            if self.is_logged_in:
+                logger.log('Request: PWD')
+                working_directory = os.getcwd()
+                response = '257 \"' + working_directory + '\"\n'
+                self.c.send(FtpServer.str_to_bytes(response))
+                logger.log('Response: ' + response)
+        except Exception as e:
+            logger.log_err(str(e))
 
     def quit_command(self):
         try:
@@ -103,10 +118,7 @@ class FtpServer:
         elif user_choice == 'HELP':
             self.help_command()
 
-    def pwd_command(self):
-        self.is_logged_in()
-        if self.is_logged_in:
-            logger.log('Request: PWD')
+
 
 
 def main():

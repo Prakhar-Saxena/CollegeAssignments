@@ -7,6 +7,7 @@
 import sys
 import socket
 import os
+import re
 from Logger import Logger
 
 class FtpServer:
@@ -19,6 +20,9 @@ class FtpServer:
         self.user_pass = None
         self.is_port = False
         self.is_passive = False
+        self.is_eprt = False
+        self.is_epsv = False
+        self.data_receiving_socket = None
         try:
             self.s = socket.socket()
         except Exception as e:
@@ -38,11 +42,16 @@ class FtpServer:
     def str_to_bytes(string):
         return bytes(string, 'utf-8')
 
+    @staticmethod
+    def create_new_socket():
+        return socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
     def logged_in_check(self):
         if not self.is_logged_in:
             self.c.send('530 Login with USER and PASS.\n')
+            return False
         else:
-            return
+            return True
 
     def pwd_command(self):
         try:
@@ -61,6 +70,80 @@ class FtpServer:
             logger.log_attempt('QUIT')
             self.c.send(FtpServer.str_to_bytes('221 Goodbye.\n'))
             logger.log('Response: 221 Goodbye.')
+        except Exception as e:
+            logger.log_err(str(e))
+
+    def port_command(self, client_input):
+        try:
+            logger.log_attempt('PORT')
+            if self.logged_in_check():
+                logger.log('Received: ' + client_input)
+                input_mod = client_input[5:].replace(',', '.')
+
+                match = re.search('(\d+\.\d+\.\d+\.\d+)(\.\d+)(\.\d+)', client_input)
+                if match:
+                    ip_address = match.group(1)
+                    port_1 = match.group(2)
+                    port_2 = match.group(3)
+                port_1 = int(port_1.replace('.', ''))
+                port_2 = int(port_2.replace('.', ''))
+                port = int((port_1 * 256) + port_2)
+                self.data_receiveing_socket = FtpServer.create_new_socket()
+                self.data_receiveing_socket.connect((ip_address, port))
+                self.c.send('200 PORT command successful.')
+                logger.log('Response: 200 PORT command successful.')
+                self.is_port = True
+                self.is_passive = False
+                self.is_eprt = False
+                self.is_epsv = False
+                # not checking for lust retr or stor here because menu repl takes care of that
+        except Exception as e:
+            logger.log_err(str(e))
+
+    def eprt_command(self, client_input):
+        try:
+            logger.log_attempt('EPRT')
+            if self.logged_in_check():
+                logger.log('Received: ' + client_input)
+                client_input_mod = client_input[10:]  # getting the ip and ports
+                logger.log(client_input_mod)
+                ip_address = ''
+                port = ''
+                match = re.search('(\d+\.\d+\.\d+\.\d+)(\|\d+)', client_input_mod)
+                if match:
+                    ip_address = match.group(1)
+                    port = match.group(2)
+                port = port[1:]
+                self.data_receiveing_socket = FtpServer.create_new_socket()
+                self.data_receiveing_socket.connect((ip_address, int(port)))
+
+                self.c.send('200 EPRT command successful.')
+                logger.log('Response: 200 EPRT command successful.')
+                self.is_eprt = True
+                self.is_port = False
+                self.is_passive = False
+                self.is_epsv = False
+                # not checking for lust retr or stor here because menu repl takes care of that
+        except Exception as e:
+            logger.log_err(str(e))
+
+    def pasv_command(self, client_input):
+        try:
+            logger.log_attempt('PASV')
+            if self.logged_in_check():
+                self.data_receiveing_socket = FtpServer.create_new_socket()
+                self.data_receiveing_socket.bind((socket.gethostbyname(socket.gethostname()), 0))
+                self.data_receiveing_socket.listen(1)
+                logger.log('Data Receiving Socket created.')
+                port_1 = int((self.data_receiveing_socket.getsockname()[1]) / 256)
+                port_2 = int((self.data_receiveing_socket.getsockname()[1]) - (port_1 * 256))
+                self.c.send('227 Entering Passive Mode.')
+                logger.log('Response: 227 Entering Passive Mode.' + str(port_1) + '; ' + str(port_2))
+                self.is_passive = True
+                self.is_eprt = False
+                self.is_port = False
+                self.is_epsv = False
+                # not checking for lust retr or stor here because menu repl takes care of that
         except Exception as e:
             logger.log_err(str(e))
 
@@ -83,8 +166,11 @@ class FtpServer:
         elif 'USER' in client_input:
             self.user_command()
         elif 'PORT' in client_input:
-            self.port_command()
-        elif
+            self.port_command(client_input)
+        elif 'EPRT' in client_input:
+            self.eprt_command(client_input)
+        elif 'PASV' in client_input:
+            self.pasv_command(client_input)
 
         else:
             return

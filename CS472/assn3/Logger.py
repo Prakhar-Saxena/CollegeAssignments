@@ -60,7 +60,7 @@ class Logger:
     log response messages
     '''
     def log_response(self, response):
-        self.log('Response Received: ' + response)
+        self.log('Response Sent: ' + response)
 
     '''
     log attempt messages

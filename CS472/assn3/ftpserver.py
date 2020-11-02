@@ -363,7 +363,7 @@ def main():
         sys.exit(0)
 
     log_file_name = sys.argv[1]
-    port = sys.argv[2]
+    port = int(sys.argv[2])
     global logger
     logger = Logger(log_file_name)
     ftpServer = FtpServer(port)

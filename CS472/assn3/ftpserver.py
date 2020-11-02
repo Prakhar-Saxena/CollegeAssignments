@@ -345,7 +345,7 @@ def main():
     global logger
     logger = Logger(log_file_name)
     ftpServer = FtpServer(port)
-
+    ftpServer.initialise()
 
 if __name__ == '__main__':
     main()

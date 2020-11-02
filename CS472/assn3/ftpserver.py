@@ -16,7 +16,7 @@ class FtpServer:
         logger.log('ftpServer initialised.')
         self.port = port
         self.c = None
-        self.is_logged_in = False
+        self.is_logged_in = True # TODO CHANGE IT TO FALSE LATER
         self.user_name = None
         self.user_pass = None
         self.is_port = False
@@ -25,6 +25,7 @@ class FtpServer:
         self.is_epsv = False
         self.data_receiving_socket = None
         self.client_input = None
+        self.valid_users = {'cs472': 'hw2ftp'}
         try:
             self.s = socket.socket()
         except Exception as e:
@@ -61,6 +62,21 @@ class FtpServer:
             return False
         else:
             return True
+
+    def user_command(self):
+        try:
+            logger.log_attempt('USER')
+            if self.is_logged_in:
+                self.c.send('331 Any password will do.\n')
+                logger.log_response('331 Any password will do.')
+                password = self.c.recv(1024)
+                logger.log(password)
+                self.c.send('230 Already logged in.\n')
+                logger.log_response('230 Already logged in.')
+            else:
+                self.c.send('')
+
+
 
     def pwd_command(self):
         try:
@@ -273,6 +289,16 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    def cdup_command(self):
+        try:
+            logger.log_attempt('CDUP')
+            if self.logged_in_check():
+                os.chdir('../')
+                self.c.send('250 Directory changed.')
+                logger.log_response('250 Directory changed.')
+        except Exception as e:
+            logger.log_err(str(e))
+
     def menu_repl(self):
         while True:
             self.c, addr = self.s.accept()
@@ -305,8 +331,9 @@ class FtpServer:
             self.retr_command()
         elif 'STOR' in self.client_input:
             self.stor_command()
-        else:
-            return
+        elif 'CDUP' == self.client_input:
+            self.cdup_command()
+        return
 
 def main():
     if len(sys.argv) != 3:

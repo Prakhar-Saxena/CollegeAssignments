@@ -75,8 +75,8 @@ class FtpServer:
                 logger.log_response('230 Already logged in.')
             else:
                 self.c.send('')
-
-
+        except Exception as e:
+            logger.log_err(str(e))
 
     def pwd_command(self):
         try:

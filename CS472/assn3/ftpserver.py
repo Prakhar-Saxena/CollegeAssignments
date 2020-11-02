@@ -34,6 +34,8 @@ class FtpServer:
     def initialise(self):   #, user_name, password):
         try:
             logger.log('Initialising the server.')
+            print("IP Address: " + socket.gethostbyname(socket.gethostname()))
+            print("Port Number: " + str(self.port))
 
             self.s.bind(('', int(self.port)))
             self.s.listen(20)

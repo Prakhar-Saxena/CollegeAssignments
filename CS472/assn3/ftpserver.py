@@ -16,7 +16,7 @@ class FtpServer:
         logger.log('ftpServer initialised.')
         self.port = port
         self.c = None
-        self.is_logged_in = True # TODO CHANGE IT TO FALSE LATER
+        self.is_logged_in = False # TODO CHANGE IT TO FALSE LATER
         self.user_name = None
         self.user_pass = None
         self.is_port = False
@@ -26,10 +26,7 @@ class FtpServer:
         self.data_receiving_socket = None
         self.client_input = None
         self.valid_users = {'cs472': 'hw2ftp'}
-        try:
-            self.s = socket.socket()
-        except Exception as e:
-            logger.log_err(str(e))
+        self.socket = None
 
     def initialise(self):   #, user_name, password):
         try:
@@ -37,6 +34,7 @@ class FtpServer:
             print("IP Address: " + socket.gethostbyname(socket.gethostname()))
             print("Port Number: " + str(self.port))
 
+            self.s = socket.socket()
             self.s.bind(('', int(self.port)))
             logger.log('Socket successfully binded.')
             print('Socket successfully binded.')

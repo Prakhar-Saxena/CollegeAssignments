@@ -38,7 +38,11 @@ class FtpServer:
             print("Port Number: " + str(self.port))
 
             self.s.bind(('', int(self.port)))
+            logger.log('Socket successfully binded.')
+            print('Socket successfully binded.')
             self.s.listen(20)
+            logger.log('Socket is listening.')
+            print('Socket is listening.')
 
             self.menu_repl()
         except Exception as e:
@@ -325,7 +329,9 @@ class FtpServer:
         while True:
             self.c, addr = self.s.accept()
             logger.log('Connection from: ' + str(addr))
+            print('Connection from: ' + str(addr))
             self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.'))
+            logger.log_response('220 You are now connected to ps668 FTP server.')
             print('220 You are now connected to ps668 FTP server.')
             self.login_command()
             while True:

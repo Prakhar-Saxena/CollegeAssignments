@@ -35,8 +35,9 @@ class FtpServer:
         try:
             logger.log('Initialising the server.')
 
-            self.s.bind(('', self.port))
+            self.s.bind(('', int(self.port)))
             self.s.listen(20)
+
             self.menu_repl()
         except Exception as e:
             logger.log_err(str(e))
@@ -62,6 +63,25 @@ class FtpServer:
             return False
         else:
             return True
+
+    def login_command(self):
+        try:
+            logger.log_attempt('Logging in')
+            self.user_name = self.c.recv(1024)
+            # TODO condition
+            self.c.send('331 Specify password.')
+            self.user_pass = self.c.recv(1024)
+            # TODO condition
+
+            self.c.send('230 Login successful.')
+
+            # SYST
+            syst = self.c.recv(1024)
+            self.c.send('215 UNIX Type: L8\n')
+            self.is_logged_in = True
+
+        except Exception as e:
+            logger.log_err(str(e))
 
     def user_command(self):
         try:
@@ -304,6 +324,8 @@ class FtpServer:
             self.c, addr = self.s.accept()
             logger.log('Connection from: ' + str(addr))
             self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.'))
+            print('220 You are now connected to ps668 FTP server.')
+            self.login_command()
             while True:
                 self.command_switch()
 

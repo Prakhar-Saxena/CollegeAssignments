@@ -14,7 +14,7 @@ from Logger import Logger
 class FtpServer:
     def __init__(self, port):
         logger.log('ftpServer initialised.')
-        self.port = port
+        self.port = int(port)
         self.c = None
         self.is_logged_in = False # TODO CHANGE IT TO FALSE LATER
         self.user_name = None
@@ -35,7 +35,9 @@ class FtpServer:
             print("Port Number: " + str(self.port))
 
             self.s = socket.socket()
-            self.s.bind(('', int(self.port)))
+            logger.log('Socket created.')
+            print('Socket created.')
+            self.s.bind(('', self.port))
             logger.log('Socket successfully binded.')
             print('Socket successfully binded.')
             self.s.listen(20)
@@ -324,16 +326,20 @@ class FtpServer:
             logger.log_err(str(e))
 
     def menu_repl(self):
-        while True:
-            self.c, addr = self.s.accept()
-            logger.log('Connection from: ' + str(addr))
-            print('Connection from: ' + str(addr))
-            self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.'))
-            logger.log_response('220 You are now connected to ps668 FTP server.')
-            print('220 You are now connected to ps668 FTP server.')
-            self.login_command()
+        try:
             while True:
-                self.command_switch()
+                self.c, addr = self.s.accept()
+                logger.log('Connection from: ' + str(addr))
+                print('Connection from: ' + str(addr))
+                self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.'))
+                logger.log_response('220 You are now connected to ps668 FTP server.')
+                print('220 You are now connected to ps668 FTP server.')
+                self.login_command()
+                while True:
+                    self.command_switch()
+        except Exception as e:
+            logger.log_err(str(e))
+            print(str(e))
 
     def command_switch(self):
         self.client_input = self.c.recv(1024)

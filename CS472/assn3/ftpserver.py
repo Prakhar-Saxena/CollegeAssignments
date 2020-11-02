@@ -31,7 +31,7 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
-    def initialise(self, user_name, password):
+    def initialise(self):   #, user_name, password):
         try:
             logger.log('Initialising the server.')
 
@@ -345,7 +345,7 @@ def main():
     global logger
     logger = Logger(log_file_name)
     ftpServer = FtpServer(port)
-    ftpServer.initialise(None, None)
+    ftpServer.initialise()
 
 if __name__ == '__main__':
     main()

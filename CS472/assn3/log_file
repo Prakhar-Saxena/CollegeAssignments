@@ -1,0 +1,4 @@
+2020-11-01 20:25:01.030540	ftpServer initialised.
+2020-11-01 20:25:01.032040	Initialising the server.
+2020-11-01 20:25:01.032040	XXXXXXXXXXXXXXXXXXXXXXXXX ERROR XXXXXXXXXXXXXXXXXXXXXXXXX
+					an integer is required (got type str)

@@ -16,6 +16,8 @@ class FtpServer:
         logger.log('ftpServer initialised.')
         self.port = int(port)
         self.c = None
+        self.is_valid_user_name = False
+        self.is_valid_user_pass = False
         self.is_logged_in = False # TODO CHANGE IT TO FALSE LATER
         self.user_name = None
         self.user_pass = None
@@ -26,6 +28,7 @@ class FtpServer:
         self.data_receiving_socket = None
         self.client_input = None
         self.valid_users = {'cs472': 'hw2ftp'}
+        self.valid_user = ('cs472', 'hw2ftp')
         self.socket = None
 
     def initialise(self):   #, user_name, password):
@@ -43,8 +46,15 @@ class FtpServer:
             self.s.listen(20)
             logger.log('Socket is listening.')
             print('Socket is listening.')
-
-            self.menu_repl()
+            while True:
+                self.c, addr = self.s.accept()
+                logger.log('Connection from: ' + str(addr))
+                print('Connection from: ' + str(addr))
+                self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.'))
+                logger.log_response('220 You are now connected to ps668 FTP server.')
+                print('220 You are now connected to ps668 FTP server.')
+                self.login_command()
+                self.menu_repl()
         except Exception as e:
             logger.log_err(str(e))
 
@@ -74,18 +84,45 @@ class FtpServer:
         try:
             logger.log_attempt('Logging in')
             self.user_name = self.c.recv(1024)
-            # TODO condition
+            logger.log('Received: username: ' + self.user_name)
+
             self.c.send('331 Specify password.')
+            logger.log_response('331 Specify password.')
             self.user_pass = self.c.recv(1024)
-            # TODO condition
 
-            self.c.send('230 Login successful.')
+            if self.user_name == self.valid_user[0] and self.user_pass == self.valid_user[1]:
+                self.is_logged_in = True
+            else:
+                logger.log('Invalid username/password received.')
+                self.is_logged_in = False
 
-            # SYST
-            syst = self.c.recv(1024)
-            self.c.send('215 UNIX Type: L8\n')
-            self.is_logged_in = True
+            # if self.user_name != self.valid_user[0]:
+            #     logger.log('Invalid username received.')
+            #     self.is_valid_user_name = False
+            # else:
+            #     self.is_valid_user_name = True
+            #
+            # if self.user_pass != self.valid_user[1]:
+            #     logger.log('Invalid password passed.')
+            #     self.is_valid_user_pass = False
+            # else:
+            #     self.is_valid_user_pass = True
 
+            if self.is_logged_in:
+                self.c.send('230 Login successful.')
+                logger.log_response('230 Login successful.')
+                # SYST
+                syst = self.c.recv(1024)
+                logger.log('Received: ' + syst)
+                self.c.send('215 UNIX Type: L8\n')
+                logger.log_response('215 UNIX Type: L8')
+            else:
+                self.c.send('530 Login failed.\n')
+                logger.log_response('530 Login failed.')
+                syst = self.c.recv(1024)
+                logger.log('Received: ' + syst)
+                self.c.send('530 Login with USER and PASS.')
+                logger.log_response('530 Login with USER and PASS.')
         except Exception as e:
             logger.log_err(str(e))
 
@@ -328,46 +365,34 @@ class FtpServer:
     def menu_repl(self):
         try:
             while True:
-                self.c, addr = self.s.accept()
-                logger.log('Connection from: ' + str(addr))
-                print('Connection from: ' + str(addr))
-                self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.'))
-                logger.log_response('220 You are now connected to ps668 FTP server.')
-                print('220 You are now connected to ps668 FTP server.')
-                self.login_command()
-                while True:
-                    self.command_switch()
+                self.client_input = self.c.recv(1024)
+                if 'PWD' == self.client_input:
+                    self.pwd_command()
+                elif 'CWD' in self.client_input:
+                    self.cwd_command()
+                elif 'QUIT' == self.client_input:
+                    self.quit_command()
+                elif 'USER' in self.client_input:
+                    self.user_command()
+                elif 'PORT' in self.client_input:
+                    self.port_command()
+                elif 'EPRT' in self.client_input:
+                    self.eprt_command()
+                elif 'PASV' in self.client_input:
+                    self.pasv_command()
+                elif 'EPSV' in self.client_input:
+                    self.epsv_command()
+                elif 'LIST' == self.client_input:
+                    self.list_command()
+                elif 'RETR' in self.client_input:
+                    self.retr_command()
+                elif 'STOR' in self.client_input:
+                    self.stor_command()
+                elif 'CDUP' == self.client_input:
+                    self.cdup_command()
         except Exception as e:
             logger.log_err(str(e))
             print(str(e))
-
-    def command_switch(self):
-        self.client_input = self.c.recv(1024)
-        if 'PWD' == self.client_input:
-            self.pwd_command()
-        elif 'CWD' in self.client_input:
-            self.cwd_command()
-        elif 'QUIT' == self.client_input:
-            self.quit_command()
-        elif 'USER' in self.client_input:
-            self.user_command()
-        elif 'PORT' in self.client_input:
-            self.port_command()
-        elif 'EPRT' in self.client_input:
-            self.eprt_command()
-        elif 'PASV' in self.client_input:
-            self.pasv_command()
-        elif 'EPSV' in self.client_input:
-            self.epsv_command()
-        elif 'LIST' == self.client_input:
-            self.list_command()
-        elif 'RETR' in self.client_input:
-            self.retr_command()
-        elif 'STOR' in self.client_input:
-            self.stor_command()
-        elif 'CDUP' == self.client_input:
-            self.cdup_command()
-        return
 
 def main():
     if len(sys.argv) != 3:

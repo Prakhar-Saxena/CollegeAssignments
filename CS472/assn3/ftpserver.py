@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #
-# CS 472 - Homework # 2
+# CS 472 - Homework # 3
 # Prakhar Saxena
-# ftpclient.py
+# ftpserver.py
 
 import sys
 import socket
@@ -50,7 +50,7 @@ class FtpServer:
                 self.c, addr = self.s.accept()
                 logger.log('Connection from: ' + str(addr))
                 print('Connection from: ' + str(addr))
-                self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.'))
+                self.c.send(FtpServer.str_to_bytes('220 You are now connected to ps668 FTP server.\n'))
                 logger.log_response('220 You are now connected to ps668 FTP server.')
                 print('220 You are now connected to ps668 FTP server.')
                 self.login_command()
@@ -75,7 +75,7 @@ class FtpServer:
 
     def mode_check(self):
         if (not self.is_port) and (not self.is_passive) and (not self.is_eprt) and (not self.is_epsv):
-            self.c.send(FtpServer.str_to_bytes('425 Use PORT or PASV first.'))
+            self.c.send(FtpServer.str_to_bytes('425 Use PORT or PASV first.\n'))
             return False
         else:
             return True
@@ -83,12 +83,12 @@ class FtpServer:
     def login_command(self):
         try:
             logger.log_attempt('Logging in')
-            self.user_name = self.c.recv(1024).strip()
+            self.user_name = str(self.c.recv(1024).strip())[7:-1]
             logger.log('Received: username: ' + self.user_name)
 
-            self.c.send(FtpServer.str_to_bytes('331 Specify password.'))
+            self.c.send(FtpServer.str_to_bytes('331 Specify password.\n'))
             logger.log_response('331 Specify password.')
-            self.user_pass = self.c.recv(1024).strip()
+            self.user_pass = str(self.c.recv(1024).strip())[7:-1]
 
             if self.user_name == self.valid_user[0] and self.user_pass == self.valid_user[1]:
                 self.is_logged_in = True
@@ -96,32 +96,20 @@ class FtpServer:
                 logger.log('Invalid username/password received.')
                 self.is_logged_in = False
 
-            # if self.user_name != self.valid_user[0]:
-            #     logger.log('Invalid username received.')
-            #     self.is_valid_user_name = False
-            # else:
-            #     self.is_valid_user_name = True
-            #
-            # if self.user_pass != self.valid_user[1]:
-            #     logger.log('Invalid password passed.')
-            #     self.is_valid_user_pass = False
-            # else:
-            #     self.is_valid_user_pass = True
-
             if self.is_logged_in:
-                self.c.send(FtpServer.str_to_bytes('230 Login successful.'))
+                self.c.send(FtpServer.str_to_bytes('230 Login successful.\n'))
                 logger.log_response('230 Login successful.')
                 # SYST
-                syst = self.c.recv(1024).strip()
+                syst = str(self.c.recv(1024).strip())
                 logger.log('Received: ' + syst)
                 self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
                 logger.log_response('215 UNIX Type: L8')
             else:
                 self.c.send(FtpServer.str_to_bytes('530 Login failed.\n'))
                 logger.log_response('530 Login failed.')
-                syst = self.c.recv(1024).strip()
+                syst = str(self.c.recv(1024).strip())
                 logger.log('Received: ' + syst)
-                self.c.send(FtpServer.str_to_bytes('530 Login with USER and PASS.'))
+                self.c.send(FtpServer.str_to_bytes('530 Login with USER and PASS.\n'))
                 logger.log_response('530 Login with USER and PASS.')
         except Exception as e:
             logger.log_err(str(e))
@@ -132,44 +120,44 @@ class FtpServer:
             if self.is_logged_in and self.client_input == self.valid_user[0]:
                 self.c.send(FtpServer.str_to_bytes('331 Any password will do.\n'))
                 logger.log_response('331 Any password will do.')
-                password = self.c.recv(1024).strip()
+                password = str(self.c.recv(1024).strip())
                 logger.log(password)
                 self.c.send(FtpServer.str_to_bytes('230 Already logged in.\n'))
                 logger.log_response('230 Already logged in.')
-                syst = self.c.recv(1024).strip()
+                syst = str(self.c.recv(1024).strip())
                 logger.log('Received: ' + syst)
                 self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
                 logger.log_response('215 UNIX Type: L8')
             elif self.is_logged_in and self.client_input != self.valid_user[0]:
                 self.c.send(FtpServer.str_to_bytes('331 Cannot change to another user.\n'))
                 logger.log_response('331 Cannot change to another user.')
-                password = self.c.recv(1024).strip().strip()
+                password = str(self.c.recv(1024).strip()).strip()
                 logger.log(password)
                 self.c.send(FtpServer.str_to_bytes('230 Already logged in.\n'))
                 logger.log_response('230 Already logged in.')
-                syst = self.c.recv(1024).strip()
+                syst = str(self.c.recv(1024).strip())
                 logger.log('Received: ' + syst)
                 self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
                 logger.log_response('215 UNIX Type: L8')
             elif not self.is_logged_in and self.client_input == self.valid_user[0]:
-                self.c.send(FtpServer.str_to_bytes('331 Specify password.'))
+                self.c.send(FtpServer.str_to_bytes('331 Specify password.\n'))
                 logger.log_response('331 Specify password.')
-                password = self.c.recv(1024).strip()
+                password = str(self.c.recv(1024).strip())
                 if password != self.valid_user[1]:
-                    self.c.send(FtpServer.str_to_bytes('530 login failed.'))
+                    self.c.send(FtpServer.str_to_bytes('530 login failed.\n'))
                     logger.log_response('530 login failed.')
                 else:
-                    self.c.send(FtpServer.str_to_bytes('230 Login successful.'))
+                    self.c.send(FtpServer.str_to_bytes('230 Login successful.\n'))
                     logger.log_response('230 Login successful.')
-                    syst = self.c.recv(1024).strip()
+                    syst = str(self.c.recv(1024).strip())
                     logger.log('Received: ' + syst)
                     self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
                     logger.log_response('215 UNIX Type: L8')
                     self.is_logged_in = True
             elif not self.is_logged_in and self.client_input != self.valid_user[0]:
-                self.c.send(FtpServer.str_to_bytes('331 Specify password.'))
+                self.c.send(FtpServer.str_to_bytes('331 Specify password.\n'))
                 logger.log_response('331 Specify password.')
-                password = self.c.recv(1024).strip()
+                password = str(self.c.recv(1024).strip())
                 logger.log('Received: ' + password)
                 self.c.send(FtpServer.str_to_bytes('530 Login failed.\n'))
                 logger.log_response('530 Login failed.')
@@ -217,27 +205,22 @@ class FtpServer:
             if self.logged_in_check():
                 logger.log('Received: ' + self.client_input)
                 input_mod = self.client_input[5:].replace(',', '.')
-                ip_address = None
-                port_1 = None
-                port_2 = None
-                match = re.search('(\d+\.\d+\.\d+\.\d+)(\.\d+)(\.\d+)', self.client_input)
+                match = re.search('(\d+\.\d+\.\d+\.\d+)(\.\d+)(\.\d+)', input_mod)
                 if match:
                     ip_address = match.group(1)
-                    port_1 = match.group(2)
-                    port_2 = match.group(3)
+                    port_1 = int(match.group(2).replace('.', ''))
+                    port_2 = int(match.group(3).replace('.', ''))
+                    port = int((port_1 * 256) + port_2)
+                    self.data_receiving_socket = FtpServer.create_new_socket()
+                    self.data_receiving_socket.connect((ip_address, port))
+                    self.c.send(FtpServer.str_to_bytes('200 PORT command successful.\n'))
+                    logger.log_response('200 PORT command successful.')
+                    self.is_port = True
+                    self.is_passive = False
+                    self.is_eprt = False
+                    self.is_epsv = False
                 else:
                     return
-                port_1 = int(port_1.replace('.', ''))
-                port_2 = int(port_2.replace('.', ''))
-                port = int((port_1 * 256) + port_2)
-                self.data_receiveing_socket = FtpServer.create_new_socket()
-                self.data_receiveing_socket.connect((ip_address, port))
-                self.c.send(FtpServer.str_to_bytes('200 PORT command successful.'))
-                logger.log_response('200 PORT command successful.')
-                self.is_port = True
-                self.is_passive = False
-                self.is_eprt = False
-                self.is_epsv = False
                 # not checking for lust retr or stor here because menu repl takes care of that
         except Exception as e:
             logger.log_err(str(e))
@@ -256,10 +239,10 @@ class FtpServer:
                     ip_address = match.group(1)
                     port = match.group(2)
                 port = port[1:]
-                self.data_receiveing_socket = FtpServer.create_new_socket()
-                self.data_receiveing_socket.connect((ip_address, int(port)))
+                self.data_receiving_socket = FtpServer.create_new_socket()
+                self.data_receiving_socket.connect((ip_address, int(port)))
 
-                self.c.send(FtpServer.str_to_bytes('200 EPRT command successful.'))
+                self.c.send(FtpServer.str_to_bytes('200 EPRT command successful.\n'))
                 logger.log_response('200 EPRT command successful.')
                 self.is_eprt = True
                 self.is_port = False
@@ -273,13 +256,13 @@ class FtpServer:
         try:
             logger.log_attempt('PASV')
             if self.logged_in_check():
-                self.data_receiveing_socket = FtpServer.create_new_socket()
-                self.data_receiveing_socket.bind((socket.gethostbyname(socket.gethostname()), 0))
-                self.data_receiveing_socket.listen(1)
+                self.data_receiving_socket = FtpServer.create_new_socket()
+                self.data_receiving_socket.bind((socket.gethostbyname(socket.gethostname()), 0))
+                self.data_receiving_socket.listen(1)
                 logger.log('Data Receiving Socket created.')
-                port_1 = int((self.data_receiveing_socket.getsockname()[1]) / 256)
-                port_2 = int((self.data_receiveing_socket.getsockname()[1]) - (port_1 * 256))
-                self.c.send(FtpServer.str_to_bytes('227 Entering Passive Mode.'))
+                port_1 = int((self.data_receiving_socket.getsockname()[1]) / 256)
+                port_2 = int((self.data_receiving_socket.getsockname()[1]) - (port_1 * 256))
+                self.c.send(FtpServer.str_to_bytes('227 Entering Passive Mode.\n'))
                 logger.log_response('227 Entering Passive Mode.' + str(port_1) + '; ' + str(port_2))
                 self.is_passive = True
                 self.is_eprt = False
@@ -293,11 +276,11 @@ class FtpServer:
         try:
             logger.log_attempt('EPSV')
             if self.logged_in_check() and self.logged_in_check():
-                self.data_receiveing_socket = FtpServer.create_new_socket()
-                self.data_receiveing_socket.bind((socket.gethostbyname(socket.gethostname()), 0))
-                self.data_receiveing_socket.listen(1)
+                self.data_receiving_socket = FtpServer.create_new_socket()
+                self.data_receiving_socket.bind((socket.gethostbyname(socket.gethostname()), 0))
+                self.data_receiving_socket.listen(1)
                 logger.log('Data Receiving Socket created.')
-                port = self.data_receiveing_socket.getsockname()[1]
+                port = self.data_receiving_socket.getsockname()[1]
                 self.c.send(FtpServer.str_to_bytes('229 Entering Extended Passive Mode. (|||' + str(port) + '|)\n'))
                 logger.log_response('229 Entering Extended Passive Mode. (|||' + str(port) + '|)')
                 self.is_epsv = True
@@ -316,14 +299,14 @@ class FtpServer:
                 self.c.send(FtpServer.str_to_bytes('150 Directory Listing.\n'))
                 logger.log_response('150 Directory Listing')
                 if self.is_port:
-                    self.data_receiveing_socket.send(ls_output)
+                    self.data_receiving_socket.send(ls_output)
                 elif self.is_passive:
-                    conn, host = self.data_receiveing_socket.accept()
+                    conn, host = self.data_receiving_socket.accept()
                     conn.send(ls_output)
                 elif self.is_eprt:
-                    self.data_receiveing_socket.send(ls_output)
+                    self.data_receiving_socket.send(ls_output)
                 elif self.is_epsv:
-                    conn, host = self.data_receiveing_socket.accept()
+                    conn, host = self.data_receiving_socket.accept()
                     conn.send(ls_output)
                 logger.log(ls_output)
                 self.c.send(FtpServer.str_to_bytes('226 List Response OK.\n'))
@@ -345,14 +328,14 @@ class FtpServer:
                 else:
                     file = open(user_file_name, 'r')
                     file_data = file.read()
-                    self.c.send(FtpServer.str_to_bytes('150 Sending file ' + user_file_name))
+                    self.c.send(FtpServer.str_to_bytes('150 Sending file ' + user_file_name + '\n'))
                     logger.log('150 Sending file ' + user_file_name)
                     if self.is_port or self.is_eprt:
-                        self.data_receiveing_socket.send(FtpServer.str_to_bytes(file_data))
+                        self.data_receiving_socket.send(FtpServer.str_to_bytes(file_data))
                     elif self.is_passive or self.is_epsv:
-                        conn, host = self.data_receiveing_socket.accept()
+                        conn, host = self.data_receiving_socket.accept()
                         conn.send(FtpServer.str_to_bytes(file_data + '\n'))
-                    self.c.send(FtpServer.str_to_bytes('226 Transfer complete.'))
+                    self.c.send(FtpServer.str_to_bytes('226 Transfer complete.\n'))
                     logger.log_response('226 Transfer complete.')
                     self.is_port = False
                     self.is_passive = False
@@ -367,16 +350,16 @@ class FtpServer:
             if self.logged_in_check() and self.mode_check():
                 user_file_name = self.client_input[5:]
                 file = open(user_file_name, 'w')
-                self.c.send(FtpServer.str_to_bytes('150 OK to store.'))
+                self.c.send(FtpServer.str_to_bytes('150 OK to store.\n'))
                 logger.log_response('150 OK to store.')
                 if self.is_port or self.is_eprt:
                     while True:
-                        file_data = self.data_receiveing_socket.recv(1024).strip()
+                        file_data = self.data_receiving_socket.recv(1024).strip()
                         if not file_data:
                             break
                         file.write(file_data)
                 elif self.is_passive or self.is_epsv:
-                    conn, host = self.data_receiveing_socket.accept()
+                    conn, host = self.data_receiving_socket.accept()
                     while True:
                         file_data = conn.recv(1024).strip()
                         if not file_data:
@@ -392,7 +375,7 @@ class FtpServer:
             logger.log_attempt('CDUP')
             if self.logged_in_check():
                 os.chdir('../')
-                self.c.send(FtpServer.str_to_bytes('250 Directory changed.'))
+                self.c.send(FtpServer.str_to_bytes('250 Directory changed.\n'))
                 logger.log_response('250 Directory changed.')
         except Exception as e:
             logger.log_err(str(e))
@@ -400,7 +383,7 @@ class FtpServer:
     def menu_repl(self):
         try:
             while True:
-                self.client_input = self.c.recv(1024).strip()
+                self.client_input = str(self.c.recv(1024).strip())[2:-1]
                 if 'PWD' == self.client_input:
                     self.pwd_command()
                 elif 'CWD' in self.client_input:

@@ -1,0 +1,51 @@
+Prakhar Saxena | CS 472 Homework # 3 | November 3, 2020 | README
+
+Introduction
+THis assignment was implemented over a week using the following software and tools:
+    - PyCharm
+    - ViM
+    - git (GitHub)
+    - Windows Terminal
+    - Tux
+
+The assignment includes two files, 'ftpserver.py' and 'Logger.py'. It implements the server side of an FTP server.
+I tried to satisfy all the requirements, however I fell sick to COVID over the weekend, and have had symptoms for about
+a week now.
+
+Just like the previous assignment, I've already spent over 12 hours on this assignment;
+And again, I was led to believe this is a 3 credit course.
+
+Either way, i was able to accomplish some major requirements of the assignment.
+
+Accomplishments:
+    - Command line processing
+    - Handling arguments provided
+    - all commands working
+    - Handled all the errors to my knowledge; try-expected everywhere.
+    - Logging
+    - Questions; answered in a separate document
+
+Difficulties and missed accomplishments:
+Unfortunately due to time constraints, I wasn't able to test every single case of my server.
+But I've documented and commented it well, so that I can take a shot at it after this term, when I have more time,
+because it would keep bugging me.
+This is one of the hardest assignments I have ever encountered.
+The amount of hours I spent trying to comprehend the complex commands going through the RFCs and testing them out on the
+very inconsistent FTP clients on windows and tux, I found terribly frustrating.
+
+How to run the program:
+I have created a makefile for your ease. All you have to do is type:
+    make
+It should print out the IP and port that this server is then running on. You can copy that and run it using your
+ftp client. Now you can run all the commands requried of the server.
+
+You can find the logs in:
+    log_file
+In order to clean the log_file you can just run:
+    make clean
+
+The 'Questions to be answered' are in a pdf in the same directory.
+
+Cheers
+
+Prakhar Saxena

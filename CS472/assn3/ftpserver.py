@@ -83,12 +83,12 @@ class FtpServer:
     def login_command(self):
         try:
             logger.log_attempt('Logging in')
-            self.user_name = self.c.recv(1024)
+            self.user_name = self.c.recv(1024).strip()
             logger.log('Received: username: ' + self.user_name)
 
             self.c.send(FtpServer.str_to_bytes('331 Specify password.'))
             logger.log_response('331 Specify password.')
-            self.user_pass = self.c.recv(1024)
+            self.user_pass = self.c.recv(1024).strip()
 
             if self.user_name == self.valid_user[0] and self.user_pass == self.valid_user[1]:
                 self.is_logged_in = True
@@ -112,14 +112,14 @@ class FtpServer:
                 self.c.send(FtpServer.str_to_bytes('230 Login successful.'))
                 logger.log_response('230 Login successful.')
                 # SYST
-                syst = self.c.recv(1024)
+                syst = self.c.recv(1024).strip()
                 logger.log('Received: ' + syst)
                 self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
                 logger.log_response('215 UNIX Type: L8')
             else:
                 self.c.send(FtpServer.str_to_bytes('530 Login failed.\n'))
                 logger.log_response('530 Login failed.')
-                syst = self.c.recv(1024)
+                syst = self.c.recv(1024).strip()
                 logger.log('Received: ' + syst)
                 self.c.send(FtpServer.str_to_bytes('530 Login with USER and PASS.'))
                 logger.log_response('530 Login with USER and PASS.')
@@ -129,15 +129,50 @@ class FtpServer:
     def user_command(self):
         try:
             logger.log_attempt('USER')
-            if self.is_logged_in:
+            if self.is_logged_in and self.client_input == self.valid_user[0]:
                 self.c.send(FtpServer.str_to_bytes('331 Any password will do.\n'))
                 logger.log_response('331 Any password will do.')
-                password = self.c.recv(1024)
+                password = self.c.recv(1024).strip()
                 logger.log(password)
                 self.c.send(FtpServer.str_to_bytes('230 Already logged in.\n'))
                 logger.log_response('230 Already logged in.')
-            else:
-                self.c.send(FtpServer.str_to_bytes(''))
+                syst = self.c.recv(1024).strip()
+                logger.log('Received: ' + syst)
+                self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
+                logger.log_response('215 UNIX Type: L8')
+            elif self.is_logged_in and self.client_input != self.valid_user[0]:
+                self.c.send(FtpServer.str_to_bytes('331 Cannot change to another user.\n'))
+                logger.log_response('331 Cannot change to another user.')
+                password = self.c.recv(1024).strip().strip()
+                logger.log(password)
+                self.c.send(FtpServer.str_to_bytes('230 Already logged in.\n'))
+                logger.log_response('230 Already logged in.')
+                syst = self.c.recv(1024).strip()
+                logger.log('Received: ' + syst)
+                self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
+                logger.log_response('215 UNIX Type: L8')
+            elif not self.is_logged_in and self.client_input == self.valid_user[0]:
+                self.c.send(FtpServer.str_to_bytes('331 Specify password.'))
+                logger.log_response('331 Specify password.')
+                password = self.c.recv(1024).strip()
+                if password != self.valid_user[1]:
+                    self.c.send(FtpServer.str_to_bytes('530 login failed.'))
+                    logger.log_response('530 login failed.')
+                else:
+                    self.c.send(FtpServer.str_to_bytes('230 Login successful.'))
+                    logger.log_response('230 Login successful.')
+                    syst = self.c.recv(1024).strip()
+                    logger.log('Received: ' + syst)
+                    self.c.send(FtpServer.str_to_bytes('215 UNIX Type: L8\n'))
+                    logger.log_response('215 UNIX Type: L8')
+                    self.is_logged_in = True
+            elif not self.is_logged_in and self.client_input != self.valid_user[0]:
+                self.c.send(FtpServer.str_to_bytes('331 Specify password.'))
+                logger.log_response('331 Specify password.')
+                password = self.c.recv(1024).strip()
+                logger.log('Received: ' + password)
+                self.c.send(FtpServer.str_to_bytes('530 Login failed.\n'))
+                logger.log_response('530 Login failed.')
         except Exception as e:
             logger.log_err(str(e))
 
@@ -336,14 +371,14 @@ class FtpServer:
                 logger.log_response('150 OK to store.')
                 if self.is_port or self.is_eprt:
                     while True:
-                        file_data = self.data_receiveing_socket.recv(1024)
+                        file_data = self.data_receiveing_socket.recv(1024).strip()
                         if not file_data:
                             break
                         file.write(file_data)
                 elif self.is_passive or self.is_epsv:
                     conn, host = self.data_receiveing_socket.accept()
                     while True:
-                        file_data = conn.recv(1024)
+                        file_data = conn.recv(1024).strip()
                         if not file_data:
                             break
                         file.write(file_data)
@@ -365,7 +400,7 @@ class FtpServer:
     def menu_repl(self):
         try:
             while True:
-                self.client_input = self.c.recv(1024)
+                self.client_input = self.c.recv(1024).strip()
                 if 'PWD' == self.client_input:
                     self.pwd_command()
                 elif 'CWD' in self.client_input:

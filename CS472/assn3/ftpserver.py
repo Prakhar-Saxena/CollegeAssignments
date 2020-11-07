@@ -102,6 +102,18 @@ class FtpServer:
             return True
 
     '''
+    runs after passive, epsv, port and eprt commands
+    '''
+    def after_mode_command(self):
+        next_command = str(self.c.recv(1024).strip())[2:-1]
+        if 'LIST' in next_command:
+            self.list_command()
+        elif 'RETR' in next_command:
+            self.retr_command()
+        elif 'STOR' in next_command:
+            self.stor_command()
+
+    '''
     takes care of the initial login with user and password
     due to time constraint has the username hardcoded, trying to mimic the Professor's FTP server..
     '''
@@ -239,6 +251,8 @@ class FtpServer:
             logger.log_attempt('QUIT')
             self.c.send(FtpServer.str_to_bytes('221 Goodbye.\n'))
             logger.log_response('221 Goodbye.')
+            print('221 Goodbye.')
+            sys.exit(0)
         except Exception as e:
             logger.log_err(str(e))
 
@@ -268,6 +282,7 @@ class FtpServer:
                     self.is_epsv = False
                 else:
                     return
+                self.after_mode_command()
                 # not checking for lust retr or stor here because menu repl takes care of that
         except Exception as e:
             logger.log_err(str(e))
@@ -299,6 +314,7 @@ class FtpServer:
                 self.is_port = False
                 self.is_passive = False
                 self.is_epsv = False
+                self.after_mode_command()
                 # not checking for lust retr or stor here because menu repl takes care of that
         except Exception as e:
             logger.log_err(str(e))
@@ -324,6 +340,7 @@ class FtpServer:
                 self.is_eprt = False
                 self.is_port = False
                 self.is_epsv = False
+                self.after_mode_command()
                 # not checking for lust retr or stor here because menu repl takes care of that
         except Exception as e:
             logger.log_err(str(e))
@@ -335,18 +352,20 @@ class FtpServer:
     def epsv_command(self):
         try:
             logger.log_attempt('EPSV')
-            if self.logged_in_check() and self.logged_in_check():
+            if self.logged_in_check():
                 self.data_receiving_socket = FtpServer.create_new_socket()
                 self.data_receiving_socket.bind((socket.gethostbyname(socket.gethostname()), 0))
                 self.data_receiving_socket.listen(1)
                 logger.log('Data Receiving Socket created.')
                 port = self.data_receiving_socket.getsockname()[1]
-                self.c.send(FtpServer.str_to_bytes('229 Entering Extended Passive Mode. (|||' + str(port) + '|)\n'))
-                logger.log_response('229 Entering Extended Passive Mode. (|||' + str(port) + '|)')
+                epsv_response = '229 Entering Extended Passive Mode. (|||' + str(port) + '|)'
+                self.c.send(FtpServer.str_to_bytes(epsv_response + '\n'))
+                logger.log_response(epsv_response)
                 self.is_epsv = True
                 self.is_passive = False
                 self.is_eprt = False
                 self.is_port = False
+                self.after_mode_command()
                 # not checking for lust retr or stor here because menu repl takes care of that
         except Exception as e:
             logger.log_err(str(e))
@@ -360,9 +379,9 @@ class FtpServer:
             logger.log_attempt('LIST')
             if self.logged_in_check() and self.mode_check():
                 if os.name == 'nt':
-                    ls_output = FtpServer.str_to_bytes(str(subprocess.check_output(['dir'], shell=True)) + '\n')
+                    ls_output = subprocess.check_output(['dir'], shell=True)# + FtpServer.str_to_bytes('\n')
                 else:
-                    ls_output = FtpServer.str_to_bytes(str(subprocess.check_output(['ls', '-l'], shell=True)) + '\n')
+                    ls_output = subprocess.check_output(['ls', '-l'], shell=True)# + FtpServer.str_to_bytes('\n')
                 self.c.send(FtpServer.str_to_bytes('150 Directory Listing.\n'))
                 logger.log_response('150 Directory Listing')
                 if self.is_port:
@@ -459,6 +478,14 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    def type_I_command(self):
+        try:
+            if not (self.logged_in_check() and self.mode_check()):
+                self.c.send(FtpServer.str_to_bytes('200 Switching to Binary Mode.\n'))
+                logger.log_response('200 switching to Binary Mode.')
+        except Exception as e:
+            logger.log_err(str(e))
+
     def menu_repl(self):
         try:
             while True:
@@ -487,6 +514,10 @@ class FtpServer:
                     self.stor_command()
                 elif 'CDUP' == self.client_input:
                     self.cdup_command()
+                elif 'TYPE' in self.client_input:
+                    self.type_I_command()
+                else:
+                    continue
         except Exception as e:
             logger.log_err(str(e))
             print(str(e))

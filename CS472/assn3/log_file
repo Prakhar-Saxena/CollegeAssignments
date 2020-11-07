@@ -1,0 +1,77 @@
+2020-11-06 21:52:19.754567	ftpServer initialised.
+2020-11-06 21:52:19.754567	Initialising the server.
+2020-11-06 21:52:19.768063	Socket created.
+2020-11-06 21:52:19.768063	Socket successfully binded.
+2020-11-06 21:52:19.768063	Socket is listening.
+2020-11-06 21:52:35.840741	Connection from: ('10.246.251.15', 44656)
+2020-11-06 21:52:35.840741	Response Sent: 220 You are now connected to ps668 FTP server.
+2020-11-06 21:52:35.840741	Attempting Logging in
+2020-11-06 21:53:06.781626	Received: username: cs472
+2020-11-06 21:53:06.781626	Response Sent: 331 Specify password.
+2020-11-06 21:53:09.606811	Response Sent: 230 Login successful.
+2020-11-06 21:53:09.620203	Received: b'SYST'
+2020-11-06 21:53:09.620203	Response Sent: 215 UNIX Type: L8
+2020-11-06 21:53:46.168098	Attempting PWD
+2020-11-06 21:53:46.168098	Request: PWD
+2020-11-06 21:53:46.168098	Response Sent: 257 "D:\workspace\CollegeAssignments\CS472\assn3"
+
+2020-11-06 21:53:51.381683	Attempting CWD
+2020-11-06 21:53:51.382179	Response Sent: 250 Directory changed.
+2020-11-06 21:54:07.769770	Attempting CWD
+2020-11-06 21:54:07.770290	Response Sent: 250 Directory changed.
+2020-11-06 21:54:10.016899	Attempting CWD
+2020-11-06 21:54:10.017387	Response Sent: 250 Directory changed.
+2020-11-06 21:54:12.876661	Attempting CWD
+2020-11-06 21:54:12.877167	Response Sent: 250 Directory changed.
+2020-11-06 21:54:14.204047	Attempting PWD
+2020-11-06 21:54:14.204047	Request: PWD
+2020-11-06 21:54:14.204047	Response Sent: 257 "D:\workspace\CollegeAssignments\CS472\assn3"
+
+2020-11-06 21:54:25.760672	Attempting QUIT
+2020-11-06 21:54:25.760672	Response Sent: 221 Goodbye.
+2020-11-06 21:54:41.169951	ftpServer initialised.
+2020-11-06 21:54:41.169951	Initialising the server.
+2020-11-06 21:54:41.181944	Socket created.
+2020-11-06 21:54:41.182444	Socket successfully binded.
+2020-11-06 21:54:41.182444	Socket is listening.
+2020-11-06 21:54:43.153215	Connection from: ('10.246.251.15', 44678)
+2020-11-06 21:54:43.153215	Response Sent: 220 You are now connected to ps668 FTP server.
+2020-11-06 21:54:43.153739	Attempting Logging in
+2020-11-06 21:54:46.069655	Received: username: cs472
+2020-11-06 21:54:46.069655	Response Sent: 331 Specify password.
+2020-11-06 21:54:47.899826	Response Sent: 230 Login successful.
+2020-11-06 21:54:47.916050	Received: b'SYST'
+2020-11-06 21:54:47.916050	Response Sent: 215 UNIX Type: L8
+2020-11-06 21:56:31.655143	Attempting PWD
+2020-11-06 21:56:31.655143	Request: PWD
+2020-11-06 21:56:31.655143	Response Sent: 257 "D:\workspace\CollegeAssignments\CS472\assn3"
+
+2020-11-06 21:56:33.732947	Attempting CDUP
+2020-11-06 21:56:33.732947	Response Sent: 250 Directory changed.
+2020-11-06 21:56:35.215568	Attempting PWD
+2020-11-06 21:56:35.215568	Request: PWD
+2020-11-06 21:56:35.215568	Response Sent: 257 "D:\workspace\CollegeAssignments\CS472"
+
+2020-11-06 21:56:44.821285	Attempting CWD
+2020-11-06 21:56:44.821768	Response Sent: 250 Directory changed.
+2020-11-06 21:56:46.088110	Attempting PWD
+2020-11-06 21:56:46.088612	Request: PWD
+2020-11-06 21:56:46.088612	Response Sent: 257 "D:\workspace\CollegeAssignments\CS472\assn3"
+
+2020-11-06 21:56:49.669143	Attempting QUIT
+2020-11-06 21:56:49.669633	Response Sent: 221 Goodbye.
+2020-11-06 21:57:38.103062	ftpServer initialised.
+2020-11-06 21:57:38.103062	Initialising the server.
+2020-11-06 21:57:38.116096	Socket created.
+2020-11-06 21:57:38.116096	Socket successfully binded.
+2020-11-06 21:57:38.116096	Socket is listening.
+2020-11-06 21:57:42.147632	Connection from: ('10.246.251.15', 44692)
+2020-11-06 21:57:42.147632	Response Sent: 220 You are now connected to ps668 FTP server.
+2020-11-06 21:57:42.147632	Attempting Logging in
+2020-11-06 21:57:44.867021	Received: username: cs472
+2020-11-06 21:57:44.867021	Response Sent: 331 Specify password.
+2020-11-06 21:57:48.765435	Response Sent: 230 Login successful.
+2020-11-06 21:57:48.779237	Received: b'SYST'
+2020-11-06 21:57:48.779739	Response Sent: 215 UNIX Type: L8
+2020-11-06 21:58:27.190645	Attempting QUIT
+2020-11-06 21:58:27.191151	Response Sent: 221 Goodbye.

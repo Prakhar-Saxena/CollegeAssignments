@@ -21,7 +21,7 @@ class FtpServer:
         self.c = None
         self.is_valid_user_name = False
         self.is_valid_user_pass = False
-        self.is_logged_in = False # TODO CHANGE IT TO FALSE LATER
+        self.is_logged_in = False
         self.user_name = None
         self.user_pass = None
         self.is_port = False

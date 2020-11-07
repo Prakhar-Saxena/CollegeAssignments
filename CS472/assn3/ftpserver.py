@@ -105,12 +105,12 @@ class FtpServer:
     runs after passive, epsv, port and eprt commands
     '''
     def after_mode_command(self):
-        next_command = str(self.c.recv(1024).strip())[2:-1]
-        if 'LIST' in next_command:
+        self.client_input = str(self.c.recv(1024).strip())[2:-1]
+        if 'LIST' in self.client_input:
             self.list_command()
-        elif 'RETR' in next_command:
+        elif 'RETR' in self.client_input:
             self.retr_command()
-        elif 'STOR' in next_command:
+        elif 'STOR' in self.client_input:
             self.stor_command()
 
     '''
@@ -274,15 +274,15 @@ class FtpServer:
                     port = int((port_1 * 256) + port_2)
                     self.data_receiving_socket = FtpServer.create_new_socket()
                     self.data_receiving_socket.connect((ip_address, port))
-                    self.c.send(FtpServer.str_to_bytes('200 PORT command successful.\n'))
-                    logger.log_response('200 PORT command successful.')
+                    self.c.send(FtpServer.str_to_bytes("200 PORT command successful." + "\n"))
                     self.is_port = True
                     self.is_passive = False
                     self.is_eprt = False
                     self.is_epsv = False
+                    logger.log_response('200 PORT command successful.')
+                    self.after_mode_command()
                 else:
                     return
-                self.after_mode_command()
                 # not checking for lust retr or stor here because menu repl takes care of that
         except Exception as e:
             logger.log_err(str(e))

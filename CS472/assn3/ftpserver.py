@@ -317,8 +317,9 @@ class FtpServer:
                 logger.log('Data Receiving Socket created.')
                 port_1 = int((self.data_receiving_socket.getsockname()[1]) / 256)
                 port_2 = int((self.data_receiving_socket.getsockname()[1]) - (port_1 * 256))
-                self.c.send(FtpServer.str_to_bytes('227 Entering Passive Mode.\n'))
-                logger.log_response('227 Entering Passive Mode.' + str(port_1) + '; ' + str(port_2))
+                passive_response = '227 Entering Passive Mode (' + socket.gethostbyname(socket.gethostname()).replace('.', ',') + ',' + str(port_1) + ',' + str(port_2) + ').\n '
+                self.c.send(FtpServer.str_to_bytes(passive_response))
+                logger.log_response(passive_response)
                 self.is_passive = True
                 self.is_eprt = False
                 self.is_port = False

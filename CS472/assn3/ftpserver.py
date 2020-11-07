@@ -12,6 +12,9 @@ import subprocess
 from Logger import Logger
 
 class FtpServer:
+    '''
+    initialise the server with port
+    '''
     def __init__(self, port):
         logger.log('ftpServer initialised.')
         self.port = int(port)
@@ -31,6 +34,9 @@ class FtpServer:
         self.valid_user = ('cs472', 'hw2ftp')
         self.socket = None
 
+    '''
+    initialise the server with a proper connection, login and the menu-REPL
+    '''
     def initialise(self):   #, user_name, password):
         try:
             logger.log('Initialising the server.')
@@ -58,14 +64,25 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    converts string to bytes
+    needed this method because sockets require bytes and not strings.
+    '''
     @staticmethod
     def str_to_bytes(string):
         return bytes(string, 'utf-8')
 
+    '''
+    creates new socket
+    '''
     @staticmethod
     def create_new_socket():
         return socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    '''
+    checks whether a client is logged in or not
+    returns True and False accordingly
+    '''
     def logged_in_check(self):
         if not self.is_logged_in:
             self.c.send(FtpServer.str_to_bytes('530 Login with USER and PASS.\n'))
@@ -73,6 +90,10 @@ class FtpServer:
         else:
             return True
 
+    '''
+    checks whether the client has any mode active or not
+    returns True and False accordingly
+    '''
     def mode_check(self):
         if (not self.is_port) and (not self.is_passive) and (not self.is_eprt) and (not self.is_epsv):
             self.c.send(FtpServer.str_to_bytes('425 Use PORT or PASV first.\n'))
@@ -80,6 +101,10 @@ class FtpServer:
         else:
             return True
 
+    '''
+    takes care of the initial login with user and password
+    due to time constraint has the username hardcoded, trying to mimic the Professor's FTP server..
+    '''
     def login_command(self):
         try:
             logger.log_attempt('Logging in')
@@ -114,6 +139,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    USER command
+    handles the username and password from the client
+    '''
     def user_command(self):
         try:
             logger.log_attempt('USER')
@@ -164,6 +193,11 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    PWD command
+    returns the working directory to the client
+    same as the pwd command on the unix terminal
+    '''
     def pwd_command(self):
         try:
             logger.log_attempt('PWD')
@@ -176,6 +210,11 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    CWD command
+    lets the client change the working directory
+    note: in the unix ftp client, the user has to use cd and not CWD
+    '''
     def cwd_command(self):
         try:
             logger.log_attempt('CWD')
@@ -191,6 +230,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    QUIT command
+    lets the user quit the server and thus the client.
+    '''
     def quit_command(self):
         try:
             logger.log_attempt('QUIT')
@@ -199,6 +242,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    PORT command
+    lets the client turn on the port mode and turn off all the other modes
+    '''
     def port_command(self):
         try:
             logger.log_attempt('PORT')
@@ -225,6 +272,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    EPRT command
+    basically the same as PORT but with different format
+    '''
     def eprt_command(self):
         try:
             logger.log_attempt('EPRT')
@@ -252,6 +303,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    PASV command
+    lets the client turn on the passive mode and turn off all the other modes
+    '''
     def pasv_command(self):
         try:
             logger.log_attempt('PASV')
@@ -272,6 +327,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    EPSV command
+    basically the same as PASV but with original IP and full port
+    '''
     def epsv_command(self):
         try:
             logger.log_attempt('EPSV')
@@ -291,11 +350,18 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    LIST command
+    returns the list of all the files in the working directory of the server
+    '''
     def list_command(self):
         try:
             logger.log_attempt('LIST')
             if self.logged_in_check() and self.mode_check():
-                ls_output = subprocess.check_output(['ls', '-l']) + FtpServer.str_to_bytes('\n')
+                if os.name == 'nt':
+                    ls_output = FtpServer.str_to_bytes(str(subprocess.check_output(['dir'], shell=True)) + '\n')
+                else:
+                    ls_output = FtpServer.str_to_bytes(str(subprocess.check_output(['ls', '-l'], shell=True)) + '\n')
                 self.c.send(FtpServer.str_to_bytes('150 Directory Listing.\n'))
                 logger.log_response('150 Directory Listing')
                 if self.is_port:
@@ -308,7 +374,7 @@ class FtpServer:
                 elif self.is_epsv:
                     conn, host = self.data_receiving_socket.accept()
                     conn.send(ls_output)
-                logger.log(ls_output)
+                logger.log(str(ls_output))
                 self.c.send(FtpServer.str_to_bytes('226 List Response OK.\n'))
                 self.is_port = False
                 self.is_passive = False
@@ -317,6 +383,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    RETR command
+    lets the client retrieve a file from the working directory
+    '''
     def retr_command(self):
         try:
             logger.log_attempt('RETR')
@@ -344,6 +414,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    STOR command
+    lets the client store a file in the current working directory of the server
+    '''
     def stor_command(self):
         try:
             logger.log_attempt('STOR')
@@ -370,6 +444,10 @@ class FtpServer:
         except Exception as e:
             logger.log_err(str(e))
 
+    '''
+    CDUP command
+    changes working directory to immediate parent directory
+    '''
     def cdup_command(self):
         try:
             logger.log_attempt('CDUP')

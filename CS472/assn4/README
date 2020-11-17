@@ -1,0 +1,66 @@
+Prakhar Saxena | CS 472 Homework # 4 | November 17, 2020 | README
+
+Introduction
+THis assignment was implemented over a week using the following software and tools:
+    - PyCharm
+    - ViM
+    - git (GitHub)
+    - Windows Terminal
+    - Tux
+
+The assignment includes two files, 'ftpserver.py' and 'Logger.py'. It implements the server side of an FTP server.
+I tried to satisfy all the requirements, however I fell sick to COVID last weekend, and have recently recovered.
+I spent a lot of time answering the written questions, so I couldn't spend much time debugging this program.
+
+Either way, i was able to accomplish some major requirements of the assignment.
+
+Accomplishments:
+    - Command line processing
+    - Handling arguments provided
+    - all commands working
+    - Handled all the errors to my knowledge; try-expected everywhere.
+    - Logging
+    - Questions; answered in a separate document
+
+Difficulties and missed accomplishments:
+Unfortunately due to time constraints, I wasn't able to test every single case of my server.
+But I've documented and commented it well, so that I can take a shot at it after this term, when I have more time,
+because it would keep bugging me.
+
+A challenge I faced was that my program would print the local host ip of 127.0.1.1; it worked fine on my windows machine.
+log_file is a good evidence for that. I still didn't figure out how to get that working on tux, however I will attach
+screenshots to aid understanding of the problem I was dealing.
+
+I implemented the algorithms properly, but I wasn't able to run all the commands properly due to environment reasons I
+described earlier.
+
+I have all the commands running except for retr, stor and list. I couldn't achieve it because of unknown reason, that I
+couldn't figure out due to time and my health constraints.
+
+For the config file, I have hardcoded the path for the file in the program directory itself. I understand that this is
+not the ideal way, but again I had unforeseen constraints.
+
+I would however say that if a third person looks at my code, they will be able to figure out what each component is
+responsible for.
+
+How to run the program:
+I have created a makefile for your ease. All you have to do is type:
+    make
+It should print out the IP and port that this server is then running on. You can copy that and run it using your
+ftp client. Now you can run all the commands required of the server.
+log in with the same credentials as Professor's FTP server, i.e.:
+    Name: cs472
+    Password: hw2ftp
+
+Anyway, I would recommend running this program on windows.
+
+You can find the logs in:
+    log_file
+In order to clean the log_file you can just run:
+    make clean
+
+The 'Questions to be answered' are in a pdf in the same directory.
+
+Cheers
+
+Prakhar Saxena

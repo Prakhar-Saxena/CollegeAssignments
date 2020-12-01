@@ -1,0 +1,9 @@
+
+
+Nice work! I like the use of the dual axis graphs. 
+
+
+Instead of labeling the graphs as part one, two, three, and other, label them based on the UCR categorization or explain what that means within the dashboard. You can include text boxes in the dashbord.
+
+
+For 20 Offences by Types and Shootings vs Offence code, make sure to include labels for the Incident count so that viewers can see the number at first glance. 

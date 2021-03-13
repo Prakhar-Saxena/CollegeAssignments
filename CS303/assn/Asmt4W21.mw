@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Worksheet>
-<Version major="2019" minor="2"/>
+<Version major="2019" minor="1"/>
 <Label-Scheme value="2" prefix=""/>
 <View-Properties presentation="true" autoexpanding_sections="true" UserProfileName="Maple Default Profile" NumericFormat-ApplyInteger="true" NumericFormat-ApplyRational="true" NumericFormat-ApplyExponent="false" editable="true">
 </View-Properties>
@@ -182,20 +182,158 @@ a list of procedures that handle the various steps and generate the information 
 <Input><Text-field style="Text" layout="Normal"></Text-field>
 </Input>
 </Group></Presentation-Block><Presentation-Block>
-<Group view="presentation" inline-output="false" labelreference="L70" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Group view="presentation" inline-output="false" labelreference="L89" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
 <Input><Text-field style="Text" layout="Normal">Scoring:  +10.  Full coverage of the protocol by presented procedures.  Adequate tests establishing correctness.   Documentation fit to be considered highly beneficial by users provided for all procedures.  (As a user of documentation yourself, you realize that users usually prefer easy-to-understand concisement over verbosity or incomprehensible cryptic statements.)  </Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L91" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L70" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
 </Input>
 </Group>
 <Group view="code" labelreference="L72" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
-<Input><Text-field style="Text" layout="Normal"></Text-field>
+<Input><Text-field style="Text" layout="Normal">References:</Text-field><Text-field style="Text" layout="Normal">http://www.cs.cmu.edu/~ryanw/crypto/lec14.pdf</Text-field><Text-field style="Text" layout="Normal"></Text-field>
 </Input>
 </Group>
 <Group view="code" labelreference="L73" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
 <Input><Text-field prompt="&gt; " style="Maple Input" layout="Normal">#include your code and documentation here. We prefer you to use text for documentation -- <Font style="Text">like this -- over vast amounts of fixed-width text masquerading as code.    Code can be entered as a combination of  Code Edit Regions and Execution groups.</Font></Text-field>
 </Input>
-</Group></Presentation-Block><Presentation-Block>
+</Group>
+<Group view="code" labelreference="L84" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field prompt="&gt; " style="Maple Input" layout="Normal"><Equation executable="true" style="2D Input" input-equation="" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYlLUkjbWlHRiQ2I1EhRicvJStleGVjdXRhYmxlR1EmZmFsc2VGJy8lLG1hdGh2YXJpYW50R1Enbm9ybWFsRic=">LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYjLUkjbWlHRiQ2I1EhRic=</Equation></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block><CodeEditor-ExecGroup view="presentation" hide-input="false" inline-output="false" labelreference="L86" drawlabel="true" applyint="true" applyrational="true" display="code"><EC-CodeEditor id="CodeEditRegion0" expanded="true" visible="true" pixel-width="500" pixel-height="200" code-language="text/maple" autofit="true" wrapping="true" show-border="true" code-line-numbers="true">coinflip:=rand(0..1);
+isCongruent:=proc(a,b,n)#checks congruency of a and b modulo n
+	if ( (a - b) mod n ) = 0 then return true;
+	else return false;
+	end if;
+	end proc;
+	
+computePQ:=proc()#the idea is to generate the large prime numbers that are congruent to 3 (mod 4)
+	local r,proto;
+	r:=nextprime(rand);
+	while (not isCongruent(r,3,4)) do
+		r:=nextprime(rand());
+	end do;
+	return r;
+	end proc;
+	
+isGenerator:=proc(g)
+	#needs implementation;
+	end proc;
+	</EC-CodeEditor>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEpY29pbmZsaXBGJy8lJ2l0YWxpY0dRJXRydWVGJy8lLG1hdGh2YXJpYW50R1EnaXRhbGljRictSSNtb0dGJDYtUSkmQXNzaWduO0YnL0YzUSdub3JtYWxGJy8lJmZlbmNlR1EmZmFsc2VGJy8lKnNlcGFyYXRvckdGPS8lKXN0cmV0Y2h5R0Y9LyUqc3ltbWV0cmljR0Y9LyUobGFyZ2VvcEdGPS8lLm1vdmFibGVsaW1pdHNHRj0vJSdhY2NlbnRHRj0vJSdsc3BhY2VHUSwwLjI3Nzc3NzhlbUYnLyUncnNwYWNlR0ZMLUYjNistRjY2L1ElcHJvY0YnLyUlYm9sZEdGMS9GM1ElYm9sZEYnLyUrZm9udHdlaWdodEdGV0Y7Rj5GQEZCRkRGRkZIL0ZLUSYwLjBlbUYnL0ZORmVuLUkobWZlbmNlZEdGJDYkLUYjNiYtRiw2I1EhRicvJStmb3JlZ3JvdW5kR1EoWzAsMCwwXUYnLyUpcmVhZG9ubHlHRj1GOUY5LUknbXNwYWNlR0YkNiYvJSdoZWlnaHRHUSYwLjBleEYnLyUmd2lkdGhHUSYwLjVlbUYnLyUmZGVwdGhHRmlvLyUqbGluZWJyZWFrR1ExZmlyc3Rwcm9jbmV3bGluZUYnLUYjNigtRiM2LEZRRmduLUZlbzYmRmdvRmpvRl1wL0ZgcFE2aW5jcmVhc2VpbmRlbnRuZXdsaW5lRictRiM2Ki1GNjYvUSdvcHRpb25GJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm4tRmVvNiZGZ29Gam9GXXAvRmBwUSVhdXRvRictRiM2Ji1GIzYoLUYsNiVRKGJ1aWx0aW5GJ0YvRjItRjY2LVEiPUYnRjlGO0Y+RkBGQkZERkZGSEZKRk0tRiw2JVE0UmFuZE51bWJlckludGVyZmFjZUYnRi9GMkZfb0Zib0Y5Rl9vRmJvRjktRjY2LVEiO0YnRjlGOy9GP0YxRkBGQkZERkZGSEZaRk1GZG9GX29GYm9GOUZqbi1GZW82JkZnb0Zqb0ZdcC9GYHBRNmRlY3JlYXNlaW5kZW50bmV3bGluZUYnLUY2Ni9RKWVuZH5wcm9jRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRl9vRmJvRjktRjY2LVEwJkFwcGx5RnVuY3Rpb247RidGOUY7Rj5GQEZCRkRGRkZIRlpGZm4tRmhuNiQtRiM2Ki1JI21uR0YkNiRRIjZGJ0Y5LUY2Ni1RIixGJ0Y5RjtGY3JGQEZCRkRGRkZIRlovRk5RLDAuMzMzMzMzM2VtRictRmNzNiRRIjJGJ0Y5RmZzLUZjczYkUSIxRidGOUZfb0Zib0Y5RjlGX29GYm9GOUZkckZockZfb0Zib0Y5Rjk=">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSljb2luZmxpcEdGKGYqRihGKEYoRigtZipGKEYoNiMvSShidWlsdGluR0YoSTRSYW5kTnVtYmVySW50ZXJmYWNlR0YoRihGKEYoRihGKDYlIiInIiIjIiIiRihGKDYkSTZfdGhpc21vZHVsZWRlZmluaXRpb25HRihGKDcjRi4=</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEsaXNDb25ncnVlbnRGJy8lJ2l0YWxpY0dRJXRydWVGJy8lLG1hdGh2YXJpYW50R1EnaXRhbGljRictSSNtb0dGJDYtUSkmQXNzaWduO0YnL0YzUSdub3JtYWxGJy8lJmZlbmNlR1EmZmFsc2VGJy8lKnNlcGFyYXRvckdGPS8lKXN0cmV0Y2h5R0Y9LyUqc3ltbWV0cmljR0Y9LyUobGFyZ2VvcEdGPS8lLm1vdmFibGVsaW1pdHNHRj0vJSdhY2NlbnRHRj0vJSdsc3BhY2VHUSwwLjI3Nzc3NzhlbUYnLyUncnNwYWNlR0ZMLUYjNistRjY2L1ElcHJvY0YnLyUlYm9sZEdGMS9GM1ElYm9sZEYnLyUrZm9udHdlaWdodEdGV0Y7Rj5GQEZCRkRGRkZIL0ZLUSYwLjBlbUYnL0ZORmVuLUkobWZlbmNlZEdGJDYkLUYjNiotRiw2JVEiYUYnRi9GMi1GNjYtUSIsRidGOUY7L0Y/RjFGQEZCRkRGRkZIRlovRk5RLDAuMzMzMzMzM2VtRictRiw2JVEiYkYnRi9GMkZfby1GLDYlUSJuRidGL0YyLyUrZm9yZWdyb3VuZEdRKFswLDAsMF1GJy8lKXJlYWRvbmx5R0Y9RjlGOS1JJ21zcGFjZUdGJDYmLyUnaGVpZ2h0R1EmMC4wZXhGJy8lJndpZHRoR1EmMC41ZW1GJy8lJmRlcHRoR0ZlcC8lKmxpbmVicmVha0dRMWZpcnN0cHJvY25ld2xpbmVGJy1GIzYoLUYjNi0tRjY2L1EjaWZGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm4tRmFwNiZGY3BGZnBGaXAvRlxxUSVhdXRvRictRiM2KC1GIzYqLUYjNiZGXG8tRjY2LVEqfiYjODcyMjt+RidGOUY7Rj5GQEZCRkRGRkZIRlpGZm5GZW9GOUZlcS1GNjYvUSRtb2RGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GZXFGaG9GW3BGXnBGOS1GNjYtUSI9RidGOUY7Rj5GQEZCRkRGRkZIRkpGTS1JI21uR0YkNiRRIjBGJ0Y5RltwRl5wRjlGZXEtRjY2L1EldGhlbkYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbi1GYXA2JkZjcEZmcEZpcC9GXHFRNmluY3JlYXNlaW5kZW50bmV3bGluZUYnLUYjNigtRjY2L1EncmV0dXJuRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRmVxLUYsNiVGMUYvRjJGW3BGXnBGOS1GYXA2JkZjcEZmcEZpcC9GXHFRNmRlY3JlYXNlaW5kZW50bmV3bGluZUYnRltwRl5wRjktRiM2KS1GNjYvUSVlbHNlRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRl9zLUYjNihGZXNGZXEtRiw2JUY9Ri9GMkZbcEZecEY5RmpzRltwRl5wRjktRjY2L1EnZW5kfmlmRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRltwRl5wRjlGanMtRjY2L1EpZW5kfnByb2NGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GW3BGXnBGOUY5">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSxpc0NvbmdydWVudEdGKGYqNiVJImFHRihJImJHRihJIm5HRihGKEYoRihAJS8tSSRtb2RHRig2JCwmOSQiIiI5JSEiIjkmIiIhT0kldHJ1ZUdGJk9JJmZhbHNlR0YmRihGKEYoNyNGLg==</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEqY29tcHV0ZVBRRicvJSdpdGFsaWNHUSV0cnVlRicvJSxtYXRodmFyaWFudEdRJ2l0YWxpY0YnLUkjbW9HRiQ2LVEpJkFzc2lnbjtGJy9GM1Enbm9ybWFsRicvJSZmZW5jZUdRJmZhbHNlRicvJSpzZXBhcmF0b3JHRj0vJSlzdHJldGNoeUdGPS8lKnN5bW1ldHJpY0dGPS8lKGxhcmdlb3BHRj0vJS5tb3ZhYmxlbGltaXRzR0Y9LyUnYWNjZW50R0Y9LyUnbHNwYWNlR1EsMC4yNzc3Nzc4ZW1GJy8lJ3JzcGFjZUdGTC1GIzYsLUY2Ni9RJXByb2NGJy8lJWJvbGRHRjEvRjNRJWJvbGRGJy8lK2ZvbnR3ZWlnaHRHRldGO0Y+RkBGQkZERkZGSC9GS1EmMC4wZW1GJy9GTkZlbi1JKG1mZW5jZWRHRiQ2JC1GIzYmLUYsNiNRIUYnLyUrZm9yZWdyb3VuZEdRKFswLDAsMF1GJy8lKXJlYWRvbmx5R0Y9RjlGOS1JJ21zcGFjZUdGJDYmLyUnaGVpZ2h0R1EmMC4wZXhGJy8lJndpZHRoR1EmMC41ZW1GJy8lJmRlcHRoR0Zpby8lKmxpbmVicmVha0dRMWZpcnN0cHJvY25ld2xpbmVGJy1GIzYqLUY2Ni9RJmxvY2FsRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuLUZlbzYmRmdvRmpvRl1wL0ZgcFElYXV0b0YnLUYjNigtRiw2JVEickYnRi9GMi1GNjYtUSIsRidGOUY7L0Y/RjFGQEZCRkRGRkZIRlovRk5RLDAuMzMzMzMzM2VtRictRiw2JVEmcHJvdG9GJ0YvRjJGX29GYm9GOS1GNjYtUSI7RidGOUY7RmNxRkBGQkZERkZGSEZaRk1GZG9GX29GYm9GOS1GIzYoLUYjNigtRiM2KEZdcS1GNjYtUSp+JiM4Nzg4O35GJ0Y5RjtGPkZARkJGREZGRkhGWkZmbi1GIzYoLUYsNiVRKm5leHRwcmltZUYnRi9GMi1GNjYtUTAmQXBwbHlGdW5jdGlvbjtGJ0Y5RjtGPkZARkJGREZGRkhGWkZmbi1GaG42JC1GIzYmLUYsNiVRJXJhbmRGJ0YvRjJGX29GYm9GOUY5Rl9vRmJvRjlGX29GYm9GOUZpcUZkb0Zfb0Zib0Y5LUYjNigtRiM2Ki1GIzYqLUY2Ni9RJndoaWxlRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRmdwLUYjNigtRjY2L1Ekbm90RidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRmdwLUYjNigtRiw2JVEsaXNDb25ncnVlbnRGJ0YvRjJGanItRmhuNiQtRiM2KkZdcUZgcS1JI21uR0YkNiRRIjNGJ0Y5RmBxLUZcdTYkUSI0RidGOUZfb0Zib0Y5RjlGX29GYm9GOUZfb0Zib0Y5RmdwLUY2Ni9RI2RvRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRl9vRmJvRjktRmVvNiZGZ29Gam9GXXAvRmBwUTZpbmNyZWFzZWluZGVudG5ld2xpbmVGJy1GIzYoRl1xRmJyLUYjNihGZ3JGanItRmhuNiQtRiM2Ji1GIzYoRmFzRmpyRmduRl9vRmJvRjlGX29GYm9GOUY5Rl9vRmJvRjlGX29GYm9GOS1GZW82JkZnb0Zqb0ZdcC9GYHBRNmRlY3JlYXNlaW5kZW50bmV3bGluZUYnLUY2Ni9RJ2VuZH5kb0YnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbkZfb0Zib0Y5RmlxRmRvRl9vRmJvRjktRiM2KC1GNjYvUSdyZXR1cm5GJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GZ3BGXXFGX29GYm9GOUZfb0Zib0Y5RmN2LUY2Ni9RKWVuZH5wcm9jRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRl9vRmJvRjlGOQ==">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSpjb21wdXRlUFFHRihmKkYoNiRJInJHRihJJnByb3RvR0YoRihGKEMlPjgkLUkqbmV4dHByaW1lR0YlNiNJJXJhbmRHRiU/KEYoIiIiRjpGKDQtSSxpc0NvbmdydWVudEdGKDYlRjQiIiQiIiU+RjQtRjY2Iy1GOEYoT0Y0RihGKEYoNyNGLg==</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEsaXNHZW5lcmF0b3JGJy8lJ2l0YWxpY0dRJXRydWVGJy8lLG1hdGh2YXJpYW50R1EnaXRhbGljRictSSNtb0dGJDYtUSkmQXNzaWduO0YnL0YzUSdub3JtYWxGJy8lJmZlbmNlR1EmZmFsc2VGJy8lKnNlcGFyYXRvckdGPS8lKXN0cmV0Y2h5R0Y9LyUqc3ltbWV0cmljR0Y9LyUobGFyZ2VvcEdGPS8lLm1vdmFibGVsaW1pdHNHRj0vJSdhY2NlbnRHRj0vJSdsc3BhY2VHUSwwLjI3Nzc3NzhlbUYnLyUncnNwYWNlR0ZMLUYjNistRjY2L1ElcHJvY0YnLyUlYm9sZEdGMS9GM1ElYm9sZEYnLyUrZm9udHdlaWdodEdGV0Y7Rj5GQEZCRkRGRkZIL0ZLUSYwLjBlbUYnL0ZORmVuLUkobWZlbmNlZEdGJDYkLUYjNiYtRiw2JVEiZ0YnRi9GMi8lK2ZvcmVncm91bmRHUShbMCwwLDBdRicvJSlyZWFkb25seUdGPUY5RjktSSdtc3BhY2VHRiQ2Ji8lJ2hlaWdodEdRJjAuMGV4RicvJSZ3aWR0aEdRJjAuNWVtRicvJSZkZXB0aEdGaW8vJSpsaW5lYnJlYWtHUTFmaXJzdHByb2NuZXdsaW5lRictRiM2Ji1GLDYjUSFGJ0Zfb0Zib0Y5LUZlbzYmRmdvRmpvRl1wL0ZgcFE2ZGVjcmVhc2VpbmRlbnRuZXdsaW5lRictRjY2L1EpZW5kfnByb2NGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GX29GYm9GOUY5">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSxpc0dlbmVyYXRvckdGKGYqNiNJImdHRihGKEYoRihGKEYoRihGKDcjRi4=</Equation></Text-field>
+</Output></CodeEditor-ExecGroup></Presentation-Block><Presentation-Block>
 <Group view="presentation" inline-output="false" labelreference="L79" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
 <Input><Text-field style="Text" layout="Normal"><Equation executable="true" style="2D Math" input-equation="" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYlLUkjbWlHRiQ2I1EhRicvJStleGVjdXRhYmxlR1EmZmFsc2VGJy8lLG1hdGh2YXJpYW50R1Enbm9ybWFsRic=">JSFH</Equation></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L92" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"><Equation executable="true" style="2D Math" input-equation="" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYlLUkjbWlHRiQ2I1EhRicvJStleGVjdXRhYmxlR1EmZmFsc2VGJy8lLG1hdGh2YXJpYW50R1Enbm9ybWFsRic=">JSFH</Equation></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L93" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal">I found this implementation in the lecture notes by Dr. Manuel Blum during his time as a professor at CMU.</Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block><CodeEditor-ExecGroup view="presentation" hide-input="false" inline-output="false" labelreference="L95" drawlabel="true" applyint="true" applyrational="true" display="code"><EC-CodeEditor id="CodeEditRegion2" expanded="true" visible="true" pixel-width="500" pixel-height="200" code-language="text/maple" autofit="true" wrapping="true" show-border="true" code-line-numbers="true">AliceInit:=proc()# first step taken by Alice, setting the variables up
+	local p,pm1,g,pm1_factorization;
+	#p:=nextprime(rand());
+	p:=nextprime(100);
+	pm1:=p-1;
+	pm1_factorization:=ifactor(pm1);
+	g:=10; #g is the generator # I wasn't able to get this implementation right, because of time constraints
+	return p,g,pm1_factorization;
+	end proc;
+
+AliceR:=proc(p)# function to generate r
+	local pm1,r_func,r;
+	pm1:=(p-1);
+	r_func:=rand(1..pm1);
+	r:=r_func();
+	return r;
+	end proc;
+
+AliceMid:=proc(p,g,pm1_factorization,alice_r)#alice flipping the coin
+	local n,r,a,b,pm1;
+	pm1:=p-1;
+	r:=alice_r;
+	a:=(g^r) mod p;
+	b:=(g^(r+((p-1)/2))) mod p;
+	if coinflip() = 0 then return a,b;
+	else return b,a;
+	end if;
+	end proc;
+
+Bob:=proc(p,g,pm1_factorization,a,b)
+	#if isGenerator(g, pm1_factorization) then print(&quot;ok&quot;);
+	#end if;
+	#if isCongruent(a^2,b^2,p) then print(&quot;ok&quot;);
+	#end if;
+	if coinflip() = 0 then return a;
+	else return b;
+	end if;
+	end proc;
+
+doit:=proc()
+	local p,g,pm1_factorization,alice_r,a,b,bob_response;
+	p,g,pm1_factorization:=AliceInit(); # to be used by Bob and Alice
+	#print(p);
+	alice_r:=AliceR(p);
+	a,b:=AliceMid(p,g,pm1_factorization,alice_r);
+	bob_response:=Bob(p,g,pm1_factorization,a,b);
+	if bob_response = a then print(&quot;Bob Wins&quot;);
+	else print(&quot;Alice Wins&quot;);
+	end if;
+	end proc;
+
+for i in seq(1..10) do
+	doit()
+	end do;</EC-CodeEditor>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEqQWxpY2VJbml0RicvJSdpdGFsaWNHUSV0cnVlRicvJSxtYXRodmFyaWFudEdRJ2l0YWxpY0YnLUkjbW9HRiQ2LVEpJkFzc2lnbjtGJy9GM1Enbm9ybWFsRicvJSZmZW5jZUdRJmZhbHNlRicvJSpzZXBhcmF0b3JHRj0vJSlzdHJldGNoeUdGPS8lKnN5bW1ldHJpY0dGPS8lKGxhcmdlb3BHRj0vJS5tb3ZhYmxlbGltaXRzR0Y9LyUnYWNjZW50R0Y9LyUnbHNwYWNlR1EsMC4yNzc3Nzc4ZW1GJy8lJ3JzcGFjZUdGTC1GIzYsLUY2Ni9RJXByb2NGJy8lJWJvbGRHRjEvRjNRJWJvbGRGJy8lK2ZvbnR3ZWlnaHRHRldGO0Y+RkBGQkZERkZGSC9GS1EmMC4wZW1GJy9GTkZlbi1JKG1mZW5jZWRHRiQ2JC1GIzYmLUYsNiNRIUYnLyUrZm9yZWdyb3VuZEdRKFswLDAsMF1GJy8lKXJlYWRvbmx5R0Y9RjlGOS1JJ21zcGFjZUdGJDYmLyUnaGVpZ2h0R1EmMC4wZXhGJy8lJndpZHRoR1EmMC41ZW1GJy8lJmRlcHRoR0Zpby8lKmxpbmVicmVha0dRMWZpcnN0cHJvY25ld2xpbmVGJy1GIzYqLUY2Ni9RJmxvY2FsRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuLUZlbzYmRmdvRmpvRl1wL0ZgcFElYXV0b0YnLUYjNiwtRiw2JVEicEYnRi9GMi1GNjYtUSIsRidGOUY7L0Y/RjFGQEZCRkRGRkZIRlovRk5RLDAuMzMzMzMzM2VtRictRiw2JVEkcG0xRidGL0YyRmBxLUYsNiVRImdGJ0YvRjJGYHEtRiw2JVEycG0xX2ZhY3Rvcml6YXRpb25GJ0YvRjJGX29GYm9GOS1GNjYtUSI7RidGOUY7RmNxRkBGQkZERkZGSEZaRk1GZG9GX29GYm9GOS1GIzYqLUYjNigtRiM2KEZdcS1GNjYtUSp+JiM4Nzg4O35GJ0Y5RjtGPkZARkJGREZGRkhGWkZmbi1GIzYoLUYsNiVRKm5leHRwcmltZUYnRi9GMi1GNjYtUTAmQXBwbHlGdW5jdGlvbjtGJ0Y5RjtGPkZARkJGREZGRkhGWkZmbi1GaG42JC1GIzYmLUkjbW5HRiQ2JFEkMTAwRidGOUZfb0Zib0Y5RjlGX29GYm9GOUZfb0Zib0Y5Rl9yRmRvRl9vRmJvRjktRiM2KC1GIzYoRmZxRmhyLUYjNiZGXXEtRjY2LVEqfiYjODcyMjt+RidGOUY7Rj5GQEZCRkRGRkZIRlpGZm4tRmhzNiRRIjFGJ0Y5RjlGX29GYm9GOUZfckZkb0Zfb0Zib0Y5LUYjNigtRiM2KEZcckZoci1GIzYoLUYsNiVRKGlmYWN0b3JGJ0YvRjJGYHMtRmhuNiQtRiM2JkZmcUZfb0Zib0Y5RjlGX29GYm9GOUZfb0Zib0Y5Rl9yRmRvRl9vRmJvRjktRiM2KC1GIzYoRmlxRmhyLUZoczYkUSMxMEYnRjlGX29GYm9GOUZfckZkb0Zfb0Zib0Y5LUYjNigtRjY2L1EncmV0dXJuRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRmdwLUYjNipGXXFGYHFGaXFGYHFGXHJGX29GYm9GOUZfb0Zib0Y5Rl9vRmJvRjktRmVvNiZGZ29Gam9GXXAvRmBwUTZkZWNyZWFzZWluZGVudG5ld2xpbmVGJy1GNjYvUSllbmR+cHJvY0YnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbkZfb0Zib0Y5Rjk=">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSpBbGljZUluaXRHRihmKkYoNiZJInBHRihJJHBtMUdGKEkiZ0dGKEkycG0xX2ZhY3Rvcml6YXRpb25HRihGKEYoQyc+OCQtSSpuZXh0cHJpbWVHRiU2IyIkKyI+OCUsJkY2IiIiISIiRj4+OCctSShpZmFjdG9yR0YlNiNGPD44JiIjNU82JUY2RkZGQUYoRihGKDcjRi4=</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEnQWxpY2VSRicvJSdpdGFsaWNHUSV0cnVlRicvJSxtYXRodmFyaWFudEdRJ2l0YWxpY0YnLUkjbW9HRiQ2LVEpJkFzc2lnbjtGJy9GM1Enbm9ybWFsRicvJSZmZW5jZUdRJmZhbHNlRicvJSpzZXBhcmF0b3JHRj0vJSlzdHJldGNoeUdGPS8lKnN5bW1ldHJpY0dGPS8lKGxhcmdlb3BHRj0vJS5tb3ZhYmxlbGltaXRzR0Y9LyUnYWNjZW50R0Y9LyUnbHNwYWNlR1EsMC4yNzc3Nzc4ZW1GJy8lJ3JzcGFjZUdGTC1GIzYsLUY2Ni9RJXByb2NGJy8lJWJvbGRHRjEvRjNRJWJvbGRGJy8lK2ZvbnR3ZWlnaHRHRldGO0Y+RkBGQkZERkZGSC9GS1EmMC4wZW1GJy9GTkZlbi1JKG1mZW5jZWRHRiQ2JC1GIzYmLUYsNiVRInBGJ0YvRjIvJStmb3JlZ3JvdW5kR1EoWzAsMCwwXUYnLyUpcmVhZG9ubHlHRj1GOUY5LUknbXNwYWNlR0YkNiYvJSdoZWlnaHRHUSYwLjBleEYnLyUmd2lkdGhHUSYwLjVlbUYnLyUmZGVwdGhHRmlvLyUqbGluZWJyZWFrR1ExZmlyc3Rwcm9jbmV3bGluZUYnLUYjNiotRjY2L1EmbG9jYWxGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm4tRmVvNiZGZ29Gam9GXXAvRmBwUSVhdXRvRictRiM2Ki1GLDYlUSRwbTFGJ0YvRjItRjY2LVEiLEYnRjlGOy9GP0YxRkBGQkZERkZGSEZaL0ZOUSwwLjMzMzMzMzNlbUYnLUYsNiVRJ3JfZnVuY0YnRi9GMkZgcS1GLDYlUSJyRidGL0YyRl9vRmJvRjktRjY2LVEiO0YnRjlGO0ZjcUZARkJGREZGRkhGWkZNRmRvRl9vRmJvRjktRiM2KS1GIzYoLUYjNihGXXEtRjY2LVEqfiYjODc4ODt+RidGOUY7Rj5GQEZCRkRGRkZIRlpGZm4tRiM2JkZcby1GNjYtUSp+JiM4NzIyO35GJ0Y5RjtGPkZARkJGREZGRkhGWkZmbi1JI21uR0YkNiRRIjFGJ0Y5RjlGX29GYm9GOUZcckZkb0Zfb0Zib0Y5LUYjNigtRiM2KEZmcUZlci1GIzYoLUYsNiVRJXJhbmRGJ0YvRjItRjY2LVEwJkFwcGx5RnVuY3Rpb247RidGOUY7Rj5GQEZCRkRGRkZIRlpGZm4tRmhuNiQtRiM2Ji1GIzYoRl1zLUY2Ni1RIy4uRidGOUY7Rj5GQEZCRkRGRkZIL0ZLUSwwLjIyMjIyMjJlbUYnRmZuRl1xRl9vRmJvRjlGX29GYm9GOUY5Rl9vRmJvRjlGX29GYm9GOUZcckZkb0Zfb0Zib0Y5LUYjNigtRiM2KEZpcUZlci1GIzYoRmZxRmpzLUZobjYkLUYjNiYtRiw2I1EhRidGX29GYm9GOUY5Rl9vRmJvRjlGX29GYm9GOUZcckZkb0Zfb0Zib0Y5LUYjNigtRjY2L1EncmV0dXJuRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRmdwRmlxRl9vRmJvRjlGX29GYm9GOS1GZW82JkZnb0Zqb0ZdcC9GYHBRNmRlY3JlYXNlaW5kZW50bmV3bGluZUYnLUY2Ni9RKWVuZH5wcm9jRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRl9vRmJvRjlGOQ==">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSdBbGljZVJHRihmKjYjSSJwR0YoNiVJJHBtMUdGKEkncl9mdW5jR0YoSSJyR0YoRihGKEMmPjgkLCY5JCIiIiEiIkY6PjglLUklcmFuZEdGJTYjO0Y6Rjc+OCYtRj1GKE9GQ0YoRihGKDcjRi4=</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEpQWxpY2VNaWRGJy8lJ2l0YWxpY0dRJXRydWVGJy8lLG1hdGh2YXJpYW50R1EnaXRhbGljRictSSNtb0dGJDYtUSkmQXNzaWduO0YnL0YzUSdub3JtYWxGJy8lJmZlbmNlR1EmZmFsc2VGJy8lKnNlcGFyYXRvckdGPS8lKXN0cmV0Y2h5R0Y9LyUqc3ltbWV0cmljR0Y9LyUobGFyZ2VvcEdGPS8lLm1vdmFibGVsaW1pdHNHRj0vJSdhY2NlbnRHRj0vJSdsc3BhY2VHUSwwLjI3Nzc3NzhlbUYnLyUncnNwYWNlR0ZMLUYjNiwtRjY2L1ElcHJvY0YnLyUlYm9sZEdGMS9GM1ElYm9sZEYnLyUrZm9udHdlaWdodEdGV0Y7Rj5GQEZCRkRGRkZIL0ZLUSYwLjBlbUYnL0ZORmVuLUkobWZlbmNlZEdGJDYkLUYjNiwtRiw2JVEicEYnRi9GMi1GNjYtUSIsRidGOUY7L0Y/RjFGQEZCRkRGRkZIRlovRk5RLDAuMzMzMzMzM2VtRictRiw2JVEiZ0YnRi9GMkZfby1GLDYlUTJwbTFfZmFjdG9yaXphdGlvbkYnRi9GMkZfby1GLDYlUShhbGljZV9yRidGL0YyLyUrZm9yZWdyb3VuZEdRKFswLDAsMF1GJy8lKXJlYWRvbmx5R0Y9RjlGOS1JJ21zcGFjZUdGJDYmLyUnaGVpZ2h0R1EmMC4wZXhGJy8lJndpZHRoR1EmMC41ZW1GJy8lJmRlcHRoR0ZocC8lKmxpbmVicmVha0dRMWZpcnN0cHJvY25ld2xpbmVGJy1GIzYqLUY2Ni9RJmxvY2FsRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuLUZkcDYmRmZwRmlwRlxxL0ZfcVElYXV0b0YnLUYjNi4tRiw2JVEibkYnRi9GMkZfby1GLDYlUSJyRidGL0YyRl9vLUYsNiVRImFGJ0YvRjJGX28tRiw2JVEiYkYnRi9GMkZfby1GLDYlUSRwbTFGJ0YvRjJGXnBGYXBGOS1GNjYtUSI7RidGOUY7RmJvRkBGQkZERkZGSEZaRk1GY3BGXnBGYXBGOS1GIzYqLUYjNigtRiM2KEZoci1GNjYtUSp+JiM4Nzg4O35GJ0Y5RjtGPkZARkJGREZGRkhGWkZmbi1GIzYmRlxvLUY2Ni1RKn4mIzg3MjI7fkYnRjlGO0Y+RkBGQkZERkZGSEZaRmZuLUkjbW5HRiQ2JFEiMUYnRjlGOUZecEZhcEY5RltzRmNwRl5wRmFwRjktRiM2KC1GIzYoRl9yRmRzRltwRl5wRmFwRjlGW3NGY3BGXnBGYXBGOS1GIzYoLUYjNihGYnJGZHMtRiM2Ki1GIzYoRmVvLUY2Ni1RIl5GJ0Y5RjtGPkZARkJGREZGRkgvRktRLDAuMTExMTExMWVtRicvRk5GYHVGX3JGXnBGYXBGOUZmcS1GNjYvUSRtb2RGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GZnFGXG9GXnBGYXBGOUZecEZhcEY5RltzRmNwRl5wRmFwRjktRiM2KC1GIzYoRmVyRmRzLUYjNiotRiM2KEZlb0ZcdS1GaG42JC1GIzYoRl9yLUY2Ni1RIitGJ0Y5RjtGPkZARkJGREZGRkgvRktRLDAuMjIyMjIyMmVtRicvRk5GZXYtRiM2KC1GIzYoRlx0LUY2Ni1RIi9GJ0Y5RjtGPi9GQUYxRkJGREZGRkgvRktRLDAuMTY2NjY2N2VtRicvRk5GYHctRl10NiRRIjJGJ0Y5Rl5wRmFwRjktRjY2LVEiKkYnRjlGO0Y+RkBGQkZERkZGSEZfd0Zhdy1GIzYkRlxvRjlGXnBGYXBGOUZpc0ZpdkY5RjlGXnBGYXBGOUZmcUZidUZmcUZcb0ZecEZhcEY5Rl5wRmFwRjlGW3NGY3BGXnBGYXBGOS1GIzYoLUYjNi0tRjY2L1EjaWZGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GZnEtRiM2KC1GIzYoLUYsNiVRKWNvaW5mbGlwRidGL0YyLUY2Ni1RMCZBcHBseUZ1bmN0aW9uO0YnRjlGO0Y+RkBGQkZERkZGSEZaRmZuLUZobjYkLUYjNiYtRiw2I1EhRidGXnBGYXBGOUY5Rl5wRmFwRjktRjY2LVEiPUYnRjlGO0Y+RkBGQkZERkZGSEZKRk0tRl10NiRRIjBGJ0Y5Rl5wRmFwRjlGZnEtRjY2L1EldGhlbkYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbi1GZHA2JkZmcEZpcEZccS9GX3FRNmluY3JlYXNlaW5kZW50bmV3bGluZUYnLUYjNigtRjY2L1EncmV0dXJuRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRmZxLUYjNihGYnJGX29GZXJGXnBGYXBGOUZecEZhcEY5LUZkcDYmRmZwRmlwRlxxL0ZfcVE2ZGVjcmVhc2VpbmRlbnRuZXdsaW5lRidGXnBGYXBGOS1GIzYpLUY2Ni9RJWVsc2VGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GW3otRiM2KEZhekZmcS1GIzYoRmVyRl9vRmJyRl5wRmFwRjlGXnBGYXBGOUZmekZecEZhcEY5LUY2Ni9RJ2VuZH5pZkYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbkZecEZhcEY5Rl5wRmFwRjlGZnotRjY2L1EpZW5kfnByb2NGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GXnBGYXBGOUY5">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSlBbGljZU1pZEdGKGYqNiZJInBHRihJImdHRihJMnBtMV9mYWN0b3JpemF0aW9uR0YoSShhbGljZV9yR0YoNidJIm5HRihJInJHRihJImFHRihJImJHRihJJHBtMUdGKEYoRihDJz44KCwmOSQiIiIhIiJGPz44JTknPjgmLUkkbW9kR0YoNiQpOSVGQkY+PjgnLUZHNiQpRkosKEZCRj9GPiNGPyIiIyNGQEZSRj9GPkAlLy1JKWNvaW5mbGlwR0YoRigiIiFPNiRGRUZMTzYkRkxGRUYoRihGKDcjRi4=</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVEkQm9iRicvJSdpdGFsaWNHUSV0cnVlRicvJSxtYXRodmFyaWFudEdRJ2l0YWxpY0YnLUkjbW9HRiQ2LVEpJkFzc2lnbjtGJy9GM1Enbm9ybWFsRicvJSZmZW5jZUdRJmZhbHNlRicvJSpzZXBhcmF0b3JHRj0vJSlzdHJldGNoeUdGPS8lKnN5bW1ldHJpY0dGPS8lKGxhcmdlb3BHRj0vJS5tb3ZhYmxlbGltaXRzR0Y9LyUnYWNjZW50R0Y9LyUnbHNwYWNlR1EsMC4yNzc3Nzc4ZW1GJy8lJ3JzcGFjZUdGTC1GIzYrLUY2Ni9RJXByb2NGJy8lJWJvbGRHRjEvRjNRJWJvbGRGJy8lK2ZvbnR3ZWlnaHRHRldGO0Y+RkBGQkZERkZGSC9GS1EmMC4wZW1GJy9GTkZlbi1JKG1mZW5jZWRHRiQ2JC1GIzYuLUYsNiVRInBGJ0YvRjItRjY2LVEiLEYnRjlGOy9GP0YxRkBGQkZERkZGSEZaL0ZOUSwwLjMzMzMzMzNlbUYnLUYsNiVRImdGJ0YvRjJGX28tRiw2JVEycG0xX2ZhY3Rvcml6YXRpb25GJ0YvRjJGX28tRiw2JVEiYUYnRi9GMkZfby1GLDYlUSJiRidGL0YyLyUrZm9yZWdyb3VuZEdRKFswLDAsMF1GJy8lKXJlYWRvbmx5R0Y9RjlGOS1JJ21zcGFjZUdGJDYmLyUnaGVpZ2h0R1EmMC4wZXhGJy8lJndpZHRoR1EmMC41ZW1GJy8lJmRlcHRoR0ZbcS8lKmxpbmVicmVha0dRMWZpcnN0cHJvY25ld2xpbmVGJy1GIzYoLUYjNi0tRjY2L1EjaWZGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm4tRmdwNiZGaXBGXHFGX3EvRmJxUSVhdXRvRictRiM2KC1GIzYoLUYsNiVRKWNvaW5mbGlwRidGL0YyLUY2Ni1RMCZBcHBseUZ1bmN0aW9uO0YnRjlGO0Y+RkBGQkZERkZGSEZaRmZuLUZobjYkLUYjNiYtRiw2I1EhRidGYXBGZHBGOUY5RmFwRmRwRjktRjY2LVEiPUYnRjlGO0Y+RkBGQkZERkZGSEZKRk0tSSNtbkdGJDYkUSIwRidGOUZhcEZkcEY5RltyLUY2Ni9RJXRoZW5GJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm4tRmdwNiZGaXBGXHFGX3EvRmJxUTZpbmNyZWFzZWluZGVudG5ld2xpbmVGJy1GIzYoLUY2Ni9RJ3JldHVybkYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbkZbckZbcEZhcEZkcEY5LUZncDYmRmlwRlxxRl9xL0ZicVE2ZGVjcmVhc2VpbmRlbnRuZXdsaW5lRidGYXBGZHBGOS1GIzYpLUY2Ni9RJWVsc2VGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GanMtRiM2KEZgdEZbckZecEZhcEZkcEY5RmN0RmFwRmRwRjktRjY2L1EnZW5kfmlmRidGVEZWRlhGO0Y+RkBGQkZERkZGSEZaRmZuRmFwRmRwRjlGY3QtRjY2L1EpZW5kfnByb2NGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GYXBGZHBGOUY5">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSRCb2JHRihmKjYnSSJwR0YoSSJnR0YoSTJwbTFfZmFjdG9yaXphdGlvbkdGKEkiYUdGKEkiYkdGKEYoRihGKEAlLy1JKWNvaW5mbGlwR0YoRigiIiFPOSdPOShGKEYoRig3I0Yu</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2JVElZG9pdEYnLyUnaXRhbGljR1EldHJ1ZUYnLyUsbWF0aHZhcmlhbnRHUSdpdGFsaWNGJy1JI21vR0YkNi1RKSZBc3NpZ247RicvRjNRJ25vcm1hbEYnLyUmZmVuY2VHUSZmYWxzZUYnLyUqc2VwYXJhdG9yR0Y9LyUpc3RyZXRjaHlHRj0vJSpzeW1tZXRyaWNHRj0vJShsYXJnZW9wR0Y9LyUubW92YWJsZWxpbWl0c0dGPS8lJ2FjY2VudEdGPS8lJ2xzcGFjZUdRLDAuMjc3Nzc3OGVtRicvJSdyc3BhY2VHRkwtRiM2LC1GNjYvUSVwcm9jRicvJSVib2xkR0YxL0YzUSVib2xkRicvJStmb250d2VpZ2h0R0ZXRjtGPkZARkJGREZGRkgvRktRJjAuMGVtRicvRk5GZW4tSShtZmVuY2VkR0YkNiQtRiM2Ji1GLDYjUSFGJy8lK2ZvcmVncm91bmRHUShbMCwwLDBdRicvJSlyZWFkb25seUdGPUY5RjktSSdtc3BhY2VHRiQ2Ji8lJ2hlaWdodEdRJjAuMGV4RicvJSZ3aWR0aEdRJjAuNWVtRicvJSZkZXB0aEdGaW8vJSpsaW5lYnJlYWtHUTFmaXJzdHByb2NuZXdsaW5lRictRiM2Ki1GNjYvUSZsb2NhbEYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbi1GZW82JkZnb0Zqb0ZdcC9GYHBRJWF1dG9GJy1GIzYyLUYsNiVRInBGJ0YvRjItRjY2LVEiLEYnRjlGOy9GP0YxRkBGQkZERkZGSEZaL0ZOUSwwLjMzMzMzMzNlbUYnLUYsNiVRImdGJ0YvRjJGYHEtRiw2JVEycG0xX2ZhY3Rvcml6YXRpb25GJ0YvRjJGYHEtRiw2JVEoYWxpY2VfckYnRi9GMkZgcS1GLDYlUSJhRidGL0YyRmBxLUYsNiVRImJGJ0YvRjJGYHEtRiw2JVEtYm9iX3Jlc3BvbnNlRidGL0YyRl9vRmJvRjktRjY2LVEiO0YnRjlGO0ZjcUZARkJGREZGRkhGWkZNRmRvRl9vRmJvRjktRiM2Ki1GIzYoLUYjNigtRiM2KkZdcUZgcUZmcUZgcUZpcUZfb0Zib0Y5LUY2Ni1RKn4mIzg3ODg7fkYnRjlGO0Y+RkBGQkZERkZGSEZaRmZuLUYjNigtRiw2JVEqQWxpY2VJbml0RidGL0YyLUY2Ni1RMCZBcHBseUZ1bmN0aW9uO0YnRjlGO0Y+RkBGQkZERkZGSEZaRmZuRmduRl9vRmJvRjlGX29GYm9GOUZockZkb0Zfb0Zib0Y5LUYjNigtRiM2KEZcckZjcy1GIzYoLUYsNiVRJ0FsaWNlUkYnRi9GMkZbdC1GaG42JC1GIzYmRl1xRl9vRmJvRjlGOUZfb0Zib0Y5Rl9vRmJvRjlGaHJGZG9GX29GYm9GOS1GIzYoLUYjNigtRiM2KEZfckZgcUZickZfb0Zib0Y5RmNzLUYjNigtRiw2JVEpQWxpY2VNaWRGJ0YvRjJGW3QtRmhuNiQtRiM2LEZdcUZgcUZmcUZgcUZpcUZgcUZcckZfb0Zib0Y5RjlGX29GYm9GOUZfb0Zib0Y5RmhyRmRvRl9vRmJvRjktRiM2KC1GIzYoRmVyRmNzLUYjNigtRiw2JVEkQm9iRidGL0YyRlt0LUZobjYkLUYjNi5GXXFGYHFGZnFGYHFGaXFGYHFGX3JGYHFGYnJGX29GYm9GOUY5Rl9vRmJvRjlGX29GYm9GOUZockZkb0Zfb0Zib0Y5LUYjNigtRiM2LS1GNjYvUSNpZkYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbkZncC1GIzYoRmVyLUY2Ni1RIj1GJ0Y5RjtGPkZARkJGREZGRkhGSkZNRl9yRl9vRmJvRjlGZ3AtRjY2L1EldGhlbkYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbi1GZW82JkZnb0Zqb0ZdcC9GYHBRNmluY3JlYXNlaW5kZW50bmV3bGluZUYnLUYjNigtRiw2JVEmcHJpbnRGJ0YvRjJGW3QtRmhuNiQtRiM2Ji1JI21zR0YkNiNRKUJvYn5XaW5zRidGX29GYm9GOUY5Rl9vRmJvRjktRmVvNiZGZ29Gam9GXXAvRmBwUTZkZWNyZWFzZWluZGVudG5ld2xpbmVGJ0Zfb0Zib0Y5LUYjNiktRjY2L1ElZWxzZUYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbkZmdy1GIzYoRlx4Rlt0LUZobjYkLUYjNiYtRmR4NiNRK0FsaWNlfldpbnNGJ0Zfb0Zib0Y5RjlGX29GYm9GOUZneEZfb0Zib0Y5LUY2Ni9RJ2VuZH5pZkYnRlRGVkZYRjtGPkZARkJGREZGRkhGWkZmbkZfb0Zib0Y5Rl9vRmJvRjlGZ3gtRjY2L1EpZW5kfnByb2NGJ0ZURlZGWEY7Rj5GQEZCRkRGRkZIRlpGZm5GX29GYm9GOUY5">LV9JLFR5cGVzZXR0aW5nRzYkJSpwcm90ZWN0ZWRHSShfc3lzbGliRzYiSSxtcHJpbnRzbGFzaEdGKDYkNyM+SSVkb2l0R0YoZipGKDYpSSJwR0YoSSJnR0YoSTJwbTFfZmFjdG9yaXphdGlvbkdGKEkoYWxpY2VfckdGKEkiYUdGKEkiYkdGKEktYm9iX3Jlc3BvbnNlR0YoRihGKEMnPjYlOCQ4JTgmLUkqQWxpY2VJbml0R0YoRig+OCctSSdBbGljZVJHRig2I0Y6PjYkOCg4KS1JKUFsaWNlTWlkR0YoNiZGOkY7RjxGQD44Ki1JJEJvYkdGKDYnRjpGO0Y8RkZGR0AlL0ZMRkYtSSZwcmludEdGJjYjUSlCb2J+V2luc0YoLUZTNiNRK0FsaWNlfldpbnNGKEYoRihGKDcjRi4=</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1EpQm9ifldpbnNGJw==">USlCb2J+V2luczYi</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1EpQm9ifldpbnNGJw==">USlCb2J+V2luczYi</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1ErQWxpY2V+V2luc0Yn">UStBbGljZX5XaW5zNiI=</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1ErQWxpY2V+V2luc0Yn">UStBbGljZX5XaW5zNiI=</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1EpQm9ifldpbnNGJw==">USlCb2J+V2luczYi</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1EpQm9ifldpbnNGJw==">USlCb2J+V2luczYi</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1EpQm9ifldpbnNGJw==">USlCb2J+V2luczYi</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1EpQm9ifldpbnNGJw==">USlCb2J+V2luczYi</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1EpQm9ifldpbnNGJw==">USlCb2J+V2luczYi</Equation></Text-field>
+</Output>
+<Output><Text-field style="2D Output" layout="Maple Output"><Equation executable="false" style="2D Output" display="LUkjbXNHNiMvSSttb2R1bGVuYW1lRzYiSSxUeXBlc2V0dGluZ0dJKF9zeXNsaWJHRic2I1ErQWxpY2V+V2luc0Yn">UStBbGljZX5XaW5zNiI=</Equation></Text-field>
+</Output></CodeEditor-ExecGroup></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L96" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal">I wasn't able to implement the generator part. But other than that the algorithm seems to work just fine.</Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L100" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal">I took help from the lecture notes from the great Manuel Blum. I found his notes on the CMU's pages.</Text-field>
 </Input>
 </Group></Presentation-Block>
 </Section><Presentation-Block>
@@ -212,12 +350,36 @@ a list of procedures that handle the various steps and generate the information 
 <Input><Text-field style="Text" layout="Normal"><Equation executable="true" style="2D Math" input-equation="" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYlLUkjbWlHRiQ2I1EhRicvJStleGVjdXRhYmxlR1EmZmFsc2VGJy8lLG1hdGh2YXJpYW50R1Enbm9ybWFsRic=">JSFH</Equation></Text-field>
 </Input>
 </Group></Presentation-Block><Presentation-Block>
-<Group view="presentation" inline-output="false" labelreference="L68" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Group view="presentation" inline-output="false" labelreference="L103" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
 <Input><Text-field style="Text" layout="Normal"><Font encoding="UTF-8">You can tell a number of stories here, which are intended to demonstrate that you understand the various cases of the operation of the protocol for k\342\211\2452 coins concurrently. You should include at least one story where Alice and Bob are flipping multiple coins at once (e.g. k&gt;1 coin flips) but things are working out well, to the end where the protocol is concluded and both parties agree on what has happened.  In addition you should tell a story about something going wrong during a  particular step .  For example, the first step is about the production by Bob of the coin-flipping </Font><Font italic="true">n</Font>, which is supposed to be the product of two primes <Font italic="true">p</Font> and <Font italic="true">q</Font> with certain additional constraints. How could Bob cheat if he told Alice an <Font italic="true">n</Font> that didn't meet (all of) the constraints specified for it by the protocol?  How is Alice going to detect that he's cheating?  One of the points that Blum's paper makes is that if someone tries to cheat in a particular step, then in many cases the other person can detect it <Font italic="true">immediately</Font>, they don't have to wait to see what happens at the end in order to have the evidence to call out a cheater.
 
 Scoring + 10 . 
 
-A story with accompanying demonstration and explanation for at least <Font bold="true">five</Font> distinctly different scenarios.  One of them must be the the operation of the protocol successfully from start to finish, where no one is trying to cheat.
+A story with accompanying demonstration and explanation for at least <Font bold="true">five</Font> distinctly different scenarios.  One of them must be the the operation of the protocol successfully from start to finish, where no one is trying to cheat.</Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L105" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L108" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"><Font encoding="UTF-8">In this story, Alice and Bob are recently divorced and are deciding on who gets to keep certain possessions that they used to share. They are talking to each other on a telephone. They decide to do multiple coin flips, one for each possession. However, they are worried about dishonesty regarding the coin flip. 
+How would they know the person who flipped the coin is being honest about the result? Or how would we know they wouldn't change their answer?
+In this case, they are going to do 4 coin flips, and Alice or Bob will get to keep the possession if the coin flip lands on the side the choice they make prior to the flip. In this case they use the coin-flipping protocol to see whether either will be honest. Alice would send Bob a set number of photon/qubits that is prepared by a random choice/generator by Alice of basis ai and bit ci, where i = 1,2,3,....k. Once Alice successfully sends over the photons, Bob will measure the photons from Alice by identifying a random basis Bi. He then informs Alice that he has finished his step, also he sends his random bit b. Alice will then let Bob know the Basis and bit that she used. Now Bob and Alice verify that the bases and bits match, if they do, they can confirm that they\342\200\231re being honest about at least that transaction. They do their first coin flip now. Once they decide who gets to keep it, they do the protocol procedure again. This is to eliminate the risk of either one turning dishonest if they lose. They will repeat this until all possessions are accounted for.
+&quot;In addition you should tell a story about something going wrong during a  particular step .  For example, the first step is about the production by Bob of the coin-flipping n, which is supposed to be the product of two primes p and q with certain additional constraints. How could Bob cheat if he told Alice an n that didn't meet (all of) the constraints specified for it by the protocol?  How is Alice going to detect that he's cheating?  One of the points that Blum's paper makes is that if someone tries to cheat in a particular step, then in many cases the other person can detect it immediately, they don't have to wait to see what happens at the end in order to have the evidence to call out a cheater.&quot; 
+Despite the goal of this protocol to verify the honesty of the parties involved, there is an issue. Let\342\200\231s take a different scenario, where Alice and Bob are deciding doing well, and they\342\200\231re deciding a restaurant for a date, they each have a choice, and they decide to pick one again using a coin toss. Either one flips the coin, but the other one can\342\200\231t be their physically or live stream the coin toss. But again they can\342\200\231t trust the other to be honest about the coin flip. In this scenario, let\342\200\231s say Bob flips the coin but he plans to cheat during at least one of the steps, to make Alice trust that Bob is being honest. Now for Bob to cheat, he would have to guess Alice\342\200\231s basis with a probability greater than 0.5. This Bob would be able to determine the randomly polarised photons in one basis from a train of photons. If successful, Alice will falsely trust Bob\342\200\231s integrity, and the protocol procedure will resume as it normally would. But, now Bob will rig the coin flip, so he wins. However, if Alice had decided to cheat here instead of Bob, sould would have some options, when Bob sends his correct guess Alice, she can claim that her photons are actually polarised opposite to Bob\342\200\231s guess. Alice could also send the false sequence at the end of the step to beat Bob. The only way Bob could detect this is if he ensures that the original sequence Alice sent matches with the other one.
+
+Perhaps storing the sequence somewhere. As for the polarization, the change can be detected easily since the pattern will not match the exchange that was occurring between the two users of Bob and Alice. 
+Another scenario could be that Alice and Bob decide for a vacation somewhere, but again they disagree about the location. First, Alice\342\200\231s secret is a factorisation of a number that is n = pq which is just a product of 2 large prime numbers where p and q are congruent to 3 (mod 4). First Alice sends n to Bob, now Bob picks a random x there sqrt(x) &lt; x &lt; n with gcd(x,n)=1. Bob then computes a=x^2 mod n and send it to Alice. Now, using p and q, Alice computes the four solutions to x^2 congruent to a (mod n). These are x, n-x, y, and n-y for some y. Alice doesn\342\200\231t know which ones are x and n-x, so she randomly chooses 1 of the 4 numbers and sends it to Bob. If Bob rexeices x or n-x, nothing happens, but if he receives y or n-y then he can factor n, gcd(x+y, n) = p or q. So, in a way, Bob can confirm that Alice is being honest and vice versa. There also wasn\342\200\231t a possibility of guessing, since the protocol was used multiple times as a verification.
+</Font></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L107" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L68" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal">
 
 Extra credit: +2.  Creative story telling: for each scenario, include more than just the parameters and which steps (if any) go wrong. Provide a short narrative for the scenario, possibly including background information (i.e. why are the coins being flipped?), the motives for each party, dialog, how each party acts in response to the coin flips or cheating attempts, etc.</Text-field>
 </Input>

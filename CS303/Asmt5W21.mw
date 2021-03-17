@@ -452,6 +452,50 @@ Scoring + 10.</Font></Text-field>
 <Input><Text-field style="Text" size="20" layout="Normal"><Font size="20">+4  Quality of presentation:  well-organized, easy to understand, grammatical and spell-checked, interesting to read.</Font></Text-field>
 </Input>
 </Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L149" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L150" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L153" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L152" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"><Font size="20" encoding="UTF-8">DSA is a standard of creating digital signatures. It uses various concepts of cryptography such as discrete logarithms, modular exponentiations, and public-key cryptosystem tenets. 
+However, DSA is not used to perform encryption. It is used to, as the name Digital Signature Algorithm suggests, generate digital signature. Contrasting to RSA, public and private keys in DSA are used differently. RSA requires a key to decrypt the message, whereas DSA requires the key so that anyone can verify it. In RSA, private key is used to decrypt the message received, whereas in DSA, private key is used only to create the signature.
+Following is a superficial process of how DSA works: (every step has some degree of modular exponentiation involved in it) 
+-parameter generation
+-key generation
+-digital signature creation
+-signature verification 
+
+Let\342\200\231s look at a scenario. Bob plans to purchase an asset in a different location than his, and Alice is the broker. He\342\200\231s made his choice and everything has been prepared for him to just sign the contract. Due to the timely natures of asset transactions, he is required to sign it soon. Alice arranges a digital signing of the contract. Alice and Bob then set-up the DSA on their ends, this way they can verify about the legitimacy of the contract sent by Alice and the signature responded by Bob.
+
+But can we automatically assume DSA has covered all bases? No. DSA has it\342\200\231s advantages, but also flaws.
+
+Advantages:
+-Signature computation is relatively cheaper than other digital alternatives.
+-Computationally intractable because of the algebraic properties of modular exponentiation and discrete logarithm concepts. Smaller signatures yet strong.
+
+Disadvantages:
+-Verification process is computationally expensive because it has to deal with the large remainder operations. Remember, verification requires the entire signature (r,s) for a message m as demonstrated in the previous question. You first verify that r and s are between 0 and q. Then we compute w, as s-1 mod q, then u1, u2, and v, which all include heavy modular exponentiation, as can be seen in the setup part of question 1. Now the only way we can be certain it\342\200\231s a valid message and signature, is if we know that v = r. This computationally is quite expensive, and results in long times, I had to hard code p and q to a small number to get things even remotely working.
+-Encryption, or lack there of. DSA is not an encryption algorithm, it is, as the name suggests, a Digital Signature Algorithm. It just generates signatures and lets the users authenticate it. This opens the critical vulnerability of Man in the Middle attacks. In our scenario of Alice and Bob, signing a contract to make a purchase, there\342\200\231s a significant risk of Bob\342\200\231s confidential contract being intercepted on the way to Bob. This compromises the Bob\342\200\231s privacy.
+-SHA, DSA uses SHA1 and SHA2, they come with their own set of security vulnerabilities.
+
+In conclusion, DSA has it\342\200\231s qualities and flaws, but that\342\200\231s always the case when we speak of any security protocol/algorithm/implementation. This is because these systems are designed around certain desired attributes, so they compromise at the expense of other aspects of a system.
+For instance, in our case, DSA is good to authenticate the identity of the sender, but it comes at the expense of compromised privacy.
+This is not a problem in most of the cases when one sending lecture notes, but I reckon it\342\200\231s a problem when one uses DSA to send important confidential documents.
+</Font></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
+<Group view="presentation" inline-output="false" labelreference="L151" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
+<Input><Text-field style="Text" layout="Normal"></Text-field>
+</Input>
+</Group></Presentation-Block><Presentation-Block>
 <Group view="presentation" inline-output="false" labelreference="L67" drawlabel="true" applyint="true" applyrational="true" applyexponent="false">
 <Input><Text-field style="Text" size="20" layout="Normal"><Equation executable="true" style="2D Math" input-equation="" display="LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYmLUkjbWlHRiQ2I1EhRicvJSVzaXplR1EjMjBGJy8lK2V4ZWN1dGFibGVHUSZmYWxzZUYnLyUsbWF0aHZhcmlhbnRHUSdub3JtYWxGJw==">LUklbXJvd0c2Iy9JK21vZHVsZW5hbWVHNiJJLFR5cGVzZXR0aW5nR0koX3N5c2xpYkdGJzYjLUkjbWlHRiQ2I1EhRic=</Equation></Text-field>
 </Input>
